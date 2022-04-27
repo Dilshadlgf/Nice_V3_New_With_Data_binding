@@ -1,0 +1,98 @@
+package com.example.testproject.ui.Activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import com.example.testproject.R;
+import com.example.testproject.ui.Fragment.Farmer.Dashboard;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.Network.ApiManager;
+import com.example.testproject.Network.ApiResponseInterface;
+import com.example.testproject.Util.AppConstants;
+import com.example.testproject.databinding.ActivityLoginBinding;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+
+public class FarmerLoginActivity extends AppCompatActivity {
+
+    private ActivityLoginBinding binding;
+    private Retrofit retrofit;
+    private ApiResponseInterface mInterFace;
+    private Call<RootOneModel> call;
+    private ApiManager  mApiManager;
+    private int count=0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+            binding.singin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (count == 0) {
+                        count++;
+                        JsonObject object = new JsonObject();
+                        object.addProperty("mobileNumber", binding.etUsername.getText().toString());
+                        mApiManager.loginbymobile(object);
+                    } else if (count == 1) {
+                        JsonObject object = new JsonObject();
+                        object.addProperty("mobileNumber", binding.etUsername.getText().toString());
+                        object.addProperty("otp", binding.etPassword.getText().toString());
+                        mApiManager.mobileNoValidate(object);
+                    }
+                }
+            });
+
+
+
+        setUpNetWork();
+
+    }
+
+    private void setUpNetWork() {
+
+
+
+        mInterFace = new ApiResponseInterface() {
+
+
+            @Override
+            public void isError(String errorCode) {
+
+                startActivity(new Intent(FarmerLoginActivity.this, FarmerLoginActivity.class));
+
+
+            }
+
+            @Override
+            public void isSuccess(Object response, int ServiceCode) {
+
+                RootOneModel rootOneModel=(RootOneModel) response;
+
+                if(ServiceCode==AppConstants.LOGIN_REQUEST){
+
+                    binding.layoutPassword.setVisibility(View.VISIBLE);
+
+                }
+
+                if (ServiceCode==AppConstants.Validate)
+                {
+                    startActivity(new Intent(FarmerLoginActivity.this, Dashboard.class));
+                }
+
+            }
+        };
+        mApiManager = new ApiManager(this, mInterFace);
+    }
+
+
+
+}
