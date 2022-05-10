@@ -34,6 +34,9 @@ public interface ApiInterface {
     Call<RootOneModel> getProfile( @Query("id") String id);
 
     @POST("query/filter")
-    Call<RootQueryModel> queriesListRequest(@Body JsonObject jsonObject, @Query("pageno") String pageno);
+    Call<RootQueryModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);
+
+    @POST("feedback/filter")
+    Call<RootQueryModel> feedbacklistRequest(@Body JsonObject request,@Query("pageno") String mobile);
 
 }

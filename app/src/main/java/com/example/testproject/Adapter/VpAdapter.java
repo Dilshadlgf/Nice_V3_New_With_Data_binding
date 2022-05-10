@@ -40,6 +40,4 @@ public class VpAdapter extends FragmentPagerAdapter {
         fragmentList.add(fragment);
         fragmentTitles.add(name);
     }
-
-
 }

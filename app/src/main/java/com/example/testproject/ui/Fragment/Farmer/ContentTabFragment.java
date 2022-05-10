@@ -31,6 +31,7 @@ public class ContentTabFragment extends BaseFragment {
         vpAdapter.addFragment(new SearchContentDetailsFragment() ,"Content");
         vpAdapter.addFragment(new ContentInfoFragment(),"Info");
         vpAdapter.addFragment(new QueryFragment(),"Query");
+        vpAdapter.addFragment(new FeedbackList_Fragment(),"Feedback");
         binding.viewpager.setAdapter(vpAdapter);
 
     }

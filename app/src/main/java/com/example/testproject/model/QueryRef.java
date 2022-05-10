@@ -29,6 +29,16 @@ public class QueryRef   {
     @Expose
     private DistrictDataModel district;
 
+    @SerializedName("createdByFarmer")
+    private CreatedByFarmer createdByFarmer;
+
+    public CreatedByFarmer getCreatedByFarmer() {
+        return createdByFarmer;
+    }
+
+    public void setCreatedByFarmer(CreatedByFarmer createdByFarmer) {
+        this.createdByFarmer = createdByFarmer;
+    }
 
     public KnowledgeDomain getKnowledgeDomain() {
         return knowledgeDomain;

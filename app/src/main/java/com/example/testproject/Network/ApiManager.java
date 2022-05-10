@@ -261,34 +261,62 @@ public class ApiManager {
     }
 
 //============================================+++++++++++++++++++++++++++++++++______________________+++++++++++++
+public void queriesListRequest(JsonObject jsonObject,String pageno) {
+    showDialog("Loding");
+    ApiInterface apiService =
+            ApiClient.getClient().create(ApiInterface.class);
+    Call<RootQueryModel> call = apiService.queriesListRequest(jsonObject,pageno);
+    call.enqueue(new Callback<RootQueryModel>() {
+        @Override
+        public void onResponse(Call<RootQueryModel> call, Response<RootQueryModel> response) {
+            closeDialog();
 
-    public void queriesListRequest(JsonObject jsonObject,String pageno) {
-        showDialog("Queries List");
+            if (response.body() != null) {
+                mApiResponseInterface.isSuccess(response.body(), AppConstants.QUERIES_LIST_REQUEST_FEEDBACK);
+
+
+            } else {
+                if (SharedPreferenceHelper.getSharedPreferenceBoolean(mContext, "Farmer", false) == true) {
+                    mApiResponseInterface.isError("Contents are not available");
+                } else {
+                    mApiResponseInterface.isError("Content API TimeOut Please contact to Administrator");
+                }
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<RootQueryModel> call, Throwable t) {
+            closeDialog();
+            if (t instanceof IOException) {
+                mApiResponseInterface.isError("Internet is not Connected");
+            } else {
+                mApiResponseInterface.isError("Response Model Conversion Issue");
+            }
+        }
+    });
+}
+
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==============================
+
+    public void feedbacklistRequest(JsonObject object,String pageno) {
+        showDialog("");
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-
-
-        Call<RootQueryModel> call = apiService.queriesListRequest(jsonObject,pageno);
-
-
+        Call<RootQueryModel> call = apiService.feedbacklistRequest(object,pageno);
         call.enqueue(new Callback<RootQueryModel>() {
             @Override
             public void onResponse(Call<RootQueryModel> call, Response<RootQueryModel> response) {
                 closeDialog();
-
-
                 if (response.body() != null) {
-                    mApiResponseInterface.isSuccess(response.body(), AppConstants.QUERIES_LIST_REQUEST_FEEDBACK);
+
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.FeedbacklistRequest);
 
                 } else {
-                    if (SharedPreferenceHelper.getSharedPreferenceBoolean(mContext, "Farmer", false) == true) {
-                        mApiResponseInterface.isError("Queries are not available");
-                    } else {
-                        mApiResponseInterface.isError("Queries List API TimeOut Please contact to Administrator");
-                    }
-
-
+                    mApiResponseInterface.isError("Feedback API TimeOut Please contact to Administrator");
                 }
+
             }
 
 
@@ -304,8 +332,7 @@ public class ApiManager {
         });
     }
 
-
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==============================
+    //============================================================================
     private void showDialog(String message) {
         if(message.isEmpty()){
             message="Loading";
