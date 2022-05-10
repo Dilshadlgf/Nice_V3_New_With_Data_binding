@@ -10,7 +10,7 @@ public class DataQueryModel {
     private List<QueryResponseDataNumModel> data;
 
     @SerializedName("pagination")
-    private PaginationModel paginationModel;
+    private PaginationModel pagination;
 
     public List<QueryResponseDataNumModel> getData() {
         return data;
@@ -21,10 +21,10 @@ public class DataQueryModel {
     }
 
     public PaginationModel getPaginationModel() {
-        return paginationModel;
+        return pagination;
     }
 
     public void setPaginationModel(PaginationModel paginationModel) {
-        this.paginationModel = paginationModel;
+        this.pagination = paginationModel;
     }
 }

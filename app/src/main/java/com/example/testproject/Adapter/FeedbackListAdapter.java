@@ -1,5 +1,6 @@
 package com.example.testproject.Adapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,21 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testproject.databinding.CustmAddFeedbackforQueryBinding;
 import com.example.testproject.databinding.FarmerquerylistBinding;
-import com.example.testproject.databinding.SearchContentItemListRowBinding;
-import com.example.testproject.model.ContentModel;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder> {
-    private FarmerquerylistBinding binding;
+public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapter.myviewholder> {
+    private CustmAddFeedbackforQueryBinding binding;
     private List<QueryResponseDataNumModel> data;
     private Context context;
 
 
-    public QueryAdapter(List<QueryResponseDataNumModel> data, Context context) {
+    public FeedbackListAdapter(List<QueryResponseDataNumModel> data, Context context) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -39,16 +39,16 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder
 
     @NonNull
     @Override
-    public QueryAdapter.myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FeedbackListAdapter.myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        FarmerquerylistBinding binding = FarmerquerylistBinding.inflate(inflater, parent, false);
+        CustmAddFeedbackforQueryBinding binding = CustmAddFeedbackforQueryBinding.inflate(inflater, parent, false);
         return new myviewholder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QueryAdapter.myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull FeedbackListAdapter.myviewholder holder, int position) {
         QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
-         holder.binding.setMydata(queryResponseDataNumModel);
+        holder.binding.setMydata(queryResponseDataNumModel);
 
     }
 
@@ -58,9 +58,9 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder
     }
     class myviewholder extends RecyclerView.ViewHolder {
 
-        FarmerquerylistBinding binding;
+        CustmAddFeedbackforQueryBinding binding;
 
-        public myviewholder(@NonNull FarmerquerylistBinding binding) {
+        public myviewholder(@NonNull CustmAddFeedbackforQueryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
