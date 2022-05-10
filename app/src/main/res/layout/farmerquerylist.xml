@@ -364,16 +364,16 @@
                     android:id="@+id/lay_editBtn"
                     android:layout_width="match_parent"
                     android:gravity="right"
+                    android:visibility="gone"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_height="match_parent">
                     <ImageView
-
                         android:id="@+id/iv_edit"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:background="@drawable/circle_green"
                         android:padding="@dimen/_4sdp"
                         app:srcCompat="@drawable/ic_baseline_edit_24" />

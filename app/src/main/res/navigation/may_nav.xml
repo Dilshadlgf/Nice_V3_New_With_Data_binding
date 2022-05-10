@@ -34,6 +34,14 @@
         <action
             android:id="@+id/action_dashboard_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_allQueryFragmnet"
+            app:destination="@id/allQueryFragmnet" />
     </fragment>
+    <fragment
+        android:id="@+id/allQueryFragmnet"
+        android:name="com.example.testproject.ui.Fragment.Farmer.AllQueryFragmnet"
+        android:label="fragment_all_query_fragmnet"
+        tools:layout="@layout/fragment_all_query_fragmnet" />
 
 </navigation>

@@ -63,6 +63,15 @@ public class Dashboard extends BaseFragment {
             }
         });
 
+        binding.Query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                navController.navigate(R.id.action_dashboard_to_allQueryFragmnet);
+
+            }
+        });
+
 
 
 

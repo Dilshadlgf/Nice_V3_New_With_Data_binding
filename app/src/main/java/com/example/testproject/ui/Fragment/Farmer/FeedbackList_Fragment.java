@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.testproject.Adapter.FeedbackListAdapter;
 import com.example.testproject.Adapter.QueryAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
@@ -31,7 +32,7 @@ public class FeedbackList_Fragment extends BaseFragment {
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private String queryType = "",queryModule="";
-    private QueryAdapter adapter;
+    private FeedbackListAdapter adapter;
     private boolean positionChanged;
     int mPosition;
     int maxLimit=1;
@@ -78,19 +79,26 @@ public class FeedbackList_Fragment extends BaseFragment {
     }
     private void loadmore(int pageNo){
 
-        JsonObject mainObj=new JsonObject();
+//        JsonObject mainObj=new JsonObject();
+//        JsonArray jsonArray=new JsonArray();
+//        jsonArray.add("625e4b9997ce98d03648e28c");
+//        mainObj.add("content",jsonArray);
+//        jsonArray.add("Active");
+//        mainObj.add("status",jsonArray);
+
+        JsonObject object=new JsonObject();
+
         JsonArray jsonArray=new JsonArray();
         jsonArray.add("625e4b9997ce98d03648e28c");
-        jsonArray.add("Active");
-        mainObj.add("content",jsonArray);
-        mainObj.add("status",jsonArray);
-        mApiManager.feedbacklistRequest(mainObj,""+pageNo);
+        object.add("content",jsonArray);
+        JsonArray  jsonArray1=new JsonArray();
+        jsonArray1.add("Active");
+        object.add("status",jsonArray1);
+        mApiManager.feedbacklistRequest(object,""+pageNo);
     }
 
     private void setUpNetWork() {
         mInterFace = new ApiResponseInterface() {
-
-
             @Override
             public void isError(String errorCode) {
 //                showDialog(getActivity(), errorCode, false, true, 0);
@@ -114,7 +122,7 @@ public class FeedbackList_Fragment extends BaseFragment {
                 List<QueryResponseDataNumModel> queryResponseDataNumModel=rootQueryModel.getResponse().getDataQueryModel().getData();
                 maxLimit=rootQueryModel.getResponse().getDataQueryModel().getPaginationModel().getTotalPage();
                 if(adapter==null) {
-                    adapter = new QueryAdapter(queryResponseDataNumModel, getActivity());
+                    adapter = new FeedbackListAdapter(queryResponseDataNumModel, getActivity());
                     binding.farmerRecycler.setAdapter(adapter);
                 }else{
                     adapter.addNewList(queryResponseDataNumModel);

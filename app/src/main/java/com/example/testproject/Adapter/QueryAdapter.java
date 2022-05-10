@@ -21,7 +21,7 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder
     private Context context;
 
 
-    public QueryAdapter(List<QueryResponseDataNumModel> data, Context context) {
+    public QueryAdapter(List<QueryResponseDataNumModel> data, Context context){
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
