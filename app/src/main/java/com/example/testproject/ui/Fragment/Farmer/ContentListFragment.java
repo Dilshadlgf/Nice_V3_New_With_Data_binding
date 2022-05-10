@@ -105,7 +105,7 @@ public class ContentListFragment extends BaseFragment {
     private void loadmore(){
 
     if(mPosition==0){
-//        if(total<=maxLimit){
+        if(total<=maxLimit){
             JsonObject mainObj = new JsonObject();
             JsonArray contentType = new JsonArray();
             contentType.add("S");
@@ -115,10 +115,10 @@ public class ContentListFragment extends BaseFragment {
             mainObj.add("type", contentType);
             mainObj.add("status", statusType);
             mApiManager.searchContentList("" + total, mainObj,AppConstants.CONTENT_SMS_REQUEST);
-//            total++;
-//        }
+            total++;
+        }
     }else if(mPosition==1){
-//        if (totalV<=maxLimit) {
+        if (totalV<=maxLimit) {
 
             JsonObject mainObj = new JsonObject();
             JsonArray contentType = new JsonArray();
@@ -130,11 +130,11 @@ public class ContentListFragment extends BaseFragment {
             mainObj.add("status", statusType);
 
             mApiManager.searchContentList("" + totalV, mainObj, AppConstants.CONTENT_SMS_REQUEST);
-//            totalV++;
-//        }
+            totalV++;
+        }
 
     }else if (mPosition==2){
-//        if (totalU<=maxLimit) {
+        if (totalU<=maxLimit) {
             JsonObject mainObj = new JsonObject();
 
             JsonArray contentType = new JsonArray();
@@ -146,10 +146,10 @@ public class ContentListFragment extends BaseFragment {
             mainObj.add("status", statusType);
 
             mApiManager.searchContentList("" + totalU, mainObj, AppConstants.CONTENT_SMS_REQUEST);
-//            totalU++;
-//        }
+            totalU++;
+        }
     }else if (mPosition==3){
-//        if (totalD<=maxLimit) {
+        if (totalD<=maxLimit) {
             JsonObject mainObj = new JsonObject();
             JsonArray contentType = new JsonArray();
             contentType.add("D");
@@ -160,10 +160,10 @@ public class ContentListFragment extends BaseFragment {
             mainObj.add("status", statusType);
 
             mApiManager.searchContentList("" + totalD, mainObj, AppConstants.CONTENT_SMS_REQUEST);
-//            totalD++;
-//        }
+            totalD++;
+        }
     }else if (mPosition==4){
-//        if (totalP<=maxLimit) {
+        if (totalP<=maxLimit) {
             JsonObject mainObj = new JsonObject();
             JsonArray contentType = new JsonArray();
             contentType.add("P");
@@ -174,8 +174,8 @@ public class ContentListFragment extends BaseFragment {
             mainObj.add("status", statusType);
 
             mApiManager.searchContentList("" + totalP, mainObj, AppConstants.CONTENT_SMS_REQUEST);
-//           totalP++;
-//        }
+           totalP++;
+        }
     }
     }
 

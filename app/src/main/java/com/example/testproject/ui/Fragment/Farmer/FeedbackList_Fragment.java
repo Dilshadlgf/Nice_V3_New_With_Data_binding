@@ -1,37 +1,38 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.view.View;
+import android.os.Bundle;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.testproject.Adapter.FeedbackListAdapter;
 import com.example.testproject.Adapter.QueryAdapter;
-import com.example.testproject.Adapter.SearchContentAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.databinding.FragmentFeedbackListBinding;
 import com.example.testproject.databinding.FragmentQuery2Binding;
-
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
- import com.google.gson.JsonArray;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-
 
 import java.util.List;
 
+public class FeedbackList_Fragment extends BaseFragment {
 
-public class QueryFragment extends BaseFragment {
-
-    private FragmentQuery2Binding binding;
+  private FragmentFeedbackListBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private String queryType = "",queryModule="";
-    private QueryAdapter adapter;
+    private FeedbackListAdapter adapter;
     private boolean positionChanged;
     int mPosition;
     int maxLimit=1;
@@ -45,18 +46,18 @@ public class QueryFragment extends BaseFragment {
     @Override
     protected void init() {
 
-        layoutId = R.layout.fragment_query2;
+        layoutId = R.layout.fragment_feedback_list_;
 
     }
 
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
-        binding = (FragmentQuery2Binding) viewDataBinding;
+        binding = (FragmentFeedbackListBinding) viewDataBinding;
 
         setUpNetWork();
 
-        binding.queryRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.farmerRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         binding.idNestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -78,23 +79,32 @@ public class QueryFragment extends BaseFragment {
     }
     private void loadmore(int pageNo){
 
-        JsonObject mainObj=new JsonObject();
+//        JsonObject mainObj=new JsonObject();
+//        JsonArray jsonArray=new JsonArray();
+//        jsonArray.add("625e4b9997ce98d03648e28c");
+//        mainObj.add("content",jsonArray);
+//        jsonArray.add("Active");
+//        mainObj.add("status",jsonArray);
+
+        JsonObject object=new JsonObject();
+
         JsonArray jsonArray=new JsonArray();
-        jsonArray.add("C");
-        mainObj.add("status",jsonArray);
-        mApiManager.queriesListRequest(mainObj,""+pageNo);
+        jsonArray.add("625e4b9997ce98d03648e28c");
+        object.add("content",jsonArray);
+        JsonArray  jsonArray1=new JsonArray();
+        jsonArray1.add("Active");
+        object.add("status",jsonArray1);
+        mApiManager.feedbacklistRequest(object,""+pageNo);
     }
 
     private void setUpNetWork() {
         mInterFace = new ApiResponseInterface() {
-
-
             @Override
             public void isError(String errorCode) {
 //                showDialog(getActivity(), errorCode, false, true, 0);
-                binding.txtEmpty.setVisibility(View.VISIBLE);
-                binding.txtEmpty.setText(errorCode);
-                binding.queryRecycler.setVisibility(View.GONE);
+//                binding.txtEmpty.setVisibility(View.VISIBLE);
+//                binding.txtEmpty.setText(errorCode);
+//                binding.queryRecycler.setVisibility(View.GONE);
 
             }
 
@@ -112,8 +122,8 @@ public class QueryFragment extends BaseFragment {
                 List<QueryResponseDataNumModel> queryResponseDataNumModel=rootQueryModel.getResponse().getDataQueryModel().getData();
                 maxLimit=rootQueryModel.getResponse().getDataQueryModel().getPaginationModel().getTotalPage();
                 if(adapter==null) {
-                    adapter = new QueryAdapter(queryResponseDataNumModel, getActivity());
-                    binding.queryRecycler.setAdapter(adapter);
+                    adapter = new FeedbackListAdapter(queryResponseDataNumModel, getActivity());
+                    binding.farmerRecycler.setAdapter(adapter);
                 }else{
                     adapter.addNewList(queryResponseDataNumModel);
                 }
@@ -123,8 +133,5 @@ public class QueryFragment extends BaseFragment {
         mApiManager = new ApiManager(getContext(), mInterFace);
     }
 
+
 }
-
-
-
-

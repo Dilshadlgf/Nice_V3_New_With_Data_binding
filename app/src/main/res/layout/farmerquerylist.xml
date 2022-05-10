@@ -2,6 +2,11 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="mydata"
+            type="com.example.testproject.model.query.QueryResponseDataNumModel" />
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -133,11 +138,6 @@
                             android:layout_marginTop="5dp"
                             android:background="@color/lytgrey" />
 
-
-
-
-
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                                 android:fontFamily="@font/poppinsregular_400"
                                 android:gravity="start"
                                 android:justificationMode="inter_word"
-                                android:text=" "
+                                android:text="@{mydata.query}"
                                 android:textColor="@color/black"
                                 android:textFontWeight="400"
                                 android:textSize="@dimen/_8sdp" />
@@ -198,7 +198,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/_3sdp"
-                                            android:text="Created By -"
+                                            android:text="@{mydata.ref.createdByFarmer.name}"
                                             android:textColor="@color/black"
                                             android:textSize="@dimen/_10sdp" />
 
@@ -353,7 +353,7 @@
                             android:id="@+id/txt_resolved_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="@{mydata.resolvedDate}"
                             android:layout_marginLeft="@dimen/_2sdp"
                             android:textFontWeight="400"
                             android:fontFamily="@font/aldrich"
@@ -364,16 +364,16 @@
                     android:id="@+id/lay_editBtn"
                     android:layout_width="match_parent"
                     android:gravity="right"
+                    android:visibility="gone"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_height="match_parent">
                     <ImageView
-
                         android:id="@+id/iv_edit"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:background="@drawable/circle_green"
                         android:padding="@dimen/_4sdp"
                         app:srcCompat="@drawable/ic_baseline_edit_24" />
