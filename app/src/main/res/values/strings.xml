@@ -47,7 +47,9 @@
     <string name="no_data_found">No Data Found</string>
     <string name="Date">Date</string>
 
-
+    <string name="resolvequery">RESOLVED QUERY</string>
+    <string name="unresolvequery">UNRESOLVED QUERY</string>
+    <string name="assignedquery">Assigned QUERY</string>
 
 
 </resources>

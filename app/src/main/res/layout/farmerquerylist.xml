@@ -2,6 +2,11 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data >
+        <variable
+            name="mydata"
+            type="com.example.testproject.model.query.QueryResponseDataNumModel" />
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -152,7 +157,7 @@
                                 android:fontFamily="@font/poppinsregular_400"
                                 android:gravity="start"
                                 android:justificationMode="inter_word"
-                                android:text=" "
+                                android:text="@{mydata.query}"
                                 android:textColor="@color/black"
                                 android:textFontWeight="400"
                                 android:textSize="@dimen/_8sdp" />

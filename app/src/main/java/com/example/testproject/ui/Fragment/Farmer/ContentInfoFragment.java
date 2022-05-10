@@ -1,8 +1,5 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
 
 import android.view.View;
@@ -12,10 +9,7 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
  import com.example.testproject.databinding.FragmentContentInfoBinding;
-import com.example.testproject.model.ContentModel;
-import com.example.testproject.model.Data;
 import com.example.testproject.model.QueryRef;
-import com.example.testproject.model.RootOneModel;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.SearchContentResponseDataModel;
 

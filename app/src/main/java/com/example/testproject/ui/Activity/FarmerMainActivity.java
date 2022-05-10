@@ -1,82 +1,84 @@
 package com.example.testproject.ui.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 
 import com.example.testproject.R;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.ActivityFarmerMainBinding;
-import com.example.testproject.ui.Fragment.Farmer.Dashboard;
-import com.example.testproject.ui.Fragment.Farmer.HomeFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
+import com.example.testproject.model.FarmerDataModel;
+import com.example.testproject.model.RoleModel;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-//import com.example.testproject.ui.Activity.databinding.ActivityFarmerMainBinding;
+
 
 public class FarmerMainActivity extends AppCompatActivity {
 
     private ActivityFarmerMainBinding binding;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_farmer_main);
-
-//       NavController navController=Navigation.findNavController(this,R.id.activity_main_bottom_navigation_view);
-
-
-
-
-
         binding = ActivityFarmerMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-////
-
 //         Passing each menu ID as a set of Ids because each
 //         menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView3);
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation_view);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        navController = Navigation.findNavController(this, R.id.fragmentContainerView3);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bottom);
+        setSupportActionBar(binding.toolbar);
+        AppBarConfiguration appBarConfiguration =
+                new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupWithNavController(binding.navBottom, navController);
+        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout);
+
+        NavigationUI.setupWithNavController(
+                binding.toolbar, navController, appBarConfiguration);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.navBottom.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+//
 
-                    case   R.id.navigation_home:
+        RoleDao roleDao= AppDatabase.getInstance(this).roleDao();
+        FarmerDao farmerDao= AppDatabase.getInstance(this).farmerDao();
+        if(roleDao.getRole()==null){
+            RoleModel roleModel=new RoleModel();
+            roleModel.setFarmer(true);
+            roleDao.insertRoleResponse(roleModel);
+        }
+        RoleModel m=roleDao.getRole();
+        if(farmerDao.getFarmer()==null){
+            FarmerDataModel dataModel=new FarmerDataModel();
+            dataModel.setId("621758b11daffc762c720138");
+            farmerDao.insertFarmerResponse(dataModel);
+        }
+        Log.i("","");
 
-                        navController.navigate(R.id.dashboard);
+    }
+    public void setTittle(String tittle){
+        binding.toolbar.setTitle(tittle);
+    }
 
-                         break;
-                    case R.id.navigation_dashboard:
-                        navController.navigate(R.id.profileFragment);
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, binding.drawerLayout);
+    }
 
-                        break;
-                    case R.id.navigation_notifications:
-
-                        break;
-
-                }
-
-
-                return false;
-            }
-        });
-
-
-
+    @Override
+    public void onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

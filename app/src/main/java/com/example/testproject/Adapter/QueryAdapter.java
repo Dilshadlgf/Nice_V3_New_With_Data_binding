@@ -15,7 +15,7 @@ import com.example.testproject.model.query.QueryResponseDataNumModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder> {
+public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
     private FarmerquerylistBinding binding;
     private List<QueryResponseDataNumModel> data;
     private Context context;
@@ -39,17 +39,18 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder
 
     @NonNull
     @Override
-    public QueryAdapter.myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public QueryAdapter.MyVHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         FarmerquerylistBinding binding = FarmerquerylistBinding.inflate(inflater, parent, false);
-        return new myviewholder(binding);
+        return new MyVHolder(binding);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull QueryAdapter.myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull QueryAdapter.MyVHolder holder, int position) {
         QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
         //  holder.binding.setMydata(queryResponseDataNumModel);
+        holder.binding.setMydata(queryResponseDataNumModel);
 
     }
 
@@ -57,11 +58,11 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.myviewholder
     public int getItemCount() {
         return data.size();
     }
-    class myviewholder extends RecyclerView.ViewHolder {
+    class MyVHolder extends RecyclerView.ViewHolder {
 
         FarmerquerylistBinding binding;
 
-        public myviewholder(@NonNull FarmerquerylistBinding binding) {
+        public MyVHolder(@NonNull FarmerquerylistBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

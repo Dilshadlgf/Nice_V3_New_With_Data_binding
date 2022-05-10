@@ -1,7 +1,6 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.view.View;
 
@@ -9,7 +8,7 @@ import com.example.testproject.Adapter.VpAdapter;
 import com.example.testproject.R;
 import com.example.testproject.databinding.FragmentQueryBinding;
 
-public class AnonymousQueryFragment extends BaseFragment {
+public class ContentTabFragment extends BaseFragment {
 
     private FragmentQueryBinding binding;
 

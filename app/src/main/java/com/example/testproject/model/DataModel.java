@@ -20,7 +20,7 @@ public class DataModel {
     private Pagination pagination;
 
     @SerializedName("data")
-    private Data data;
+    private FarmerDataModel data;
 
     public List<ContentModel> getContent() {
         return content;
@@ -51,11 +51,11 @@ public class DataModel {
         return productconfig;
     }
 
-    public Data getData() {
+    public FarmerDataModel getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(FarmerDataModel data) {
         this.data = data;
     }
 

@@ -1,8 +1,17 @@
 package com.example.testproject.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+@Entity(tableName = "farmer")
+public class FarmerDataModel {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idd;
+
+    private String id;
 
     @SerializedName("name")
     private String name;
@@ -39,6 +48,22 @@ public class Data {
 
     @SerializedName("vacantArea")
     private String vacantArea;
+
+    public int getIdd() {
+        return idd;
+    }
+
+    public void setIdd(int idd) {
+        this.idd = idd;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getLiveStockCount() {
         return liveStockCount;

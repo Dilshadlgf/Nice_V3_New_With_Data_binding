@@ -7,13 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.testproject.databinding.ActivityMainBinding;
 import com.example.testproject.model.Productconfig;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.databinding.ActivityMainBinding;
-import com.example.testproject.ui.Fragment.Farmer.Dashboard;
 
 import retrofit2.Call;
 
