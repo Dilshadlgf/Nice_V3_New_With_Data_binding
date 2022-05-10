@@ -97,6 +97,7 @@
                             android:id="@+id/querieslayout"
                             android:layout_width="@dimen/_70sdp"
                             android:layout_height="@dimen/_70sdp"
+
                             android:background="@drawable/deactivecom"
                             android:gravity="center">
 
