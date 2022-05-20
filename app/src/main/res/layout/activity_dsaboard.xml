@@ -3,30 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.Fragment.Farmer.Dashboard">
-
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/drawer"
-        tools:openDrawer="start">
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navmenu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/white"
-            android:visibility="gone"
-            android:fitsSystemWindows="true">
-            <include
-                layout="@layout/side_menu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.google.android.material.navigation.NavigationView>
-
-
-
+    tools:context=".ui.Fragment.Farmer.DashboardFragment">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -124,7 +101,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout1"
+                    android:id="@+id/lay_query"
                     android:layout_width="@dimen/_143sdp"
                     android:layout_height="@dimen/_143sdp"
                     android:layout_marginRight="@dimen/_10sdp"
@@ -290,10 +267,10 @@
                     android:layout_width="@dimen/_143sdp"
                     android:layout_height="@dimen/_143sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout1"
+                    app:layout_constraintEnd_toEndOf="@+id/lay_query"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/constraintLayout1"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout1"
+                    app:layout_constraintStart_toStartOf="@+id/lay_query"
+                    app:layout_constraintTop_toBottomOf="@+id/lay_query"
                     app:layout_constraintVertical_bias="0.158"
                     app:layout_editor_absoluteX="@dimen/_200sdp"
                     app:layout_editor_absoluteY="@dimen/_200sdp"
@@ -365,7 +342,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 

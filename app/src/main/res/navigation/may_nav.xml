@@ -21,11 +21,11 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/queryFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AnonymousQueryFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.ContentTabFragment"
         android:label="QueryFragment" />
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.example.testproject.ui.Fragment.Farmer.Dashboard"
+        android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
         android:label="activity_dsaboard"
         tools:layout="@layout/activity_dsaboard" >
         <action
@@ -35,13 +35,12 @@
             android:id="@+id/action_dashboard_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_dashboard_to_allQueryFragmnet"
-            app:destination="@id/allQueryFragmnet" />
+            android:id="@+id/action_dashboard_to_queryTabFragment"
+            app:destination="@id/queryTabFragment" />
     </fragment>
     <fragment
-        android:id="@+id/allQueryFragmnet"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AllQueryFragmnet"
-        android:label="fragment_all_query_fragmnet"
-        tools:layout="@layout/fragment_all_query_fragmnet" />
+        android:id="@+id/queryTabFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.QueryTabFragment"
+        android:label="QueryTabFragment" />
 
 </navigation>

@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.testproject.R;
-import com.example.testproject.ui.Fragment.Farmer.Dashboard;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.databinding.ActivityLoginBinding;
+import com.example.testproject.model.RoleModel;
+import com.example.testproject.ui.Fragment.Farmer.DashboardFragment;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.Util.AppConstants;
-import com.example.testproject.databinding.ActivityLoginBinding;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -27,11 +30,13 @@ public class FarmerLoginActivity extends AppCompatActivity {
     private Call<RootOneModel> call;
     private ApiManager  mApiManager;
     private int count=0;
+    private RoleDao roleDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        roleDao= AppDatabase.getInstance(this).roleDao();
 
             binding.singin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +90,10 @@ public class FarmerLoginActivity extends AppCompatActivity {
 
                 if (ServiceCode==AppConstants.Validate)
                 {
-                    startActivity(new Intent(FarmerLoginActivity.this, Dashboard.class));
+                    RoleModel model=new RoleModel();
+                    model.setFarmer(true);
+                    roleDao.insertRoleResponse(model);
+                    startActivity(new Intent(FarmerLoginActivity.this, MainSplashActivity.class));
                 }
 
             }

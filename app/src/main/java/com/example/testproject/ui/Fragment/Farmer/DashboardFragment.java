@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 //import com.example.testproject.databinding.ActivityDsaboardBinding;
@@ -16,7 +17,7 @@ import com.example.testproject.R;
 import com.example.testproject.databinding.ActivityDsaboardBinding;
 import com.google.android.material.navigation.NavigationView;
 
-public class Dashboard extends BaseFragment {
+public class DashboardFragment extends BaseFragment {
    private ActivityDsaboardBinding binding;
     NavigationView nav;
     ActionBarDrawerToggle toggle;
@@ -62,15 +63,15 @@ public class Dashboard extends BaseFragment {
 
             }
         });
-
-        binding.Query.setOnClickListener(new View.OnClickListener() {
+        binding.layQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                navController.navigate(R.id.action_dashboard_to_allQueryFragmnet);
-
+                Bundle bundle=new Bundle();
+                bundle.putString("queryModule","common");
+                navController.navigate(R.id.action_dashboard_to_queryTabFragment,bundle);
             }
         });
+
 
 
 
