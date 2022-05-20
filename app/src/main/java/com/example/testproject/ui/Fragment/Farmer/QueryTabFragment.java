@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testproject.R;
@@ -25,6 +27,8 @@ public class QueryTabFragment extends BaseFragment{
     String queryModule;
     private FarmerDao farmerDao;
     private RoleDao roleDao;
+  private NavController navController ;
+
 
     public static QueryTabFragment newInstance(Bundle args) {
         QueryTabFragment fragment = new QueryTabFragment();
@@ -68,6 +72,7 @@ public class QueryTabFragment extends BaseFragment{
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
     }
 
     private void settabIcon(){
@@ -119,5 +124,16 @@ public class QueryTabFragment extends BaseFragment{
 
 
         viewPager.setAdapter(viewPagerAdapter);
+        navController= NavHostFragment.findNavController(this);
+
+        binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_queryTabFragment_to_addFarmerqurie_Fragment);
+
+            }
+        });
+
     }
+
 }

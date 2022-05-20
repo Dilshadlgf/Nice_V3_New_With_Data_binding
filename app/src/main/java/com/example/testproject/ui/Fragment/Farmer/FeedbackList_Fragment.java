@@ -7,18 +7,14 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.testproject.Adapter.FeedbackListAdapter;
-import com.example.testproject.Adapter.QueryAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.databinding.FragmentFeedbackListBinding;
-import com.example.testproject.databinding.FragmentQuery2Binding;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
 import com.google.gson.JsonArray;
@@ -41,6 +37,9 @@ public class FeedbackList_Fragment extends BaseFragment {
     private RootQueryModel rootQueryModel;
     private  QueryResponseDataNumModel queryResponseDataNumModel;
 
+    public static Fragment newInstance(Bundle bundleUnResolved) {
+        return null;
+    }
 
 
     @Override
@@ -77,6 +76,8 @@ public class FeedbackList_Fragment extends BaseFragment {
         loadmore(1);
 
     }
+
+
     private void loadmore(int pageNo){
 
 //        JsonObject mainObj=new JsonObject();

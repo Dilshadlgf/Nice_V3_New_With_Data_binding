@@ -2,6 +2,7 @@ package com.example.testproject.ui.Fragment.Farmer;
 
 import androidx.databinding.ViewDataBinding;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -13,10 +14,11 @@ import com.example.testproject.R;
 import com.example.testproject.databinding.FragmentProfileBinding;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RootOneModel;
+import com.google.gson.JsonSyntaxException;
 
 import retrofit2.Call;
 
-public class ProfileFragment extends BaseFragment {
+public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
 
     private RootOneModel rootOneModel;
@@ -83,4 +85,18 @@ public class ProfileFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cardcrop:
+                try {
+                    Bundle bundle =new Bundle();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+        }
+
     }
+}

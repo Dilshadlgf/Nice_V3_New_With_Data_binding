@@ -1,7 +1,9 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.testproject.Network.ApiManager;
@@ -20,6 +22,9 @@ public class ContentInfoFragment extends BaseFragment {
     private ApiResponseInterface mInterFace;
     private SearchContentResponseDataModel responseDataModel;
 
+    public static Fragment newInstance(Bundle infoBundle) {
+        return null;
+    }
 
 
     @Override

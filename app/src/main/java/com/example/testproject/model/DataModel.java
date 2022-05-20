@@ -1,5 +1,6 @@
 package com.example.testproject.model;
 
+import com.example.testproject.model.livestock.RefLiveStockModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -21,6 +22,90 @@ public class DataModel {
 
     @SerializedName("data")
     private FarmerDataModel data;
+
+    @SerializedName("farmer")
+    private FarmerModel farmer;
+
+
+    @SerializedName("farmerLiveStock")
+    private LivestocksArrayModel farmerLiveStock;
+
+    @SerializedName("duplicate")
+    private String duplicate;
+
+    private String status;
+
+    private String query;
+
+    private CreatedOn createdOn;
+
+    private String solution;
+
+    private RefLiveStockModel ref;
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public CreatedOn getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(CreatedOn createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public RefLiveStockModel getRef() {
+        return ref;
+    }
+
+    public void setRef(RefLiveStockModel ref) {
+        this.ref = ref;
+    }
+
+    public FarmerModel getFarmer() {
+        return farmer;
+    }
+
+    public void setFarmer(FarmerModel farmer) {
+        this.farmer = farmer;
+    }
+
+    public LivestocksArrayModel getFarmerLiveStock() {
+        return farmerLiveStock;
+    }
+
+    public void setFarmerLiveStock(LivestocksArrayModel farmerLiveStock) {
+        this.farmerLiveStock = farmerLiveStock;
+    }
+
+    public String getDuplicate() {
+        return duplicate;
+    }
+
+    public void setDuplicate(String duplicate) {
+        this.duplicate = duplicate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<ContentModel> getContent() {
         return content;

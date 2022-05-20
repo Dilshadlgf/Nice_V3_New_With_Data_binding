@@ -1,20 +1,39 @@
 package com.example.testproject.Network;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 
+import com.example.testproject.Util.RealPathUtil;
 import com.example.testproject.Util.SharedPreferenceHelper;
+import com.example.testproject.model.FarmerListModel;
+import com.example.testproject.model.Farmerlistnewdatamodel;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.query.RootQueryModel;
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ApiManager {
 
@@ -23,6 +42,8 @@ public class ApiManager {
    // private String jsessionid,jsessionidd = "";
     private ProgressDialog dialog;
     private ApiResponseInterface mApiResponseInterface;
+    private String jsessionid,jsessionidd = "";
+
 
     public ApiManager(Context context, ApiResponseInterface apiResponseInterface) {
         this.mContext = context;
@@ -333,6 +354,302 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
     }
 
     //============================================================================
+    public void getNotificationList(JsonObject jsonObject,String pageno) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getNotificationList(jsonObject,pageno);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.NotificationListReq);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    //==================================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void getSingleQuery(String id) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+
+        Call<RootOneModel> call = apiService.getSingleQuery(id);
+
+
+        call.enqueue(new Callback<RootOneModel>() {
+            @Override
+            public void onResponse(Call<RootOneModel> call, Response<RootOneModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.QUERIES_LIST_REQUEST);
+
+                } else {
+                    if (SharedPreferenceHelper.getSharedPreferenceBoolean(mContext, "Farmer", false) == true) {
+                        mApiResponseInterface.isError("Queries are not available");
+                    } else {
+                        mApiResponseInterface.isError("Queries  API TimeOut Please contact to Administrator");
+                    }
+
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    //=======================================================================+++++++++++++++++++++
+
+    public void uploadQueryImageRequest(Context mContext, ArrayList<Uri> arrayList, int resCode) {
+        showDialog("Uploading Images");
+
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+                MultipartBody.Builder builder = new MultipartBody.Builder();
+                builder.setType(MultipartBody.FORM);
+                boolean hasAnyFile=false;
+                // Multiple Images
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if(arrayList.get(i).getPath().equals("") || arrayList.get(i).getPath().contains("/documents") ){
+                        continue;
+                    }
+                    hasAnyFile=true;
+                    File file = new File(RealPathUtil.getRealPath(mContext,arrayList.get(i)));
+                    //Compress Image
+//            String[] filePath = {MediaStore.Images.Media.DATA};
+//            Cursor c = mContext.getContentResolver().query(arrayList.get(i), filePath, null, null, null);
+//            c.moveToFirst();
+//            int columnIndex = c.getColumnIndex(filePath[0]);
+//            String picturePath = c.getString(columnIndex);
+//            c.close();
+                    File biodataFile;
+
+                    biodataFile = new File(RealPathUtil.getRealPath(mContext,arrayList.get(i)));
+
+                    Bitmap bitmap=null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(),arrayList.get(i));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    if(bitmap==null) {
+                        bitmap = BitmapFactory.decodeFile(biodataFile.getAbsolutePath());
+                    }
+                    bitmap.compress(Bitmap.CompressFormat.WEBP, 50, bos);
+
+                    RequestBody compressbody = RequestBody.create(MediaType.parse("multipart/form-data"), bos.toByteArray());
+                    builder.addFormDataPart("uploadfiles", file.getName(), compressbody);
+                }
+                if(!hasAnyFile){
+                    closeDialog();
+                    mApiResponseInterface.isSuccess(null, resCode);
+                    return;
+                }
+
+                List<MultipartBody.Part> requestBody = builder.build().parts();
+
+
+                ApiInterface apiService =
+                        ApiClient.getClient().create(ApiInterface.class);
+                Call<RootQueryModel> call = apiService.uploadQueryImage("query",requestBody);
+                call.enqueue(new Callback<RootQueryModel>() {
+                    @Override
+                    public void onResponse(Call<RootQueryModel> call, Response<RootQueryModel> response) {
+                        closeDialog();
+                        if (response.body()!=null ) {
+                            mApiResponseInterface.isSuccess(response.body(), resCode);
+                        }
+
+                        else
+                        {
+                            mApiResponseInterface.isError("Failed");
+
+                        }
+
+
+                    }
+                    @Override
+                    public void onFailure(Call<RootQueryModel> call, Throwable t) {
+                        closeDialog();
+                        if(t instanceof IOException)
+                        {
+                            mApiResponseInterface.isError("Internet is not Connected");
+                        }
+                        else
+                        {
+                            mApiResponseInterface.isError("Please Contact to Administrator");
+                        }
+                    }
+                });
+            }
+        },500);
+    }
+
+    //+++++++++++++++++++++++++++++=====================================================
+
+    public void farmerListRequest(String id, String token) {
+        showDialog("Farmer List");
+        ApiInterfacee apiService =
+                ApiClient.getClient().create(ApiInterfacee.class);
+
+        Call<Farmerlistnewdatamodel> call = apiService.farmerListt("Mobile", jsessionid, id, token);
+        call.enqueue(new Callback<Farmerlistnewdatamodel>() {
+            @Override
+            public void onResponse(Call<Farmerlistnewdatamodel> call, Response<Farmerlistnewdatamodel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.FARMER_LIST_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("FarmerList API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onFailure(Call<Farmerlistnewdatamodel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===============================
+
+    private interface ApiInterfacee {
+
+        //    @GET()
+        @GET("farmerListByUser/{id}")
+        Call<Farmerlistnewdatamodel> farmerListt(@Header("X-Requested-With") String header, @Header("Cookie") String Cookie, @Path("id") String id, @Query("token") String token);
+
+        @GET("farmers?activeStatus=true&block=&district=&gramPanchayat=&max=100")
+        Call<FarmerListModel> farmerListtsec(@Header("X-Requested-With") String header, @Header("Cookie") String Cookie, @Query("offset") int offset, @Query("state") String state, @Query("village") String village, @Query("token") String token);
+
+
+        //        https://nicessm.org/CCKNIA/farmers?activeStatus=true&block=&district=&gramPanchayat=&max=10&offset=0&searchText=Moni&state=&village=
+        @GET("farmers?activeStatus=true&block=&district=&gramPanchayat=&max=10&offset=0")
+        Call<Farmerlistnewdatamodel> farmerListtseach(@Header("X-Requested-With") String header,
+                                                      @Header("Cookie") String Cookie,@Header("token") String token,  @Query("searchText") String searchtext,
+                                                      @Query("state") String state,
+                                                      @Query("village") String village);
+//       Call<Farmerlistnewdatamodel> farmerListt(@Url String url) ;
+    }
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++=====================================
+    public void updateQuery(String token, JsonObject jsonObject) {
+        showDialog("Adding Query");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+
+        Call<RootOneModel> call = apiService.updateQueryRequest( jsonObject);
+
+        call.enqueue(new Callback<RootOneModel>() {
+            @Override
+            public void onResponse(Call<RootOneModel> call, Response<RootOneModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.UpdateQuery);
+
+                } else {
+                    mApiResponseInterface.isError("Add Query: TimeOut Please try later");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++==================================
+
+    public void addQueryRequest(String token, JsonObject jsonObject) {
+        showDialog("Adding Query");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootQueryModel> call = apiService.sendAddQueryRequest(jsonObject);
+
+        call.enqueue(new Callback<RootQueryModel>() {
+            @Override
+            public void onResponse(Call<RootQueryModel> call, Response<RootQueryModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.ADD_QUERY_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Add Query: TimeOut Please try later");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootQueryModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    // ========+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     private void showDialog(String message) {
         if(message.isEmpty()){
             message="Loading";

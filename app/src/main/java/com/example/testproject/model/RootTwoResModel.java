@@ -14,6 +14,8 @@ public class RootTwoResModel {
     @Expose
     private DataModel2 dataModel2;
 
+
+
     public int getStatusCode() {
         return statusCode;
     }
@@ -33,6 +35,7 @@ public class RootTwoResModel {
     public DataModel2 getDataModel2() {
         return dataModel2;
     }
+
 
     public void setDataModel2(DataModel2 dataModel2) {
         this.dataModel2 = dataModel2;
