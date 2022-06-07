@@ -12,7 +12,7 @@
         tools:layout="@layout/activity_content" >
         <action
             android:id="@+id/action_contentFragment_to_queryFragment"
-            app:destination="@id/queryFragment" />
+            app:destination="@id/queryFragment"/>
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
