@@ -44,6 +44,7 @@ public class QueryTabFragment extends BaseFragment{
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         super.setUpUi(view, viewDataBinding);
         binding= (FragmentQueryTabsBinding) viewDataBinding;
+        binding.btnAddQuery.setVisibility(View.VISIBLE);
 //        farmerDao= AppDatabase.getInstance(getContext()).get
         roleDao= AppDatabase.getInstance(getContext()).roleDao();
 

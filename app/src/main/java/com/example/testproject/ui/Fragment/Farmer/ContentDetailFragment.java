@@ -41,8 +41,8 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
     private RoleDao roleDao;
 
 
-    public static QueryFragment newInstance(Bundle args) {
-        QueryFragment fragment = new QueryFragment();
+    public static ContentDetailFragment newInstance(Bundle args) {
+        ContentDetailFragment fragment = new ContentDetailFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -112,7 +112,12 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
         binding.tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+                if(tab.getPosition()==2|| tab.getPosition()==3){
+//                    show
+                    binding.btnAddQuery.setVisibility(View.VISIBLE);
+                }else{
+                    binding.btnAddQuery.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -206,7 +211,7 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_add_query) {
+        if (v.getId() == R.id.btn_add_query1) {
 //            if (loginDao.getLoginResponse().getRole().equalsIgnoreCase("farmer")) {
 //
 //                try {

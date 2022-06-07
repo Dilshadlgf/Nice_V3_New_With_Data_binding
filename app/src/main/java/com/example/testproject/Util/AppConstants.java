@@ -37,6 +37,9 @@ public class AppConstants {
     public static final int ACTIVE_KNOWLEDGE_REQUEST=86;
     public static final int ADD_QUERY_REQUEST=87;
     public static final int UpdateQuery=88;
+    public static final int CROPListREquest=89;
+    public static final int farmercropRequest=90;
+    public static final int CROPvarietyRequest=91;
 
 
 

@@ -22,7 +22,11 @@
     <fragment
         android:id="@+id/queryFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.ContentTabFragment"
-        android:label="QueryFragment" />
+        android:label="QueryFragment" >
+        <action
+            android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
+            app:destination="@id/addFarmerqurie_Fragment" />
+    </fragment>
     <fragment
         android:id="@+id/dashboard"
         android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
