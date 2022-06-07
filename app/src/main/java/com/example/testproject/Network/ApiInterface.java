@@ -1,5 +1,6 @@
 package com.example.testproject.Network;
 
+import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.query.RootQueryModel;
@@ -38,6 +39,9 @@ public interface ApiInterface {
 
     @GET("farmer")
     Call<RootOneModel> getProfile( @Query("id") String id);
+
+    @PUT("farmer")
+    Call<RootModelOne> editprofileUser(@Body JsonObject request);
 
     @POST("query/filter")
     Call<RootQueryModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);

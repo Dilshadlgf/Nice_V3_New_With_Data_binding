@@ -2,6 +2,9 @@ package com.example.testproject.ui.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.testproject.R;
 import com.example.testproject.database.AppDatabase;
@@ -12,6 +15,7 @@ import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RoleModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +37,15 @@ public class FarmerMainActivity extends AppCompatActivity {
 //         Passing each menu ID as a set of Ids because each
 //         menu should be considered as top level destinations.
 
+//        binding.toolbar.inflateMenu(R.menu.icon_menu);
+//        binding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Log.i("","menu");
+//                return false;
+//            }
+//        });
+
         navController = Navigation.findNavController(this, R.id.fragmentContainerView3);
 //        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bottom);
         setSupportActionBar(binding.toolbar);
@@ -46,6 +59,7 @@ public class FarmerMainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 //
+//        getSupportActionBar().setIcon(R.drawable.ic_baseline_edit_24);
 
         RoleDao roleDao= AppDatabase.getInstance(this).roleDao();
         FarmerDao farmerDao= AppDatabase.getInstance(this).farmerDao();
@@ -62,6 +76,10 @@ public class FarmerMainActivity extends AppCompatActivity {
         }
         Log.i("","");
 
+
+    }
+    public ImageView getToolIcon1(){
+        return findViewById(R.id.edit);
     }
     public void setTittle(String tittle){
         binding.toolbar.setTitle(tittle);
@@ -71,6 +89,8 @@ public class FarmerMainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, binding.drawerLayout);
     }
+
+
 
     @Override
     public void onBackPressed() {

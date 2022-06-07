@@ -17,8 +17,15 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_farmerCrops_Fragment"
+            app:destination="@id/farmerCrops_Fragment" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/queryFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.ContentTabFragment"
@@ -30,7 +37,7 @@
     <fragment
         android:id="@+id/dashboard"
         android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
-        android:label="activity_dsaboard"
+        android:label="Dashboard"
         tools:layout="@layout/activity_dsaboard" >
         <action
             android:id="@+id/action_dashboard_to_contentFragment"
@@ -76,5 +83,9 @@
         android:id="@+id/addFarmerqurie_Fragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.AddFarmerqurie_Fragment"
         android:label="AddFarmerqurie_Fragment" />
+    <fragment
+        android:id="@+id/farmerCrops_Fragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.FarmerCrops_Fragment"
+        android:label="FarmerCrops_Fragment" />
 
 </navigation>

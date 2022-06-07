@@ -6,7 +6,6 @@
         android:visible="true"
         android:id="@+id/home"
         android:title="Home"
-
         android:icon="@drawable/ic_baseline_home_24"/>
 
     <item

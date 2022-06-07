@@ -11,7 +11,7 @@ public class AppConstants {
     public static final int LiveSTOCKREQUEST=7;
     public static final int FeedbacklistRequest=8;
 
-    public static final int farmerCropList=63;
+    public static final int EDIT_PROFILE_USER=63;
     public static final int farmerInterCropList=64;
     public static final int FarmerSeasonList=65;
     public static final int FarmerVarietyList=66;

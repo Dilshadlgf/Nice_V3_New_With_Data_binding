@@ -12,6 +12,7 @@ import com.example.testproject.Util.RealPathUtil;
 import com.example.testproject.Util.SharedPreferenceHelper;
 import com.example.testproject.model.FarmerListModel;
 import com.example.testproject.model.Farmerlistnewdatamodel;
+import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.model.RootOneResModel;
@@ -233,6 +234,47 @@ public class ApiManager {
 
             @Override
             public void onFailure(Call<RootOneModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
+
+
+
+    public void editprofileUser(JsonObject token) {
+        showDialog("Loding");
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootModelOne> call = apiService.editprofileUser(token);
+        call.enqueue(new Callback<RootModelOne>() {
+            @Override
+            public void onResponse(Call<RootModelOne> call, Response<RootModelOne> response) {
+                closeDialog();
+                if (response.body() != null && response.body().response.statusCode == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.EDIT_PROFILE_USER);
+                } else {
+
+                    if (response.body() != null) {
+                        mApiResponseInterface.isError(response.body().response.message);
+
+                    } else {
+                        mApiResponseInterface.isError("Login API TimeOut Please contact to Administrator");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootModelOne> call, Throwable t) {
                 closeDialog();
                 if (t instanceof IOException) {
                     mApiResponseInterface.isError("Internet is not Connected");
