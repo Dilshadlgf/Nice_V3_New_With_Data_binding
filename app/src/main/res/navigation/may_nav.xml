@@ -22,7 +22,11 @@
     <fragment
         android:id="@+id/queryFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.ContentTabFragment"
-        android:label="QueryFragment" />
+        android:label="QueryFragment" >
+        <action
+            android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
+            app:destination="@id/addFarmerqurie_Fragment" />
+    </fragment>
     <fragment
         android:id="@+id/dashboard"
         android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
@@ -37,10 +41,40 @@
         <action
             android:id="@+id/action_dashboard_to_queryTabFragment"
             app:destination="@id/queryTabFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_notificationListFragment"
+            app:destination="@id/notificationListFragment" />
     </fragment>
     <fragment
         android:id="@+id/queryTabFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.QueryTabFragment"
-        android:label="QueryTabFragment" />
+        android:label="QueryTabFragment" >
+        <action
+            android:id="@+id/action_queryTabFragment_to_addFarmerqurie_Fragment"
+            app:destination="@id/addFarmerqurie_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationListFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.NotificationListFragment"
+        android:label="NotificationListFragment" >
+        <action
+            android:id="@+id/action_notificationListFragment_to_queryDetailPrintFragment"
+            app:destination="@id/queryDetailPrintFragment" />
+        <action
+            android:id="@+id/action_notificationListFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/queryDetailPrintFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.QueryDetailPrintFragment"
+        android:label="QueryDetailPrintFragment" />
+    <fragment
+        android:id="@+id/contentDetailFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.ContentDetailFragment"
+        android:label="ContentDetailFragment" />
+    <fragment
+        android:id="@+id/addFarmerqurie_Fragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.AddFarmerqurie_Fragment"
+        android:label="AddFarmerqurie_Fragment" />
 
 </navigation>

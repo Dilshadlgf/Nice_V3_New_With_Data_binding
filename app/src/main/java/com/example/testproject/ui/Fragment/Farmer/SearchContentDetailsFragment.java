@@ -12,6 +12,12 @@ import com.example.testproject.R;
 
 public class SearchContentDetailsFragment extends Fragment {
 
+    public static QueryFragment newInstance(Bundle args) {
+        QueryFragment fragment = new QueryFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

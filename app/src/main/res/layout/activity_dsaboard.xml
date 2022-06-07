@@ -279,6 +279,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_120sdp"
+                        android:id="@+id/notificationcard"
                         android:layout_weight="1"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/_20sdp"
@@ -322,7 +323,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_10sdp"
-                                android:text="Comming Soon"
+                                android:text="Notification"
                                 android:textColor="#bddc9a"
                                 android:textSize="14sp"
                                 android:textStyle="bold"

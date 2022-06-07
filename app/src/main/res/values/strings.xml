@@ -50,6 +50,16 @@
     <string name="resolvequery">RESOLVED QUERY</string>
     <string name="unresolvequery">UNRESOLVED QUERY</string>
     <string name="assignedquery">Assigned QUERY</string>
+    <string name="todo">todo</string>
+    <string name="Solution">Solution</string>
+    <string name="content">Content </string>
+    <string name="contentInfo">Info</string>
+    <string name="query_update_success">Query Successfully Updated</string>
+    <string name="query_added_success">Query Successfully Added</string>
+    <string name="variety">Variety</string>
+
+
+
 
 
 </resources>

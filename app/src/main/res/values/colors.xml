@@ -19,6 +19,12 @@
     <color name="color_btn">#00D69C</color>
     <color name="colorPrimary">#00321E</color>
     <color name="weathergrid1">#2a4b30</color>
+    <color name="colorPrimaryDark">#7EAA50</color>
+    <color name="black_trans">#99000000</color>
+    <color name="colorAccent">#D0930A</color>
+    <color name="greentext">#bddc9a</color>
+    <color name="list_group_title">#808080</color>
+    <color name="lightgrayclr">#f2f3f4</color>
 
 
 
