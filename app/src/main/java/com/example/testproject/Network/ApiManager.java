@@ -691,6 +691,72 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
             }
         });
     }
+
+
+    public void commodityCategoryFilter(JsonObject jsonObject) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.commodityCategoryFilter(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.CommodityFilterReq);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
+    public void farmerCropDetaile(JsonObject jsonObject) {
+        showDialog("Loading");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.farmerCropDetaile(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.FARMER_DETAILS_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Farmer Details API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please contact to Administrator");
+                }
+            }
+        });
+    }
     // ========+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     private void showDialog(String message) {
         if(message.isEmpty()){

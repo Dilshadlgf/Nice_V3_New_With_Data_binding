@@ -60,6 +60,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         makeEditBox(false);
         setUpNetWork();
 
+        binding.cardcrop.setOnClickListener(this);
+
         List<String> genderlist = new ArrayList<String>();
         genderlist.add("---Select Gender---");
         genderlist.add("Male");
@@ -73,7 +75,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         if (getActivity() != null) {
             ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
         }
-        mApiManager.getProfile("621758b11daffc762c720138");
+//        mApiManager.getProfile("621758b11daffc762c720138");
+        mApiManager.getProfile("628cc9e2a1e0bfbb4b7e3e8b");
     }
     private void makeEditBox(boolean isEnable) {
 

@@ -4,58 +4,55 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.databinding.ViewDataBinding;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import com.example.testproject.Adapter.FarmerCrops_Done_Win_Adapter;
+import com.example.testproject.Network.ApiClient;
+import com.example.testproject.Network.ApiManager;
+import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.databinding.FragmentCropDoneBinding;
+import com.example.testproject.Util.AppConstants;
+import com.example.testproject.databinding.FragmentCropDone1Binding;
+import com.example.testproject.interfaces.ListItemClickListener;
+import com.example.testproject.interfaces.QueryListClickListner;
+import com.example.testproject.interfaces.ResolutionClickListener;
+import com.example.testproject.model.CropDataModel;
+import com.example.testproject.model.LivestocksArrayModel;
+import com.example.testproject.model.RootOneResModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.nice.BuildConfig;
-import com.nice.R;
-import com.nice.adapter.FarmerCrops_Done_Win_Adapter;
-import com.nice.database.AppDatabase;
-import com.nice.database.dao.LoginDao;
-import com.nice.database.dao.QueriesDao;
-import com.nice.database.dao.VillageDao;
-import com.nice.databinding.FragmentCropDoneBinding;
-import com.nice.interfaces.ListItemClickListener;
-import com.nice.interfaces.QueryListClickListner;
-import com.nice.interfaces.ResolutionClickListener;
-import com.nice.model.CropDataModel;
-import com.nice.model.LivestocksArrayModel;
-import com.nice.model.QueriesResponseDataModel;
-import com.nice.model.QueriesResponseModel;
-import com.nice.model.rootresponsemodel.RootOneResModel;
-import com.nice.network.ApiManager;
-import com.nice.network.ApiResponseInterface;
-import com.nice.ui.activity.FragmentActivity;
-import com.nice.util.AppConstants;
-import com.nice.util.SharedPreferenceHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CropDONEFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class CropDONEFragment extends BaseFragment implements View.OnClickListener, ListItemClickListener {
     private static final String TAG = "DoneFragment";
     //    private QueryAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private FragmentCropDoneBinding binding;
+    public FragmentCropDone1Binding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    private LoginDao loginDao;
-    private VillageDao villageDao;
-    private QueriesDao queriesDao;
-    private QueriesResponseModel queryofflinrmodel;
+//    private LoginDao loginDao;
+//    private VillageDao villageDao;
+//    private QueriesDao queriesDao;
+//    private QueriesResponseModel queryofflinrmodel;
     private QueryListClickListner queryListClickListner;
     private ResolutionClickListener resolutionClickListener;
-    private QueriesResponseDataModel queriesResponseDataModel;
+//    private QueriesResponseDataModel queriesResponseDataModel;
     private String queryType = "";
     String subdomain, kndonain;
     SharedPreferences userrolesh;
@@ -82,13 +79,14 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void init() {
-        layoutId = R.layout.fragment_crop_done;
+        layoutId = R.layout.fragment_crop_done1;
     }
 
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
-        binding = (FragmentCropDoneBinding) viewDataBinding;
-
+        binding = (FragmentCropDone1Binding) viewDataBinding;
+//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
+//        user_role = SharedPreferenceHelper.getSharedPreferenceString(getContext(), "user_role", "");
 
         /*  ((FragmentActivity) getActivity()).setmBack("Back");*/
         userrolesh = getActivity().getSharedPreferences("userrole", 0);
@@ -113,7 +111,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
 //            }
 //        }
 //
-        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
+//        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
 //        villageDao = AppDatabase.getInstance(getContext()).getVillageDBModelResponse();
 //        queriesDao = AppDatabase.getInstance(getContext()).queriesResponseModel();
         setupNetwork();
@@ -146,7 +144,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
 
                 if (ServiceCode == AppConstants.CommodityFilterReq) {
                     RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    modelListLiveStockName=rootOneResModel.getResponse().getData().getLiveStockCategory();
+                    modelListLiveStockName=rootOneResModel.getResponse().getDataModel2().getLiveStockCategory();
                     if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
                         makeTopLiveStockCard();
                         callDONEApi(modelListLiveStockName.get(0).getId());
@@ -157,7 +155,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
                 }else  if(ServiceCode==AppConstants.FARMER_DETAILS_REQUEST) {
                     RootOneResModel rootOneResModel = (RootOneResModel) response;
 
-                    List<CropDataModel> cropDataModels = rootOneResModel.getResponse().getData().getFarmerCrop();
+                    List<CropDataModel> cropDataModels = rootOneResModel.getResponse().getDataModel2().getFarmerCrop();
                     if(cropDataModels!=null && cropDataModels.size()>0) {
                         binding.doneRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropDataModels, CropDONEFragment.this, getContext(), false));
                         binding.doneRecycler.setVisibility(View.VISIBLE);
@@ -183,7 +181,8 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
 
         object.add("status", array);
         object.add("category", cat);
-        object.addProperty("farmer",loginDao.getLoginResponse().getId());
+//        object.addProperty("farmer",loginDao.getLoginResponse().getId());
+        object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
 
         mApiManager.farmerCropDetaile(object);
     }
@@ -193,7 +192,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
             ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.with(getContext()).load(BuildConfig.BASE_URL+modelListLiveStockName.get(i).getIcon()).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen._70sdp), (int)getResources().getDimension(R.dimen._70sdp));
             layoutParams.leftMargin=3;
@@ -237,4 +236,3 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         }
     }
 }
-

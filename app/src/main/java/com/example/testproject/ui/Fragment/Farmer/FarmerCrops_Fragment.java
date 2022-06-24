@@ -13,6 +13,8 @@ import android.widget.Spinner;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testproject.Network.ApiManager;
@@ -23,6 +25,7 @@ import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.CrpcroplistFragmentBinding;
+import com.example.testproject.databinding.FragmentQueryTabsBinding;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -63,7 +66,9 @@ public class FarmerCrops_Fragment extends BaseFragment {
    // private FarmerListDao farmerDao;
     private EditText completeddate,et_yield,et_input_value,et_input_cost,etyieldvalue,et_remarks;
   //  FarmerLoginResponseDataModel farmerdetailmdl;
-    private CrpcroplistFragmentBinding binding;
+    private FragmentQueryTabsBinding binding;
+    private NavController  navController;
+//    private CrpcroplistFragmentBinding binding;
 
     public static FarmerCrops_Fragment newInstance(Bundle args) {
         FarmerCrops_Fragment fragment = new FarmerCrops_Fragment();
@@ -73,20 +78,21 @@ public class FarmerCrops_Fragment extends BaseFragment {
     @Override
     protected void init() {
         layoutId = R.layout.fragment_query_tabs;
+//        layoutId =  R.layout.crpcroplist_fragment;
     }
 
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
-        binding = (CrpcroplistFragmentBinding) viewDataBinding;
+//        binding = (CrpcroplistFragmentBinding) viewDataBinding;
+        binding = (FragmentQueryTabsBinding) viewDataBinding;
+        navController= NavHostFragment.findNavController(this);
         farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
-
-
-
-
-
-
-
-
+        binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_farmerCrops_Fragment_to_addCrops_Update_Fragment);
+            }
+        });
         setupViewPager(binding.viewpager);
         binding.tab.setupWithViewPager(binding.viewpager);
         binding.tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -104,11 +110,6 @@ public class FarmerCrops_Fragment extends BaseFragment {
 
             }
         });
-
-
-
-
-
       //  ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -117,10 +118,6 @@ public class FarmerCrops_Fragment extends BaseFragment {
 //                }
 //            }
 //        });
-
-
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -89,9 +89,6 @@ public class FarmerMainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, binding.drawerLayout);
     }
-
-
-
     @Override
     public void onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {

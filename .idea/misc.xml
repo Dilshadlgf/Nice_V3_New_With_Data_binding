@@ -8,13 +8,19 @@
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_content.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_dsaboard.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_farmer_main.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/addcrop_updatefragment.xml" value="0.22" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/addcrop_updatefragment1.xml" value="0.22" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/crpcroplist_fragment.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/custm_add_feedbackfor_query.xml" value="0.22" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/farmerquerylist.xml" value="0.3333333333333333" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_add_crops__update_.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_all_query_fragmnet.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_assigned.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_blank1.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_content_info.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_d_o_n_e.xml" value="0.1" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_done.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_w_i_p.xml" value="0.1" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_wip.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_home.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_profile.xml" value="0.14749893116716545" />
@@ -23,9 +29,11 @@
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_query_tabs.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_resolved.xml" value="0.13595553655408293" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_un_resolved.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/live_stock_card.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/layout/spinner_textview.xml" value="0.1" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16666666666666666" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/menu/buttom_menu.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/drawer_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/menu/edit.xml" value="0.14749893116716545" />
         <entry key="..\:/New folder/TestProject/app/src/main/res/menu/icon_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1095" />

@@ -10,6 +10,7 @@ public class AppConstants {
     public static final int QUERIES_LIST_REQUEST_FEEDBACK = 6;
     public static final int LiveSTOCKREQUEST=7;
     public static final int FeedbacklistRequest=8;
+    public static final int FARMER_DETAILS_REQUEST=9;
 
     public static final int EDIT_PROFILE_USER=63;
     public static final int farmerInterCropList=64;

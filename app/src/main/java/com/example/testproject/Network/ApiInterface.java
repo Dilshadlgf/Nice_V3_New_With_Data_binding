@@ -40,6 +40,12 @@ public interface ApiInterface {
     @GET("farmer")
     Call<RootOneModel> getProfile( @Query("id") String id);
 
+   @POST("commoditycategory/filter?pageno=no")
+   Call<RootOneResModel> commodityCategoryFilter( @Body JsonObject request);
+
+    @POST("farmerCrop/filter")
+    Call<RootOneResModel> farmerCropDetaile(@Body JsonObject request);
+
     @PUT("farmer")
     Call<RootModelOne> editprofileUser(@Body JsonObject request);
 
