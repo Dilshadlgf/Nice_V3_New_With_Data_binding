@@ -74,6 +74,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         // attaching data adapter to spinner
         binding.tvGender.setAdapter(dataAdapter0);
         if (getActivity() != null) {
+
             ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
         }
 //        mApiManager.getProfile("621758b11daffc762c720138");
@@ -233,7 +234,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             case R.id.livestoklyout:
                 try {
                     Bundle bundle = new Bundle();
-                   //  navController.navigate(R.id.action_profileFragment_to_farmerLiveStock_Fragment,bundle);
+                     navController.navigate(R.id.action_profileFragment_to_farmerLiveStock_Fragment,bundle);
                 }catch (Exception e){
                     e.printStackTrace();
                 }

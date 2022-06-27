@@ -3,11 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/New folder/TestProject/app/src/main/res/drawable/feedback_bckg_color.xml" value="0.16" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.1" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_content.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_dsaboard.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/activity_farmer_main.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/addcrop_updatefragment.xml" value="0.22" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/addcrop_updatefragment1.xml" value="0.22" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/crpcroplist_fragment.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/custm_add_feedbackfor_query.xml" value="0.22" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/farmerquerylist.xml" value="0.3333333333333333" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_add_crops__update_.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_all_query_fragmnet.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_assigned.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_blank1.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_content_info.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_d_o_n_e.xml" value="0.1" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_done.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_w_i_p.xml" value="0.1" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_crop_wip.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_home.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_profile.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_query.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_query2.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_query_tabs.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_resolved.xml" value="0.13595553655408293" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/fragment_un_resolved.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/live_stock_card.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/layout/spinner_textview.xml" value="0.1" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/buttom_menu.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/drawer_menu.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/edit.xml" value="0.14749893116716545" />
+        <entry key="..\:/New folder/TestProject/app/src/main/res/menu/icon_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1095" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/baseline_shoping_cart_24.xml" value="0.1095" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/bg.xml" value="0.122" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/custom_tab.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/edit_text_bckg.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/edit_text_bckg2.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/feedback_bckg_color.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/green_shap.xml" value="0.1" />
@@ -15,24 +46,17 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/header_background.xml" value="0.105" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_arrow_circle_left_24.xml" value="0.109" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.102" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.109" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_power_settings_new_24.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_table_rows_24.xml" value="0.109" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1095" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_menu_camera.xml" value="0.122" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.122" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.122" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/querybackground.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ract_darkgreen2.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ract_dotline.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ract_green.xml" value="0.105" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ract_greendrak3.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/ract_white.xml" value="0.122" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/round_rect.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/side_nav_bar.xml" value="0.122" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/drawable/tab_background.xml" value="0.105" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/font/aldrich.xml" value="0.1701139721401435" />
@@ -50,11 +74,8 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/alert_dialog.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/app_bar.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/content_side_menu.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/crpcroplist_fragment.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/custm_add_feedbackfor_query.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/farmer_croplist_fragments.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/farmerquerylist.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_add_query.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_base.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_blank.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_blank1.xml" value="0.13595553655408293" />
@@ -65,23 +86,17 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_home.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_my_profile.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_notifications.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_profile.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_query.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_query2.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/fragment_query_tabs.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/navheader.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/noti_list_item.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/notification_list_fragment.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/querydetailprint_fragment.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/search_content_item_list_row.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/side_menu.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/side_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/spiner_text_view.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/spinner_item.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/layout/spinner_textview.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/activity_main_drawer.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/buttom_menu.xml" value="0.14749893116716545" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/drawer_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/icon_menu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/iconmenu.xml" value="0.14749893116716545" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/TestProject/app/src/main/res/menu/main_menu.xml" value="0.14749893116716545" />
