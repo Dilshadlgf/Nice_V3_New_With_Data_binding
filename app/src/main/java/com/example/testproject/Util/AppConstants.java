@@ -10,8 +10,9 @@ public class AppConstants {
     public static final int QUERIES_LIST_REQUEST_FEEDBACK = 6;
     public static final int LiveSTOCKREQUEST=7;
     public static final int FeedbacklistRequest=8;
+    public static final int FARMER_DETAILS_REQUEST=9;
 
-    public static final int farmerCropList=63;
+    public static final int EDIT_PROFILE_USER=63;
     public static final int farmerInterCropList=64;
     public static final int FarmerSeasonList=65;
     public static final int FarmerVarietyList=66;
@@ -40,6 +41,9 @@ public class AppConstants {
     public static final int CROPListREquest=89;
     public static final int farmercropRequest=90;
     public static final int CROPvarietyRequest=91;
+    public static final int UpdatreLivesstock=92;
+    public static final int VarietyListReq=93;
+    public static final int StageListReq=94;
 
 
 

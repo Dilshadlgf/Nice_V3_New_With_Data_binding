@@ -26,14 +26,8 @@ public class DashboardFragment extends BaseFragment {
     CardView content;
 
     NavController navController ;
-
-
-
     protected void init() {
-
         layoutId=R.layout.activity_dsaboard;
-
-
     }
 
     @Override

@@ -44,17 +44,16 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_query"
+        <Button
+            android:id="@+id/btnAddQuery"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="15dp"
-            android:visibility="gone"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/addgreen"
             android:fontFamily="@font/poppinsbold_700"
-            android:src="@drawable/addgreen"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp"

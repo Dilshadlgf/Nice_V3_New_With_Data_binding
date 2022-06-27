@@ -9,8 +9,11 @@ import android.view.View;
 
 import com.example.testproject.R;
 import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.ActivityLoginBinding;
+import com.example.testproject.model.FarmerDataModel;
+import com.example.testproject.model.FarmerModel;
 import com.example.testproject.model.RoleModel;
 import com.example.testproject.ui.Fragment.Farmer.DashboardFragment;
 import com.example.testproject.model.RootOneModel;
@@ -31,12 +34,14 @@ public class FarmerLoginActivity extends AppCompatActivity {
     private ApiManager  mApiManager;
     private int count=0;
     private RoleDao roleDao;
+    private FarmerDao farmerDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         roleDao= AppDatabase.getInstance(this).roleDao();
+        farmerDao= AppDatabase.getInstance(this).farmerDao();
 
             binding.singin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,7 +85,7 @@ public class FarmerLoginActivity extends AppCompatActivity {
             @Override
             public void isSuccess(Object response, int ServiceCode) {
 
-                RootOneModel rootOneModel=(RootOneModel) response;
+
 
                 if(ServiceCode==AppConstants.LOGIN_REQUEST){
 
@@ -90,6 +95,9 @@ public class FarmerLoginActivity extends AppCompatActivity {
 
                 if (ServiceCode==AppConstants.Validate)
                 {
+                    RootOneModel rootOneModel=(RootOneModel) response;
+                    FarmerDataModel farmerModel=rootOneModel.getResponse().getData().getData();
+                    farmerDao.insertFarmerResponse(farmerModel);
                     RoleModel model=new RoleModel();
                     model.setFarmer(true);
                     roleDao.insertRoleResponse(model);

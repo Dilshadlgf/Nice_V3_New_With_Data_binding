@@ -12,9 +12,12 @@ import com.example.testproject.Util.RealPathUtil;
 import com.example.testproject.Util.SharedPreferenceHelper;
 import com.example.testproject.model.FarmerListModel;
 import com.example.testproject.model.Farmerlistnewdatamodel;
+import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
+import com.example.testproject.model.livestock.RootLiveStockResponse;
 import com.example.testproject.model.query.RootQueryModel;
 import com.google.gson.JsonObject;
 
@@ -204,8 +207,206 @@ public class ApiManager {
     }
 
     //===============================++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void LiveStockRequest(JsonObject jsonObject) {
+        showDialog("Livestock");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.LiveStockrequest(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
 
 
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.LiveSTOCKREQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    //+++++++++++++++++++++++++++++++++++++============================
+    public void getLiveStockList(JsonObject jsonObject) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getLiveStockList(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.LiveSTOCKREQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++++++++++++++++====================================
+    public void UpdateLivestock(String token, JsonObject updateApproveRequest) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.updateLivestock( updateApproveRequest);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.UpdatreLivesstock);
+
+                } else {
+                    mApiResponseInterface.isError("Update Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++______________________++++++++++++++++++++++++
+    public void varietyList(JsonObject jsonObject) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.varietyList(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.VarietyListReq);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+//+++++++++++++++++++++++++++++++++++=============================
+public void stageList(JsonObject jsonObject) {
+    showDialog("");
+    ApiInterface apiService =
+            ApiClient.getClient().create(ApiInterface.class);
+    Call<RootOneResModel> call = apiService.stageList(jsonObject);
+    call.enqueue(new Callback<RootOneResModel>() {
+        @Override
+        public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+            closeDialog();
+
+
+            if (response.body() != null) {
+                mApiResponseInterface.isSuccess(response.body(), AppConstants.StageListReq);
+
+            } else {
+                mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+            }
+        }
+
+
+        @Override
+        public void onFailure(Call<RootOneResModel> call, Throwable t) {
+            closeDialog();
+            if (t instanceof IOException) {
+                mApiResponseInterface.isError("Internet is not Connected");
+            } else {
+                mApiResponseInterface.isError("Response Model Conversion Issue");
+            }
+        }
+    });
+}
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void deleteliveStock(String token) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootLiveStockResponse> call = apiService.deleteLiveStock(token);
+        call.enqueue(new Callback<RootLiveStockResponse>() {
+            @Override
+            public void onResponse(Call<RootLiveStockResponse> call, Response<RootLiveStockResponse> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.DeleteLiveStock);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootLiveStockResponse> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
+
+    //++++++++++++++++++++++++++++++++++========================================
     public void getProfile(String token) {
         showDialog("Loding");
 
@@ -233,6 +434,47 @@ public class ApiManager {
 
             @Override
             public void onFailure(Call<RootOneModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
+
+
+
+    public void editprofileUser(JsonObject token) {
+        showDialog("Loding");
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootModelOne> call = apiService.editprofileUser(token);
+        call.enqueue(new Callback<RootModelOne>() {
+            @Override
+            public void onResponse(Call<RootModelOne> call, Response<RootModelOne> response) {
+                closeDialog();
+                if (response.body() != null && response.body().response.statusCode == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.EDIT_PROFILE_USER);
+                } else {
+
+                    if (response.body() != null) {
+                        mApiResponseInterface.isError(response.body().response.message);
+
+                    } else {
+                        mApiResponseInterface.isError("Login API TimeOut Please contact to Administrator");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootModelOne> call, Throwable t) {
                 closeDialog();
                 if (t instanceof IOException) {
                     mApiResponseInterface.isError("Internet is not Connected");
@@ -645,6 +887,72 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
                     mApiResponseInterface.isError("Internet is not Connected");
                 } else {
                     mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
+    public void commodityCategoryFilter(JsonObject jsonObject) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.commodityCategoryFilter(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.CommodityFilterReq);
+
+                } else {
+                    mApiResponseInterface.isError("Livestock API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
+    public void farmerCropDetaile(JsonObject jsonObject) {
+        showDialog("Loading");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.farmerCropDetaile(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.FARMER_DETAILS_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Farmer Details API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please contact to Administrator");
                 }
             }
         });

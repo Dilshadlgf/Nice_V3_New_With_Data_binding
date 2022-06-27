@@ -1,7 +1,10 @@
 package com.example.testproject.Network;
 
+import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
+import com.example.testproject.model.livestock.RootLiveStockResponse;
 import com.example.testproject.model.query.RootQueryModel;
 import com.google.gson.JsonObject;
 
@@ -10,6 +13,7 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -32,12 +36,45 @@ public interface ApiInterface {
     @POST("content/filter")
     Call<RootOneModel> searchContentList( @Body JsonObject request,@Query("pageno") String pageno);
 
-    @GET("content")
+    @POST("farmerLiveStock/filter?pageno=no")
+    Call<RootOneResModel> LiveStockrequest( @Body JsonObject request);
+
+    @POST("commodity/filter?pageno=no")
+    Call<RootOneResModel> getLiveStockList( @Body JsonObject request);
+
+    @PUT("farmerLiveStock")
+    Call<SingleObjRootOneResModel> updateLivestock(@Body JsonObject request);
+
+
+ @POST("commodityvariety/filter?pageno=no")
+ Call<RootOneResModel> varietyList( @Body JsonObject request);
+
+
+ @DELETE("farmerLiveStock/status/delete")
+ Call<RootLiveStockResponse> deleteLiveStock(@Query("id") String token);
+
+
+
+ @POST("commoditystage/filter?pageno=no")
+ Call<RootOneResModel> stageList( @Body JsonObject request);
+
+
+
+ @GET("content")
     Call<RootOneResModel>  searchContentsListDetailRequest( @Query("id") String id);
 
 
     @GET("farmer")
     Call<RootOneModel> getProfile( @Query("id") String id);
+
+   @POST("commoditycategory/filter?pageno=no")
+   Call<RootOneResModel> commodityCategoryFilter( @Body JsonObject request);
+
+    @POST("farmerCrop/filter")
+    Call<RootOneResModel> farmerCropDetaile(@Body JsonObject request);
+
+    @PUT("farmer")
+    Call<RootModelOne> editprofileUser(@Body JsonObject request);
 
     @POST("query/filter")
     Call<RootQueryModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);

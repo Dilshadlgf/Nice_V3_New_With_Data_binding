@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.testproject.model.FarmerDataModel;
+import com.example.testproject.model.FarmerModel;
 
 import java.util.List;
 

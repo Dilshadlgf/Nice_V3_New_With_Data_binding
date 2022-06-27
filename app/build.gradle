@@ -21,8 +21,21 @@ android {
 
     buildTypes {
         release {
+            def serverUrl = "nicedemo.logikoof.org"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [dpurls: serverUrl]
+            buildConfigField "String", "BASE_URL", '"http://'+serverUrl+'/api/"'
+            manifestPlaceholders = [appLabel: "@string/app_name"]
+        }
+        debug {
+            def serverUrl = "nicedemo.logikoof.org"
+            manifestPlaceholders = [dpurls: serverUrl]
+            versionNameSuffix ".dev"
+            buildConfigField "String", "BASE_URL",  '"http://'+serverUrl+'/api/"'
+            manifestPlaceholders = [appLabel: "@string/app_name_dev"]
+
+
         }
     }
     dataBinding {
@@ -56,6 +69,7 @@ dependencies {
      implementation  "androidx.navigation:navigation-ui:2.4.2"
 
     implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
 
 

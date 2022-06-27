@@ -1,10 +1,8 @@
 package com.example.testproject.model;
 
+import com.example.testproject.model.livestock.RefLiveStockModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LivestocksArrayModel {
 
@@ -117,16 +115,16 @@ public class LivestocksArrayModel {
         this.quantity = quantity;
     }
 
-//    public RefLiveStockModel getRef() {
-//        return Ref;
-//    }
-//
-//    public void setRef(RefLiveStockModel ref) {
-//        Ref = ref;
-//    }
-//
-//    @SerializedName("ref")
-//    @Expose
-//    private RefLiveStockModel Ref;
+    public RefLiveStockModel getRef() {
+        return Ref;
+    }
+
+    public void setRef(RefLiveStockModel ref) {
+        Ref = ref;
+    }
+
+    @SerializedName("ref")
+    @Expose
+    private RefLiveStockModel Ref;
 
 }
