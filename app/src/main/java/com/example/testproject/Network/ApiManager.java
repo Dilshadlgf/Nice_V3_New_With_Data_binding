@@ -926,6 +926,157 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
         });
     }
 
+    public void getFarmerInterCropList(JsonObject id ,int req) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.farmerCropDetaile(id);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(),req);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
+
+    public void getFamerSeasonList(JsonObject id,int req) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getFamerSeasonList(id);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(),req);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
+
+    public void addFarmerCrop(JsonObject updateApproveRequest,int req) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootModelOne> call = apiService.addFarmerCrop( updateApproveRequest);
+        call.enqueue(new Callback<RootModelOne>() {
+            @Override
+            public void onResponse(Call<RootModelOne> call, Response<RootModelOne> response) {
+                closeDialog();
+
+
+                if (response.body() != null && response.body().response.statusCode == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), req);
+
+                } else {
+                    mApiResponseInterface.isError("Issue in Update , Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootModelOne> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+    public void getVarietyList(JsonObject id,int req) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getVarietyList(id);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(),req);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
+
+    public void getFarmerCropList(JsonObject id,int req) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getFarmerCroplist(id);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), req);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
 
     public void farmerCropDetaile(JsonObject jsonObject) {
         showDialog("Loading");

@@ -3,7 +3,9 @@ package com.example.testproject.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class varietymodel { public String getId() {
+public class varietymodel {
+
+    public String getId() {
     return id;
 }
 

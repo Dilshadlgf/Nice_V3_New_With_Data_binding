@@ -180,10 +180,9 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         cat.add(catId);
 
         object.add("status", array);
-        object.add("category", cat);
+//        object.add("category", cat);
 //        object.addProperty("farmer",loginDao.getLoginResponse().getId());
         object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
-
         mApiManager.farmerCropDetaile(object);
     }
 

@@ -14,6 +14,39 @@ public class DataModel2 {
     @SerializedName("farmerCrop")
     private List<CropDataModel> farmerCrop;
 
+    @SerializedName("cropseason")
+    private List<CropSeasonDataModel> cropseason;
+
+    public List<CropSeasonDataModel> getCropseason() {
+        return cropseason;
+    }
+
+    public void setCropseason(List<CropSeasonDataModel> cropseason) {
+        this.cropseason = cropseason;
+    }
+
+    @SerializedName("commodity")
+    private List<LivestocksArrayModel> commodity;
+
+    @SerializedName("variety")
+    private List<varietymodel> variety;
+
+    public List<varietymodel> getVariety() {
+        return variety;
+    }
+
+    public void setVariety(List<varietymodel> variety) {
+        this.variety = variety;
+    }
+
+    public List<LivestocksArrayModel> getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(List<LivestocksArrayModel> commodity) {
+        this.commodity = commodity;
+    }
+
     public List<CropDataModel> getFarmerCrop() {
         return farmerCrop;
     }
