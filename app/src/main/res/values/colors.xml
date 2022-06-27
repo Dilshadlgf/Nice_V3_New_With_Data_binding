@@ -13,6 +13,7 @@
     <color name="greytext">#4d4d4d</color>
     <color name="headercolor">#67f8b9</color>
     <color name="color_hint">#BDBDBD</color>
+    <color name="wc_screen_text_color">#868cb3</color>
     <color name="lytgrey">#e1e1e1</color>
     <color name="weathergrid">#176a22</color>
     <color name="graycolor">#e1dddd</color>

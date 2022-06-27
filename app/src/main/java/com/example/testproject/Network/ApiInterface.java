@@ -46,6 +46,18 @@ public interface ApiInterface {
     @POST("farmerCrop/filter")
     Call<RootOneResModel> farmerCropDetaile(@Body JsonObject request);
 
+    @POST("commodityvariety/filter")
+    Call<RootOneResModel> getVarietyList(@Body JsonObject id);
+
+ @POST("cropseason/filter")
+ Call<RootOneResModel> getFamerSeasonList(@Body JsonObject id);
+
+    @POST("farmerCrop")
+    Call<RootModelOne> addFarmerCrop(@Body JsonObject request);
+
+    @POST("commodity/filter")
+    Call<RootOneResModel> getFarmerCroplist(@Body JsonObject id);
+
     @PUT("farmer")
     Call<RootModelOne> editprofileUser(@Body JsonObject request);
 

@@ -94,6 +94,10 @@
     <fragment
         android:id="@+id/addCrops_Update_Fragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.AddCrops_Update_Fragment"
-        android:label="AddCrops_Update_Fragment" />
+        android:label="Add Crop" >
+        <action
+            android:id="@+id/action_addCrops_Update_Fragment_to_farmerCrops_Fragment"
+            app:destination="@id/farmerCrops_Fragment" />
+    </fragment>
 
 </navigation>

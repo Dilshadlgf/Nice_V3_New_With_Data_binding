@@ -25,6 +25,7 @@ import com.example.testproject.interfaces.ResolutionClickListener;
 import com.example.testproject.model.CropDataModel;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -43,28 +44,6 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     private FragmentCropWip1Binding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-//    private LoginDao loginDao;
-//    private VillageDao villageDao;
-//    private QueriesDao queriesDao;
-//    private QueriesResponseModel queryofflinrmodel;
-    private QueryListClickListner queryListClickListner;
-    private ResolutionClickListener resolutionClickListener;
-//    private QueriesResponseDataModel queriesResponseDataModel;
-    private String queryType = "";
-    String subdomain, kndonain;
-
-    String farmerrole,user_role;
-    private List<RootOneResModel> croplist;
-
-    private String crop;
-    private String inter_Crop;
-    private String variety;
-    private String seasion;
-    private String area;
-    private String irrigation;
-    private String startdate;
-    private String completeddate;
-    private String yield;
     List<LivestocksArrayModel> modelListLiveStockName;
     private int selectedCatindex;
 
@@ -83,7 +62,7 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentCropWip1Binding) viewDataBinding;
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
+        ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
         setupNetwork();
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.wipRecycler.setLayoutManager(linearLayoutManager);
@@ -140,10 +119,8 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
                     }
                 }else  if(ServiceCode==AppConstants.FARMER_DETAILS_REQUEST) {
                     RootOneResModel rootOneResModel = (RootOneResModel) response;
-
                     List<CropDataModel> cropDataModels = rootOneResModel.getResponse().getDataModel2().getFarmerCrop();
                     if(cropDataModels!=null && cropDataModels.size()>0) {
-
                         binding.wipRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropDataModels, CropWIPFragment.this, getContext(), true));
                         binding.wipRecycler.setVisibility(View.VISIBLE);
                         binding.txtEmpty.setVisibility(View.GONE);
@@ -172,7 +149,6 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
             }else {
                 ((ViewGroup)v).setBackgroundResource(R.drawable.deactivecom);
             }
-
             v.setLayoutParams(layoutParams);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

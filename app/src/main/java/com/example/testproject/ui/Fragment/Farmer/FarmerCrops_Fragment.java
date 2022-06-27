@@ -59,6 +59,7 @@ public class FarmerCrops_Fragment extends BaseFragment {
     private HashMap<Integer,String> spinnerstagesMap;
     private HashMap<Integer,String> spinnercropMap;
     private FarmerDao farmerdao;
+    private int p;
     ArrayList<String> staticvarietylist;
     ArrayList<String>staticvarietyidlist;
     LivestocksArrayModel livestockmodel;
@@ -90,7 +91,14 @@ public class FarmerCrops_Fragment extends BaseFragment {
         binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_farmerCrops_Fragment_to_addCrops_Update_Fragment);
+                Bundle bundle=new Bundle();
+                if (p==0) {
+                    bundle.putBoolean("isWIP", true);
+                }else
+                {
+                    bundle.putBoolean("isWIP", false);
+                }
+                navController.navigate(R.id.action_farmerCrops_Fragment_to_addCrops_Update_Fragment,bundle);
             }
         });
         setupViewPager(binding.viewpager);
@@ -98,6 +106,8 @@ public class FarmerCrops_Fragment extends BaseFragment {
         binding.tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                int position=tab.getPosition();
+                p=position;
 
             }
             @Override

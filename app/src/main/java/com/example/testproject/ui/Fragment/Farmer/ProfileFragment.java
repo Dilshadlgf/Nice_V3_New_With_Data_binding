@@ -39,19 +39,12 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private Call<RootOneModel> call;
     private ApiManager mApiManager;
     NavController navController ;
-
-
     private FragmentProfileBinding binding;
 
     @Override
-
     protected void init() {
-
         layoutId= R.layout.fragment_profile;
-
     }
-
-
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
@@ -72,9 +65,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         dataAdapter0.setDropDownViewResource(R.layout.spinner_item);
         // attaching data adapter to spinner
         binding.tvGender.setAdapter(dataAdapter0);
-        if (getActivity() != null) {
+//        if (getActivity() != null) {
             ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
-        }
+//        }
 //        mApiManager.getProfile("621758b11daffc762c720138");
         mApiManager.getProfile("628cc9e2a1e0bfbb4b7e3e8b");
     }
