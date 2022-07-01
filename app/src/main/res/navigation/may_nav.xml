@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_profileFragment_self"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_farmerLiveStock_Fragment"
+            app:destination="@id/farmerLiveStock_Fragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_queryTabFragment"
+            app:destination="@id/queryTabFragment" />
     </fragment>
     <fragment
         android:id="@+id/queryFragment"
@@ -99,5 +105,17 @@
             android:id="@+id/action_addCrops_Update_Fragment_to_farmerCrops_Fragment"
             app:destination="@id/farmerCrops_Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/farmerLiveStock_Fragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.FarmerLiveStock_Fragment"
+        android:label="FarmerLiveStock_Fragment" >
+        <action
+            android:id="@+id/action_farmerLiveStock_Fragment_to_addLiveStock_UpdateFragment"
+            app:destination="@id/addLiveStock_UpdateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLiveStock_UpdateFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.AddLiveStock_UpdateFragment"
+        android:label="AddLiveStock_UpdateFragment" />
 
 </navigation>

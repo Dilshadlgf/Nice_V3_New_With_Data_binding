@@ -1,4 +1,4 @@
-package com.example.testproject.ui.Fragment;
+package com.example.testproject.ui.Fragment.Farmer;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.testproject.Adapter.FarmerLivastockAdapter;
@@ -26,7 +28,6 @@ import com.example.testproject.databinding.CrpLivestocklistFragmentBinding;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.ui.Fragment.Farmer.BaseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -68,6 +69,8 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
     private int selectedIndex;
     private FarmerDao farmerdao;
     private RoleDao roleDao;
+    NavController navController ;
+
 
 
 
@@ -86,6 +89,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (CrpLivestocklistFragmentBinding) viewDataBinding;
+        navController= NavHostFragment.findNavController(this);
         setupNetwork();
         farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
 //        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
@@ -245,7 +249,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
             case R.id.edt_livestocklinear_lyout:
                 Bundle bundlecrop = new Bundle();
                 bundlecrop.putString("farmerid", pres.getString("id", ""));
-              //  CustomFragmentManager.replaceFragment(getFragmentManager(), AddLiveStock_UpdateFragment.newInstance(bundlecrop), true);
+                navController.navigate(R.id.action_farmerLiveStock_Fragment_to_addLiveStock_UpdateFragment);
                 break;
         }
     }

@@ -12,6 +12,7 @@ import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.ActivityLoginBinding;
+import com.example.testproject.databinding.LoginActivityFarmerBinding;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.FarmerModel;
 import com.example.testproject.model.RoleModel;
@@ -22,12 +23,13 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.Util.AppConstants;
 import com.google.gson.JsonObject;
 
+import pl.droidsonroids.gif.GifDrawable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
 public class FarmerLoginActivity extends AppCompatActivity {
 
-    private ActivityLoginBinding binding;
+    private LoginActivityFarmerBinding binding;
     private Retrofit retrofit;
     private ApiResponseInterface mInterFace;
     private Call<RootOneModel> call;
@@ -39,11 +41,13 @@ public class FarmerLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.login_activity_farmer);
+       ((GifDrawable) binding.gif.getDrawable()).start();
+        setUpNetWork();
         roleDao= AppDatabase.getInstance(this).roleDao();
         farmerDao= AppDatabase.getInstance(this).farmerDao();
 
-            binding.singin.setOnClickListener(new View.OnClickListener() {
+            binding.btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -60,10 +64,18 @@ public class FarmerLoginActivity extends AppCompatActivity {
                     }
                 }
             });
+            binding.btnRegistration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent registrationIntent = new Intent(FarmerLoginActivity.this, FarmerRegistrationActivity.class);
+                    startActivity(registrationIntent);
+                    finish();
+                }
+            });
 
 
 
-        setUpNetWork();
+
 
     }
 
@@ -89,7 +101,11 @@ public class FarmerLoginActivity extends AppCompatActivity {
 
                 if(ServiceCode==AppConstants.LOGIN_REQUEST){
 
-                    binding.layoutPassword.setVisibility(View.VISIBLE);
+//                    binding.layoutPassword.setVisibility(View.VISIBLE);
+                    binding.layUsername.setVisibility(View.GONE);
+                    binding.btnLogin.setText("Loging");
+                    binding.etUsername.setText("Enter Your Password");
+                    binding.etUsername.setBackgroundResource(R.drawable.edit);
 
                 }
 

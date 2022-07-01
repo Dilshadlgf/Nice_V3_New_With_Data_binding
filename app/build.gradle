@@ -29,7 +29,7 @@ android {
             manifestPlaceholders = [appLabel: "@string/app_name"]
         }
         debug {
-            def serverUrl = "nicedemo.logikoof.org"
+            def serverUrl = "jnkv.logikoof.org"
             manifestPlaceholders = [dpurls: serverUrl]
             versionNameSuffix ".dev"
             buildConfigField "String", "BASE_URL",  '"http://'+serverUrl+'/api/"'
@@ -60,6 +60,7 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -81,6 +82,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
 
 
 

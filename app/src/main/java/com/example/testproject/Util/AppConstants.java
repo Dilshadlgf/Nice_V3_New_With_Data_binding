@@ -45,6 +45,8 @@ public class AppConstants {
     public static final int UpdatreLivesstock=92;
     public static final int VarietyListReq=93;
     public static final int StageListReq=94;
+    public static final int MobvalidationRequst=95;
+    public static final int GeoFilter=96;
 
 
 

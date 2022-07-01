@@ -926,6 +926,40 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
         });
     }
 
+    public void addLivestock( JsonObject updateApproveRequest) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.addLivestock( updateApproveRequest);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.UpdatreLivesstock);
+
+                } else {
+                    mApiResponseInterface.isError("TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+
     public void getFarmerInterCropList(JsonObject id ,int req) {
         showDialog("");
         ApiInterface apiService =
@@ -1077,7 +1111,114 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
             }
         });
     }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++===============
+    public void MobnovalidRequest(String mob) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.mobnovalidRequest( mob);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
 
+                /*&& response.body().getCode()==200*/
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.MobvalidationRequst);
+
+                } else {
+                    mApiResponseInterface.isError("Mobile no validationTimeOut. Please try after sometime");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model issue");
+//                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++===================================
+    public void RegistrationRequest(JsonObject jsonObject) {
+        showDialog("Registration");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.farmeregistration(jsonObject);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.REGISTRATION_REQUEST);
+                } else {
+
+                    if (response.body() != null) {
+                        mApiResponseInterface.isError(response.body().getResponse().getMessage().toString());
+
+                    } else {
+                        mApiResponseInterface.isError("Registration API TimeOut Please contact to Administrator");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Mobile number is already exists");
+                }
+            }
+        });
+    }
+
+    //++++++++++++++++++++++++++++++================
+    public void geoFilter(String path, JsonObject jsonObject) {
+        showDialog("Loading");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+
+        Call<RootOneResModel> call = apiService.geoFilter(path, jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.GeoFilter);
+
+                } else {
+                    mApiResponseInterface.isError("Add Query API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++
     public void farmerCropDetaile(JsonObject jsonObject) {
         showDialog("Loading");
         ApiInterface apiService =

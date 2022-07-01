@@ -172,6 +172,9 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
 //        loginDao = AppDatabase.getInstance(context.getApplicationContext()).loginDetails();
     }
 
+    public FarmerCrops_Done_Win_Adapter(List<CropDataModel> croplist, Context context) {
+    }
+
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());

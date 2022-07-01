@@ -17,6 +17,17 @@ public class DataModel2 {
     @SerializedName("cropseason")
     private List<CropSeasonDataModel> cropseason;
 
+    @SerializedName("data")
+    private List<DataModelTwo> data;
+
+    public List<DataModelTwo> getData() {
+        return data;
+    }
+
+    public void setData(List<DataModelTwo> data) {
+        this.data = data;
+    }
+
     public List<CropSeasonDataModel> getCropseason() {
         return cropseason;
     }
@@ -31,21 +42,21 @@ public class DataModel2 {
     @SerializedName("variety")
     private List<varietymodel> variety;
 
-    public List<varietymodel> getVariety() {
-        return variety;
-    }
-
-    public void setVariety(List<varietymodel> variety) {
-        this.variety = variety;
-    }
-
-    public List<LivestocksArrayModel> getCommodity() {
-        return commodity;
-    }
-
-    public void setCommodity(List<LivestocksArrayModel> commodity) {
-        this.commodity = commodity;
-    }
+//    public List<varietymodel> getVariety() {
+//        return variety;
+//    }
+//
+//    public void setVariety(List<varietymodel> variety) {
+//        this.variety = variety;
+//    }
+//
+//    public List<LivestocksArrayModel> getCommodity() {
+//        return commodity;
+//    }
+//
+//    public void setCommodity(List<LivestocksArrayModel> commodity) {
+//        this.commodity = commodity;
+//    }
 
     public List<CropDataModel> getFarmerCrop() {
         return farmerCrop;
@@ -61,8 +72,8 @@ public class DataModel2 {
     @SerializedName("farmerLiveStock")
     private List<LivestocksArrayModel> farmerLiveStock;
 
-    @SerializedName("variety")
-    private List<varietymodel> variety;
+//    @SerializedName("variety")
+//    private List<varietymodel> variety;
 
     @SerializedName("stage")
     private List<stagemodel> stage;
@@ -106,8 +117,8 @@ public class DataModel2 {
     @SerializedName("pagination")
     private Pagination1 pagination1;
 
-    @SerializedName("commodity")
-    private List<LivestocksArrayModel> commodity;
+//    @SerializedName("commodity")
+//    private List<LivestocksArrayModel> commodity;
 
     public List<LivestocksArrayModel> getCommodity() {
         return commodity;

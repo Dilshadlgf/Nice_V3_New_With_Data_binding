@@ -33,6 +33,17 @@ public interface ApiInterface {
    @POST("farmer/auth/otplogin/validateotp")
     Call<RootOneModel> mobileNoValidate(@Body JsonObject jsonObject);
 
+    @GET("common/uniquenesscheck?from=farmer&key=mobileNumber")
+    Call<SingleObjRootOneResModel> mobnovalidRequest(@Query("value") String mobile);
+
+
+    @POST("farmer")
+    Call<SingleObjRootOneResModel> farmeregistration(@Body JsonObject request);
+
+
+    @POST("{path}/filter?pageno=no")
+    Call<RootOneResModel> geoFilter(@Path("path") String path,@Body JsonObject weatherJSONRequest);
+
     @POST("content/filter")
     Call<RootOneModel> searchContentList( @Body JsonObject request,@Query("pageno") String pageno);
 
@@ -69,6 +80,10 @@ public interface ApiInterface {
 
    @POST("commoditycategory/filter?pageno=no")
    Call<RootOneResModel> commodityCategoryFilter( @Body JsonObject request);
+
+    @POST("farmerLiveStock")
+    Call<SingleObjRootOneResModel> addLivestock(@Body JsonObject request);
+
 
     @POST("farmerCrop/filter")
     Call<RootOneResModel> farmerCropDetaile(@Body JsonObject request);

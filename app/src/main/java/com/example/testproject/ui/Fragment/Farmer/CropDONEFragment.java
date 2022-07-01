@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
@@ -101,8 +102,8 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         binding.doneRecycler.setLayoutManager(linearLayoutManager);
 //        FarmerCrops_Done_Win_Adapter adapter=new FarmerCrops_Done_Win_Adapter(croplist,getContext());
 //        binding.doneRecycler.setAdapter(adapter);
-//        binding.queryRecycler.setLayoutManager(linearLayoutManager);
-//        binding.queryRecycler.setItemAnimator(new DefaultItemAnimator());
+//        binding.doneRecycler.setLayoutManager(linearLayoutManager);
+//        binding.doneRecycler.setItemAnimator(new DefaultItemAnimator());
 
 //        if (getArguments() != null) {
 //            queryType = getArguments().getString("query");
