@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="mydata"
+            type="com.example.testproject.model.FarmerDataModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_marginRight="@dimen/_9sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:background="@drawable/niceappbg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardcrop"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:background="@drawable/activecom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/ivcom"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/crop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular_400"
+                android:gravity="center"
+                android:text="@string/crops"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ivcom"
+                app:layout_constraintStart_toStartOf="@+id/ivcom"
+                app:layout_constraintTop_toBottomOf="@+id/ivcom"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/livestoklyout"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:background="@drawable/deactivecom"
+            app:layout_constraintBottom_toBottomOf="@+id/cardcrop"
+            app:layout_constraintStart_toEndOf="@+id/cardcrop"
+            app:layout_constraintTop_toTopOf="@+id/cardcrop">
+
+            <ImageView
+
+                android:id="@+id/ivlive"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/livestock"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/poppinsregular_400"
+                android:gravity="center"
+                android:text="@string/Livestock"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/ivlive"
+                app:layout_constraintStart_toStartOf="@+id/ivlive"
+                app:layout_constraintTop_toBottomOf="@+id/ivlive"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/querieslayout"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:background="@drawable/deactivecom"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/livestoklyout"
+            app:layout_constraintStart_toEndOf="@+id/livestoklyout"
+            app:layout_constraintTop_toTopOf="@+id/livestoklyout">
+
+            <ImageView
+
+                android:id="@+id/imageView6"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/query2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/poppinsregular_400"
+                android:gravity="center"
+                android:text="@string/query"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/_70sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/querieslayout"
+            app:layout_constraintStart_toStartOf="@+id/cardcrop"
+            app:layout_constraintTop_toBottomOf="@+id/livestoklyout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:background="#80CBC4"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:src="@drawable/userprofile"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingClass" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvprofilename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:text="@{mydata.name}"
+                android:textColor="@color/black"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+
+            <TextView
+                android:id="@+id/tvcity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvprofilename"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center"
+                android:text="Maharashtra"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tvprofilename"
+                app:layout_constraintStart_toStartOf="@+id/tvprofilename"
+                app:layout_constraintTop_toBottomOf="@+id/tvprofilename" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="#ECEDED"
+                app:layout_constraintEnd_toEndOf="@+id/tvcity"
+                app:layout_constraintStart_toStartOf="@+id/tvcity"
+                app:layout_constraintTop_toBottomOf="@+id/tvcity" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:fontFamily="@font/aldrich"
+                android:text="Name:"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <EditText
+                android:id="@+id/tv_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:hint="Enter Name"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="@{mydata.name}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/color_hint"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginStart="@dimen/_120sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="@+id/textView9"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_120sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/lytgrey"
+                app:layout_constraintEnd_toEndOf="@+id/tv_first_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_first_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/aldrich"
+                android:gravity="left"
+                android:text="Father/Husband Name:"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="@+id/textView9"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <EditText
+                android:id="@+id/tv_father_husband_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/aldrich"
+                android:gravity="left|center_vertical"
+                android:hint="Father/Husband name"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="@{mydata.fatherName}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/color_hint"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_120sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintEnd_toEndOf="@+id/tv_first_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_first_name"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_120sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/lytgrey"
+                app:layout_constraintEnd_toEndOf="@+id/tv_father_husband_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_father_husband_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_father_husband_name" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/aldrich"
+                android:gravity="left"
+                android:text="Gender:"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="@+id/textView10"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <Spinner
+                android:id="@+id/tv_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/aldrich"
+                android:gravity="center_vertical"
+                android:text=" "
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginStart="@dimen/_120sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/tv_father_husband_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_father_husband_name"
+                app:layout_constraintTop_toTopOf="@+id/textView11"
+                tools:ignore="TouchTargetSizeCheck"/>
+
+            <EditText
+                android:id="@+id/edgender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{mydata.gender}"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/_120sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/tv_father_husband_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_father_husband_name"
+                app:layout_constraintTop_toTopOf="@+id/textView11"/>
+            <ImageView
+                android:id="@+id/iv_spinner"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/dropdown1"
+                 app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="@+id/tv_father_husband_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_father_husband_name"
+                app:layout_constraintTop_toTopOf="@+id/textView11"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/lytgrey"
+                android:layout_marginStart="@dimen/_120sdp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_gender"
+                app:layout_constraintStart_toStartOf="@+id/tv_gender"
+                app:layout_constraintTop_toBottomOf="@+id/edgender" />
+
+            <TextView
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/aldrich"
+                android:gravity="left"
+                android:text="Date Of Birth:"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintEnd_toEndOf="@+id/textView11"
+                app:layout_constraintStart_toStartOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

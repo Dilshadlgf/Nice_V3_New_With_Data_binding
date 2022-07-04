@@ -54,6 +54,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         setUpNetWork();
 
         binding.cardcrop.setOnClickListener(this);
+        binding.livestoklyout.setOnClickListener(this);
+        binding.querieslayout.setOnClickListener(this);
 
         List<String> genderlist = new ArrayList<String>();
         genderlist.add("---Select Gender---");
@@ -65,9 +67,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         dataAdapter0.setDropDownViewResource(R.layout.spinner_item);
         // attaching data adapter to spinner
         binding.tvGender.setAdapter(dataAdapter0);
-//        if (getActivity() != null) {
+       if (getActivity() != null) {
             ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
-//        }
+       }
 //        mApiManager.getProfile("621758b11daffc762c720138");
         mApiManager.getProfile("628cc9e2a1e0bfbb4b7e3e8b");
     }
@@ -221,7 +223,25 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     e.printStackTrace();
                 }
                 break;
+            case R.id.livestoklyout:
+                try {
+                    Bundle bundle =new Bundle();
 
+                    navController.navigate(R.id.action_profileFragment_to_farmerLiveStock_Fragment,bundle);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                 break;
+
+            case R.id.querieslayout:
+                try {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("queryModule","farmer");
+                    navController.navigate(R.id.action_profileFragment_to_queryTabFragment,bundle);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
         }
 
     }

@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Monika Sharma on 30-10-2020.
+ * Created Suraj on 28-06-2022.
  */
 public class FarmerCrops_Fragment extends BaseFragment {
 
@@ -120,14 +120,7 @@ public class FarmerCrops_Fragment extends BaseFragment {
 
             }
         });
-      //  ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(getActivity()!=null) {
-//                    onBackCustom();
-//                }
-//            }
-//        });
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -140,13 +133,6 @@ public class FarmerCrops_Fragment extends BaseFragment {
 
         viewPager.setAdapter(viewPagerAdapter);
     }
-
-
-
-
-
-
-
 
 }
 

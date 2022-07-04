@@ -42,6 +42,11 @@ public class AppConstants {
     public static final int CROPListREquest=89;
     public static final int farmercropRequest=90;
     public static final int CROPvarietyRequest=91;
+    public static final int UpdatreLivesstock=92;
+    public static final int VarietyListReq=93;
+    public static final int StageListReq=94;
+    public static final int MobvalidationRequst=95;
+    public static final int GeoFilter=96;
 
 
 

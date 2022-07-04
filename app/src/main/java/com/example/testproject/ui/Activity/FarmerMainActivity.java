@@ -12,6 +12,7 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.ActivityFarmerMainBinding;
 import com.example.testproject.model.FarmerDataModel;
+import com.example.testproject.model.FarmerModel;
 import com.example.testproject.model.RoleModel;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,9 +71,9 @@ public class FarmerMainActivity extends AppCompatActivity {
         }
         RoleModel m=roleDao.getRole();
         if(farmerDao.getFarmer()==null){
-            FarmerDataModel dataModel=new FarmerDataModel();
-            dataModel.setId("621758b11daffc762c720138");
-            farmerDao.insertFarmerResponse(dataModel);
+            FarmerDataModel farmerDataModel=new FarmerDataModel();
+            farmerDataModel.setId("621758b11daffc762c720138");
+            farmerDao.insertFarmerResponse(farmerDataModel);
         }
         Log.i("","");
 

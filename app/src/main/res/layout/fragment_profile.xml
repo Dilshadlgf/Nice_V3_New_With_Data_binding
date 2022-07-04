@@ -329,8 +329,8 @@
                                             android:id="@+id/edgender"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/black"
-                                            android:text="@{mydata.gender}" />
+                                            android:text="@{mydata.gender}"
+                                            android:textColor="@color/black" />
 
                                         <ImageView
                                             android:id="@+id/iv_spinner"
@@ -864,6 +864,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
             </ScrollView>
         </LinearLayout>
 
