@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -39,7 +41,7 @@ import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.ActivityRegistrationBinding;
 import com.example.testproject.model.DataModelTwo;
-import com.example.testproject.model.FarmerModel;
+import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.GeneralResponseModel;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
@@ -55,13 +57,12 @@ import java.util.Locale;
 
 public class FarmerRegistrationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
 
-    private ActivityRegistrationBinding binding;
     private String errorMessage = "";
     TextView back, sp_organization;
     AlertDialog alertDialog;
-    CheckBox checkBox;
+    CheckBox checkBox,checkBox_wOtp;
     ImageView imgdrpdwngram, imgaddgram, imgdropdwnvill, imgaddvill, imgdropdwnblok, imgaddblok;
-    EditText et_full_name, et_father_name, et_mobile_number, et_otp_pswd, et_email, ed_dob, edtblock, edtvill;
+    EditText et_full_name, et_father_name, et_mobile_number, et_otp_pswd, et_email, edtblock, edtvill;
     private HashMap<String, String> spinnerStateMap;
     private HashMap<String, String> spinnerDistrictMap;
     private HashMap<String, String> spinnerBlockMap;
@@ -71,7 +72,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
     private ApiResponseInterface mInterFace;
     GeneralResponseModel otpres;
     Spinner spstate, spDistrict, spBlock, spGrampanchayat, spVillage, sp_gender;
-    Button btn_save, btnotp, nextbtn,otpnextbtn;
+    Button btn_save, btnotp, nextbtn,otpnextbtn,ed_dob,submitOtpBtn;
     LinearLayout mainlyout, mobile_lyout;
     String MobilePattern = "[0-9]{10}";
     String selectedItemText;
@@ -80,44 +81,43 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
     private final int REQ_CODE_SPEECH_INPUT_mob = 102;
     ImageView voicetotxt, voicetotxtt;
     RelativeLayout otp_lyout;
-    String speechtxt = "Welcome to Nicessm Registration";
+    String speechtxt = "Welcome to  Registration";
     //    String speechtxt = "Welcome to Nicessm Registration, Please Click Mike for Voice based Registration";
     String enternametxt = "Please Enter Your Full Name";
     TextToSpeech texttospeech;
     public ListView mList;
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
-    List<String> gramistfarmer = new ArrayList<String>();
-    List<String> blockfarmer = new ArrayList<String>();
-    List<String> villfarmer = new ArrayList<String>();
-    ArrayList<String> testlist = new ArrayList<>();
-    ArrayList<String> blocklist = new ArrayList<>();
-    ArrayList<String> grampanchayatlist = new ArrayList<>();
-    List<FarmerModel> activeVillagesResponseDataModels;
+     private TextView exits_mob_text;
     private long nextSpinnerId;
-
+    private boolean isMobileNoExits,checkMobApiHit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
         setupNetwork();
+        speechtxt="Welcome to "+getString(R.string.app_name)+" Registration";
         back = (TextView) findViewById(R.id.back);
         checkBox=(CheckBox)findViewById(R.id.checkBox);
-//        mainlyout = (LinearLayout) findViewById(R.id.mainlyout);
-//        mobile_lyout = (LinearLayout) findViewById(R.id.mobile_lyout);
-//        mainlyout = (LinearLayout) findViewById(R.id.mainlyout);
+        checkBox_wOtp=(CheckBox)findViewById(R.id.checkBox_W_OTP);
+        mainlyout = (LinearLayout) findViewById(R.id.mainlyout);
+        mobile_lyout = (LinearLayout) findViewById(R.id.mobile_lyout);
+        mainlyout = (LinearLayout) findViewById(R.id.mainlyout);
         imgdrpdwngram = (ImageView) findViewById(R.id.imgdrpdwngram);
         imgaddblok = (ImageView) findViewById(R.id.imgaddblok);
         imgaddgram = (ImageView) findViewById(R.id.imgaddgram);
         imgdropdwnblok = (ImageView) findViewById(R.id.imgdropdwnblok);
         imgdropdwnvill = (ImageView) findViewById(R.id.imgdropdwnvill);
         imgaddvill = (ImageView) findViewById(R.id.imgaddvill);
+        exits_mob_text = (TextView) findViewById(R.id.mob_exits_text);
         et_otp_pswd = (EditText) findViewById(R.id.et_otp_pswd);
         et_full_name = (EditText) findViewById(R.id.et_full_name);
         et_father_name = (EditText) findViewById(R.id.et_father_name);
         et_mobile_number = (EditText) findViewById(R.id.et_mobile_number);
         et_email = (EditText) findViewById(R.id.et_email);
-        ed_dob = (EditText) findViewById(R.id.et_dob_);
+        ed_dob = (Button) findViewById(R.id.et_dob_);
+        submitOtpBtn = (Button) findViewById(R.id.submitOtpBtn);
         sp_organization = (TextView) findViewById(R.id.sp_organization);
         sp_gender = (Spinner) findViewById(R.id.sp_gender);
         spstate = (Spinner) findViewById(R.id.sp_state);
@@ -128,39 +128,34 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         spVillage = (Spinner) findViewById(R.id.sp_village);
         btn_save = (Button) findViewById(R.id.btnsave);
         nextbtn = (Button) findViewById(R.id.nextbtn);
-//        btnotp = (Button) findViewById(R.id.btnotp);
-//        otp_lyout = (RelativeLayout) findViewById(R.id.otp_lyout);
+        btnotp = (Button) findViewById(R.id.btnotp);
+        otp_lyout = (RelativeLayout) findViewById(R.id.otp_lyout);
         voicetotxt = (ImageView) findViewById(R.id.voice_to_txt);
         voicetotxtt = (ImageView) findViewById(R.id.voice_to_txtt);
         otpnextbtn=(Button) findViewById(R.id.otpnextbtn);
 
 
 
-        final Calendar newCalendar = Calendar.getInstance();
-        final DatePickerDialog StartTime = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                String myFormat="dd-MM-yyyy";
-                SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-                ed_dob.setText(dateFormat.format(newDate.getTime()));
-
-
-            }
-
-        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-        ed_dob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StartTime.show();
-            }
-        });
-        try {
-//            mApiManager.sessionrequest("a881765af0b442678d8fa44b8b8921f4");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        final Calendar newCalendar = Calendar.getInstance();
+//        final DatePickerDialog  StartTime = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                Calendar newDate = Calendar.getInstance();
+//                newDate.set(year, monthOfYear, dayOfMonth);
+//                String myFormat="dd-MM-yyyy";
+//                SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+//                ed_dob.setText(dateFormat.format(newDate.getTime()));
+//
+//
+//            }
+//
+//        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+//        StartTime.getDatePicker().setMaxDate(new Date().getTime());
+//        ed_dob.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                StartTime.show();
+//            }
+//        });
 
         voicetotxtt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +230,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_textview, genderlist);
         // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
+        dataAdapter.setDropDownViewResource(R.layout.textview);
         // attaching data adapter to spinner
         sp_gender.setAdapter(dataAdapter);
 
@@ -243,6 +238,8 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItemText = (String) parent.getItemAtPosition(position);
+                if(position==0)
+                    ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.graycolor));
                 // Notify the selected item text
 //        Toast.makeText
 //                (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
@@ -282,24 +279,25 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
                     regreq.addProperty("fatherName", et_father_name.getText().toString());
                     regreq.addProperty("gender", selectedItemText);
                     regreq.addProperty("mobileNumber", et_mobile_number.getText().toString());
-                    regreq.addProperty("state", spinnerStateMap.get(spstate.getSelectedItem().toString()));
-                    regreq.addProperty("district", spinnerDistrictMap.get(spDistrict.getSelectedItem().toString()));
-                    regreq.addProperty("block", spinnerBlockMap.get(spBlock.getSelectedItem().toString()));
-                    regreq.addProperty("gramPanchayat", spinnerGrampanchayatMap.get(spGrampanchayat.getSelectedItem().toString()));
-                    regreq.addProperty("village", spinnerVillageMap.get(spVillage.getSelectedItem().toString()));
-//                    regreq.addProperty("otp", et_otp_pswd.getText().toString());
-                    String date11=ed_dob.getText().toString();
-//                    date11=CommonUtils.convertDateFormat(date11,"dd-MM-yyyy","yyyy-MM-dd HH:mm:a");
-                    date11= CommonUtils.getServerFormatDate(date11,"dd-MM-yyyy");
-                    regreq.addProperty("dateOfBirth", date11);
-                    regreq.addProperty("isOnline", true);
+//                    regreq.addProperty("state", spinnerStateMap.get(spstate.getSelectedItem().toString()));
 
+//                    regreq.addProperty("block", spinnerBlockMap.get(spBlock.getSelectedItem().toString()));
+                    regreq.addProperty("registrationType", "android");
+                    regreq.addProperty("state", spinnerStateMap.get(spVillage.getSelectedItemPosition()+""));
+                    regreq.addProperty("district", spinnerDistrictMap.get(spVillage.getSelectedItemPosition()+""));
+                    regreq.addProperty("block", spinnerBlockMap.get(spVillage.getSelectedItemPosition()+""));
+                    regreq.addProperty("gramPanchayat", spinnerGrampanchayatMap.get(spVillage.getSelectedItemPosition()+""));
+                    regreq.addProperty("village", spinnerVillageMap.get(spVillage.getSelectedItemPosition()+""));
+//                       regreq.addProperty("isOnline", true);
+//                       mApiManager.RegistrationRequest(regreq);
+                    if(checkBox_wOtp.isChecked()) {
+                        mApiManager.registrationWithOtp(regreq);
+                        checkBox_wOtp.setEnabled(false);
+                    }else {
+                        mApiManager.RegistrationRequest(regreq);
+                    }
 
-
-                    mApiManager.RegistrationRequest(regreq);
                 }else{
-
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(FarmerRegistrationActivity.this);
                     builder.setMessage(errorMessage);
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -314,7 +312,16 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
                 }
             }
         });
-
+        checkBox_wOtp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    btn_save.setText("Send OTP");
+                }else {
+                    btn_save.setText("Register");
+                }
+            }
+        });
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -331,6 +338,28 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
                 }
             }
 
+        });
+        nextSpinnerId = spVillage.getId();
+        callFilterApi("village", "", "");
+
+        et_mobile_number.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().length()==10 && !checkMobApiHit){
+                    checkMobApiHit=true;
+                    mApiManager.checkMobileNumberUniqueness("farmer", "mobileNumber", et_mobile_number.getText().toString());
+                }
+            }
         });
 
 
@@ -356,6 +385,10 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
 //                nextSpinnerId = spVillage.getId();
 //                callFilterApi("district", "state", spinnerVillageMap.get(spVillage.getSelectedItem().toString()));
             }
+        }else{
+            if (parent.getId() == spstate.getId()) {
+                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.graycolor));
+            }
         }
     }
     @Override
@@ -366,8 +399,8 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         JsonObject mainObj=new JsonObject();
         JsonArray statusArr=new JsonArray();
         statusArr.add("Active");
-        JsonArray array=new JsonArray();
-        array.add(value);
+//        JsonArray array=new JsonArray();
+//        array.add(value);
         mainObj.add("status",statusArr);
 //        mainObj.add(key,array);
         mApiManager.geoFilter(path,mainObj);
@@ -376,10 +409,10 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
     private void makeSpinner(long spId, List<DataModelTwo> dataModelTwos){
         List<String> districlist = new ArrayList<String>();
 
-        districlist.add("---Select---");
+        districlist.add("---Select Village---");
         for (int i = 0; i < dataModelTwos.size(); i++) {
             DataModelTwo modelTwo=dataModelTwos.get(i);
-            districlist.add(modelTwo.getName());
+            districlist.add(modelTwo.getName()+" [ "+modelTwo.getRef().getDistrict().getName()+" ]");
             if(spId==spstate.getId()){
                 spinnerStateMap.put(modelTwo.getName(),modelTwo.getId());
             }else if(spId==spDistrict.getId()){
@@ -389,14 +422,18 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
             }else if(spId==spGrampanchayat.getId()){
                 spinnerGrampanchayatMap.put(modelTwo.getName(),modelTwo.getId());
             }else if(spId==spVillage.getId()){
-                spinnerVillageMap.put(modelTwo.getName(),modelTwo.getId());
+                spinnerVillageMap.put(""+(i+1),modelTwo.getId());
+                spinnerStateMap.put(""+(i+1),modelTwo.getRef().getState().getId());
+                spinnerDistrictMap.put(""+(i+1),modelTwo.getRef().getDistrict().getId());
+                spinnerBlockMap.put(""+(i+1),modelTwo.getRef().getBlock().getId());
+                spinnerGrampanchayatMap.put(""+(i+1),modelTwo.getRef().getGramPanchayat().getId());
             }
         }
 //        districlist.add("---Select District---");
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_textview, districlist);
         // Drop down layout style - list view with radio button
-        dataAdapter2.setDropDownViewResource(R.layout.spinner_item);
+        dataAdapter2.setDropDownViewResource(R.layout.textview);
         // attaching data adapter to spinner
         if(spId==spstate.getId()){
             spstate.setAdapter(dataAdapter2);
@@ -696,10 +733,10 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
             errorMessage = getString(R.string.father_name_required);
             return false;
         }
-        else if (TextUtils.isEmpty(ed_dob.getText().toString().trim())) {
-            errorMessage = getString(R.string.dob_required);
-            return false;
-        }
+//        else if (TextUtils.isEmpty(ed_dob.getText().toString().trim())) {
+//            errorMessage = getString(R.string.dob_required);
+//            return false;
+//        }
         else if(!et_father_name.getText().toString().matches("[a-zA-Z ]+")){
             errorMessage = getString(R.string.fathername_error);
             return false;
@@ -707,34 +744,39 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         else if (sp_gender.getSelectedItemPosition() == 0) {
             errorMessage = getString(R.string.gender_required);
             return false;
-        } /*else if (TextUtils.isEmpty(et_mobile_number.getText().toString().trim())) {
-            errorMessage = getString(R.string.mobile_number_required);
+        }
+        else if (TextUtils.isEmpty(et_mobile_number.getText().toString().trim())) {
+            errorMessage = ("mobile number required");
             return false;
-        } else if (!et_mobile_number.getText().toString().matches(MobilePattern)) {
+        }
+        else if (!et_mobile_number.getText().toString().matches(MobilePattern)) {
             errorMessage = ("mobile number is not valid");
             Toast.makeText(getApplicationContext(), "mobile number is not valid", Toast.LENGTH_SHORT).show();
             return false;
-        } */ else if ((spstate.getSelectedItemPosition() == 0)) {
-            FormSpeechselectstate();
+        }
 
-            errorMessage = ("State is Required");
-            return false;
-        } else if ((spDistrict.getSelectedItemPosition() == 0)) {
-            FormSpeechselectDistrict();
-
-            errorMessage = ("District is Required");
-            return false;
-        } else if ((spBlock.getSelectedItemPosition() == 0)) {
-            FormSpeechselectblock();
-
-            errorMessage = ("Block is Required");
-            return false;
-        } else if ((spGrampanchayat.getSelectedItemPosition() == 0)) {
-            FormSpeechselectgrampanchyt();
-
-            errorMessage = ("Grampanchayat is Required");
-            return false;
-        } else if ((spVillage.getSelectedItemPosition() == 0)) {
+//        else if ((spstate.getSelectedItemPosition() == 0)) {
+//            FormSpeechselectstate();
+//
+//            errorMessage = ("State is Required");
+//            return false;
+//        } else if ((spDistrict.getSelectedItemPosition() == 0)) {
+//            FormSpeechselectDistrict();
+//
+//            errorMessage = ("District is Required");
+//            return false;
+//        } else if ((spBlock.getSelectedItemPosition() == 0)) {
+//            FormSpeechselectblock();
+//
+//            errorMessage = ("Block is Required");
+//            return false;
+//        } else if ((spGrampanchayat.getSelectedItemPosition() == 0)) {
+//            FormSpeechselectgrampanchyt();
+//
+//            errorMessage = ("Grampanchayat is Required");
+//            return false;
+//        }
+        else if ((spVillage.getSelectedItemPosition() == 0)) {
             FormSpeechselectvillage();
 
             errorMessage = ("Village is Required");
@@ -743,6 +785,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
             return true;
         }
     }
+
 
 
 
@@ -756,7 +799,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
-                if(ServiceCode== AppConstants.MobvalidationRequst){
+                if(ServiceCode==AppConstants.MobvalidationRequst){
                     SingleObjRootOneResModel resModel= (SingleObjRootOneResModel) response;
                     if(resModel.getResponse().getStatusCode()==200 && resModel.getResponse().getData().getDuplicate().equals("success")){
                         mainlyout.setVisibility(View.VISIBLE);
@@ -773,9 +816,57 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
                         makeSpinner(nextSpinnerId,rootOneResModel.getResponse().getDataModel2().getData());
                     }
 
-                }else if(ServiceCode== AppConstants.REGISTRATION_REQUEST){
+                }else if(ServiceCode==AppConstants.REGISTRATION_REQUEST) {
+                    SingleObjRootOneResModel resModel = (SingleObjRootOneResModel) response;
+                    if (resModel.getResponse().getData()== null) {
+                        showDialog(FarmerRegistrationActivity.this,"Error Or Invalid Otp",false,true,0);
+                    } else{
+                        showDialog(FarmerRegistrationActivity.this, getString(R.string.registration_success), false, false, 1);
+                    }
+                }else if(ServiceCode==AppConstants.UniqueNumber){
                     SingleObjRootOneResModel resModel= (SingleObjRootOneResModel) response;
-                    showDialog(FarmerRegistrationActivity.this,getString(R.string.registration_success),false,false,1);
+                    checkMobApiHit=false;
+                    if(resModel.getResponse().getData().getDuplicate().equalsIgnoreCase("failed")){//duplicate found
+                        back.setVisibility(View.VISIBLE);
+                        exits_mob_text.setVisibility(View.VISIBLE);
+
+//                        showDialog(Farmer_Registration_Activity.this,"Mobile number exits",false,true,0);
+                    }else {
+                        exits_mob_text.setVisibility(View.GONE);
+                    }
+                }else if(ServiceCode==AppConstants.SEND_OTP_REQUEST){
+                    SingleObjRootOneResModel resModel= (SingleObjRootOneResModel) response;
+                    if(resModel.getResponse().getData().getOtp()!=null){
+                        Toast.makeText(FarmerRegistrationActivity.this,"Enter Otp",Toast.LENGTH_SHORT).show();
+                        submitOtpBtn.setVisibility(View.VISIBLE);
+                        btn_save.setVisibility(View.GONE);
+                        otp_lyout.setVisibility(View.VISIBLE);
+                        submitOtpBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                JsonObject regreq = new JsonObject();
+                                regreq.addProperty("name", et_full_name.getText().toString());
+                                regreq.addProperty("fatherName", et_father_name.getText().toString());
+                                regreq.addProperty("gender", selectedItemText);
+                                regreq.addProperty("mobileNumber", et_mobile_number.getText().toString());
+//                    regreq.addProperty("state", spinnerStateMap.get(spstate.getSelectedItem().toString()));
+
+//                    regreq.addProperty("block", spinnerBlockMap.get(spBlock.getSelectedItem().toString()));
+                                regreq.addProperty("registrationType", "android");
+                                regreq.addProperty("state", spinnerStateMap.get(spVillage.getSelectedItemPosition()+""));
+                                regreq.addProperty("district", spinnerDistrictMap.get(spVillage.getSelectedItemPosition()+""));
+                                regreq.addProperty("block", spinnerBlockMap.get(spVillage.getSelectedItemPosition()+""));
+                                regreq.addProperty("gramPanchayat", spinnerGrampanchayatMap.get(spVillage.getSelectedItemPosition()+""));
+                                regreq.addProperty("village", spinnerVillageMap.get(spVillage.getSelectedItemPosition()+""));
+                                regreq.addProperty("otp", et_otp_pswd.getText().toString());
+//                       regreq.addProperty("isOnline", true);
+//                       mApiManager.RegistrationRequest(regreq);
+                                mApiManager.registrationValidateOtp(regreq);
+                            }
+                        });
+                    }else{
+                        showDialog(FarmerRegistrationActivity.this,"Mobile number exits",false,true,0);
+                    }
                 }
 
             }

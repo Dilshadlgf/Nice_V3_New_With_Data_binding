@@ -15,25 +15,25 @@
         <activity
             android:name=".ui.Activity.FarmerRegistrationActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.Activity.Farmer_Registration_Activity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".ui.Activity.MainSplashActivity" -->
-        <!-- android:exported="false" -->
-        <!-- android:label="@string/title_activity_farmer_main" /> -->
-        <activity
+            <activity
             android:name=".ui.Fragment.Farmer.ContentListFragment"
             android:exported="false"
-            tools:ignore="Instantiatable" /> <!-- <activity -->
-        <!-- android:name=".ui.Activity.FarmerMainActivity" -->
-        <!-- android:exported="false" -->
-        <!-- /> -->
+            tools:ignore="Instantiatable" />
         <activity
+            android:theme="@style/Theme.TestProject"
             android:name=".ui.Activity.FarmerMainActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".ui.Activity.FarmerLoginActivity"
-            android:exported="true">
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".ui.Activity.MainSplashActivity"
+            android:theme="@style/Theme.Fab_Bottom_app_bar"
+             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

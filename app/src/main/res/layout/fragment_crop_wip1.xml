@@ -21,11 +21,12 @@
                 android:orientation="horizontal"
                 />
         </HorizontalScrollView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/wip_recycler"
-            android:layout_below="@id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/layout"
             android:layout_marginTop="@dimen/_5sdp"
             android:clipToPadding="false" />
         <TextView

@@ -17,6 +17,8 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.FragmentProfileBinding;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.Root.RootModelOne;
@@ -40,6 +42,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private ApiManager mApiManager;
     NavController navController ;
     private FragmentProfileBinding binding;
+    private FarmerDao farmerDao;
 
     @Override
     protected void init() {
@@ -49,9 +52,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding = (FragmentProfileBinding) viewDataBinding;
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
         navController= NavHostFragment.findNavController(this);
         makeEditBox(false);
         setUpNetWork();
+        ((FarmerMainActivity) getActivity()).setTittle("My Profile");
 
         binding.cardcrop.setOnClickListener(this);
         binding.livestoklyout.setOnClickListener(this);
@@ -71,7 +76,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
        }
 //        mApiManager.getProfile("621758b11daffc762c720138");
-        mApiManager.getProfile("628cc9e2a1e0bfbb4b7e3e8b");
+        mApiManager.getProfile(farmerDao.getFarmer().getId());
     }
     private void makeEditBox(boolean isEnable) {
 
@@ -157,7 +162,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
                                         try {
                                             JsonObject profileobject = new JsonObject();
-                                            profileobject.addProperty("id","621758b11daffc762c720138");
+                                            profileobject.addProperty("id",farmerDao.getFarmer().getId());
 
                                             if (TextUtils.isEmpty(binding.tvprofilename.getText().toString().trim())) {
                                                 profileobject.addProperty("name", d2.getName());

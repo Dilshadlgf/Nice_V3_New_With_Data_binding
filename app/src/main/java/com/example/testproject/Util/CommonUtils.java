@@ -15,6 +15,12 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +58,35 @@ public class CommonUtils {
     public final static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+    public static String getFutuerAndBackDates(int day,boolean isBackDate,String format){
+//        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.ss'Z'");
+        org.joda.time.LocalDateTime dtf=null;
+        if(isBackDate){
+            dtf = org.joda.time.LocalDateTime.now().minusDays(day);
+        }else{
+            dtf = LocalDateTime.now().plusDays(day);
+        }
+
+// pass your DOB String
+// Format for output
+        DateTimeFormatter dtfOut = DateTimeFormat.forPattern(format);
+// Print the date
+        System.out.println(dtfOut.print(dtf));
+        return dtfOut.print(dtf);
+    }
+
+    public static String getMonthFormate(String date){
+//        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.ss'Z'");
+        DateTime dtf = ISODateTimeFormat.dateTimeParser().parseDateTime(date);
+// pass your DOB String
+// Format for output
+        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("EE");
+// Print the date
+        System.out.println(dtfOut.print(dtf));
+        return dtfOut.print(dtf);
+    }
+
+
 
     public static String validMobile(String mobile) {
 
@@ -192,6 +227,13 @@ public class CommonUtils {
             d = sdf.parse(time);
             formattedTime= output.format(d);
         } catch (ParseException e) {
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            try {
+                d = sdf2.parse(time);
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+            formattedTime= output.format(d);
             e.printStackTrace();
         }catch (NullPointerException e) {
             e.printStackTrace();

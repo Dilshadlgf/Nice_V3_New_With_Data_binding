@@ -47,6 +47,10 @@ public class AppConstants {
     public static final int StageListReq=94;
     public static final int MobvalidationRequst=95;
     public static final int GeoFilter=96;
+    public static final int SEND_OTP_REQUEST=97;
+    public static final int UniqueNumber=98;
+    public static final int StateWeather=99;
+    public static final int WeatherData=100;
 
 
 

@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.testproject.Adapter.SearchContentAdapter;
+import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
@@ -20,6 +21,7 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.databinding.ActivityContentBinding;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -57,9 +59,7 @@ public class ContentListFragment extends BaseFragment {
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding = (ActivityContentBinding) viewDataBinding;
-
-
-
+        ((FarmerMainActivity) getActivity()).setTittle("Search Content");
         setUpNetWork();
 
         binding.searchContentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -203,7 +203,17 @@ public class ContentListFragment extends BaseFragment {
                 List<ContentModel> contentModels=rootOneModel.getResponse().getData().getContent();
                 maxLimit=rootOneModel.getResponse().getData().getPagination().getTotalPage();
                 if(adapter==null) {
-                    adapter = new SearchContentAdapter(contentModels, getActivity());
+                    adapter = new SearchContentAdapter(contentModels, getActivity(), new QueryListClickListner() {
+                        @Override
+                        public void onRowClick(int position) {
+                            total=1;
+                            totalV=1;
+                            totalD=1;
+                            totalU=1;
+                            totalP=1;
+                            adapter=null;
+                        }
+                    });
                     binding.searchContentRecycler.setAdapter(adapter);
                 }else{
                     adapter.addNewList(contentModels);
@@ -214,6 +224,11 @@ public class ContentListFragment extends BaseFragment {
         mApiManager = new ApiManager(getActivity(), mInterFace);
 
 
+    }
+
+    @Override
+    public void onBackCustom() {
+     loadmore();
     }
 
 }

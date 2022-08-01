@@ -6,7 +6,11 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.ActivityMainBinding;
 import com.example.testproject.model.Productconfig;
 import com.example.testproject.model.RootOneModel;
@@ -14,6 +18,7 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 
+import pl.droidsonroids.gif.GifDrawable;
 import retrofit2.Call;
 
 public class MainSplashActivity extends AppCompatActivity {
@@ -22,27 +27,33 @@ public class MainSplashActivity extends AppCompatActivity {
     private ApiResponseInterface mInterFace;
     private Call<RootOneModel> call;
     private ApiManager  mApiManager;
+    private FarmerDao farmerDao;
     @Override
     protected  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          binding=DataBindingUtil.setContentView(this, R.layout.activity_main);
          setUpNetWork();
+        FarmerDao farmerDao= AppDatabase.getInstance(this).farmerDao();
 
-        binding.layfarmer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-              startActivity(new Intent(MainSplashActivity.this, FarmerLoginActivity.class));
+            binding.layfarmer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (farmerDao.getFarmer()==null) {
+                        startActivity(new Intent(MainSplashActivity.this, FarmerLoginActivity.class));
+                    }else {
+                        startActivity(new Intent(MainSplashActivity.this, FarmerMainActivity.class));
 
-             }
+                    }
 
-        });
+                }
+
+            });
 
         mApiManager.getDefault();
 
 
-
-    }
+     }
 
     private void setUpNetWork() {
 

@@ -37,7 +37,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_110sdp"
+        android:layout_height="@dimen/_115sdp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/ract_greenlog"
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/tvselect"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:layout_margin="@dimen/_10sdp"
@@ -144,7 +144,7 @@
             android:ems="10"
             android:fontFamily="@font/aldrich"
             android:hint="@string/Enter_your_Mobile_number"
-            android:maxLength="50"
+            android:maxLength="10"
             android:singleLine="true"
             android:text=""
             android:textColor="@color/greytext"
@@ -170,8 +170,8 @@
 
         <ImageView
             android:id="@+id/ivpassword"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/edit"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -223,7 +223,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/ract_darkgreen"
+        android:background="@drawable/ract_green_dark"
         android:fontFamily="@font/aldrich"
         android:text="@string/registeratn"
         android:textColor="@color/white"
@@ -235,43 +235,8 @@
         app:layout_constraintStart_toStartOf="@+id/btn_login"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
-    <ImageView
-        android:id="@+id/youtubeimg"
-        android:layout_width="@dimen/_28sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:src="@drawable/youtub"
-        app:layout_constraintEnd_toEndOf="@+id/btn_registration"
-        app:layout_constraintHorizontal_bias="0.419"
-        app:layout_constraintStart_toStartOf="@+id/btn_registration"
-        app:layout_constraintTop_toBottomOf="@+id/btn_registration" />
 
-    <ImageView
-        android:id="@+id/manualimg"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/manual"
-        android:layout_marginStart="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/youtubeimg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/youtubeimg"
-        app:layout_constraintTop_toTopOf="@+id/youtubeimg"
-        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imgchat"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:src="@drawable/chatbot_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.921"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manualimg"
-        app:layout_constraintVertical_bias="0.7" />
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

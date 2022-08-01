@@ -122,10 +122,10 @@
                                 android:layout_marginBottom="@dimen/_10sdp"
                                 android:layout_marginTop="@dimen/_10sdp">
 
-                                <Button
+                                <androidx.appcompat.widget.AppCompatButton
                                     android:id="@+id/btn_upload_image1"
                                     android:layout_width="@dimen/_100sdp"
-                                    android:layout_height="@dimen/_35sdp"
+                                    android:layout_height="@dimen/_40sdp"
                                     android:background="@drawable/ract_darkgreen2"
                                     android:fontFamily="@font/aldrich"
                                     android:gravity="center"
@@ -291,7 +291,7 @@
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp">
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btn_submit"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"

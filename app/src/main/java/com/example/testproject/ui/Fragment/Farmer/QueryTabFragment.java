@@ -18,6 +18,7 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
 import com.example.testproject.model.RoleModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,7 +29,6 @@ public class QueryTabFragment extends BaseFragment{
     private FarmerDao farmerDao;
     private RoleDao roleDao;
   private NavController navController ;
-
 
     public static QueryTabFragment newInstance(Bundle args) {
         QueryTabFragment fragment = new QueryTabFragment();
@@ -45,8 +45,9 @@ public class QueryTabFragment extends BaseFragment{
         super.setUpUi(view, viewDataBinding);
         binding= (FragmentQueryTabsBinding) viewDataBinding;
         binding.btnAddQuery.setVisibility(View.VISIBLE);
-//        farmerDao= AppDatabase.getInstance(getContext()).get
-        roleDao= AppDatabase.getInstance(getContext()).roleDao();
+         roleDao= AppDatabase.getInstance(getContext()).roleDao();
+        ((FarmerMainActivity) getActivity()).setTittle("Common Query");
+
 
         if(getArguments()!=null) {
             queryModule = getArguments().getString("queryModule", "common");
@@ -77,7 +78,6 @@ public class QueryTabFragment extends BaseFragment{
     }
 
     private void settabIcon(){
-
 
         for (int i = 0; i <binding.tab.getTabCount() ; i++) {
             View headerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))

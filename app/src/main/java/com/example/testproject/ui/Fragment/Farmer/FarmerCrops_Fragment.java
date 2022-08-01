@@ -27,6 +27,7 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.CrpcroplistFragmentBinding;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
 import com.example.testproject.model.LivestocksArrayModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -41,36 +42,11 @@ import java.util.List;
  */
 public class FarmerCrops_Fragment extends BaseFragment {
 
-    BottomNavigationView btmview;
-    private ApiManager mApiManager;
-    private ApiResponseInterface mInterFace;
-   // private LoginDao loginDao;
-    SharedPreferences pres;
 
-    Spinner sp_yilduniyt,et_Consumption;
-    String errorMessage="";
-   // ListItemClickListener farmerLivestockClickListner;
-    ArrayAdapter<String> adaptercrop;
-    Spinner splivestock,spvariety,spstages,spcropp,spvarietycrop,spseason,spareaunit,spirrigation;
-    EditText Quantity,startdate,area;
-    String selectedvarirtytxt,selectedlivestocktxt,cropid;
-    private HashMap<Integer,String> spinnerlivestockMap;
-    private HashMap<Integer,String> spinnervarietytMap;
-    private HashMap<Integer,String> spinnerstagesMap;
-    private HashMap<Integer,String> spinnercropMap;
-    private FarmerDao farmerdao;
+    private FarmerDao farmerDao;
     private int p;
-    ArrayList<String> staticvarietylist;
-    ArrayList<String>staticvarietyidlist;
-    LivestocksArrayModel livestockmodel;
-    String selectedareaUnit,selectedirrigation,varietyid;
-   // private FarmerListDao farmerDao;
-    private EditText completeddate,et_yield,et_input_value,et_input_cost,etyieldvalue,et_remarks;
-  //  FarmerLoginResponseDataModel farmerdetailmdl;
     private FragmentQueryTabsBinding binding;
     private NavController  navController;
-//    private CrpcroplistFragmentBinding binding;
-
     public static FarmerCrops_Fragment newInstance(Bundle args) {
         FarmerCrops_Fragment fragment = new FarmerCrops_Fragment();
         fragment.setArguments(args);
@@ -84,11 +60,12 @@ public class FarmerCrops_Fragment extends BaseFragment {
 
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
-//        binding = (CrpcroplistFragmentBinding) viewDataBinding;
-        binding = (FragmentQueryTabsBinding) viewDataBinding;
+         binding = (FragmentQueryTabsBinding) viewDataBinding;
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
+        ((FarmerMainActivity) getActivity()).setTittle(farmerDao.getFarmer().getName()+" Crops");
+        ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
         navController= NavHostFragment.findNavController(this);
-        farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
-        binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
+         binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle=new Bundle();

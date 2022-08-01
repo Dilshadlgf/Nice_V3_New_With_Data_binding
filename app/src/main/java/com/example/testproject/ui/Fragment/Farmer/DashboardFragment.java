@@ -9,23 +9,25 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
+import android.transition.Slide;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 
 //import com.example.testproject.databinding.ActivityDsaboardBinding;
 //import com.example.testproject.databinding.ActivityLoginBinding;
 import com.example.testproject.R;
 import com.example.testproject.databinding.ActivityDsaboardBinding;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Set;
+
+import pl.droidsonroids.gif.GifDrawable;
 
 public class DashboardFragment extends BaseFragment {
    private ActivityDsaboardBinding binding;
-    NavigationView nav;
-    ActionBarDrawerToggle toggle;
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
-    CardView content;
-
     NavController navController ;
+
     protected void init() {
         layoutId=R.layout.activity_dsaboard;
     }
@@ -33,15 +35,11 @@ public class DashboardFragment extends BaseFragment {
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
-//        toggle=new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.open,R.string.close);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//
-
         binding= (ActivityDsaboardBinding) viewDataBinding;
- 
+      ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
 
-       navController= NavHostFragment.findNavController(this);
+        navController= NavHostFragment.findNavController(this);
+//        ((GifDrawable) binding.gif.getDrawable()).start();
 
         binding.contentcard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +70,6 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
+
     }
-
-
-
 }

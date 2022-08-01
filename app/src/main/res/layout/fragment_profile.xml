@@ -847,11 +847,14 @@
                                 android:layout_alignParentBottom="true"
                                 android:visibility="visible">
 
-                                <Button
+                                <androidx.appcompat.widget.AppCompatButton
                                     android:id="@+id/btn_save"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="@dimen/_30sdp"
+                                    android:layout_marginStart="@dimen/_30sdp"
+                                    android:layout_marginTop="@dimen/_30sdp"
+                                    android:layout_marginEnd="@dimen/_30sdp"
+                                    android:layout_marginBottom="@dimen/_30sdp"
                                     android:background="@drawable/ract_green"
                                     android:fontFamily="@font/poppinsbold_700"
                                     android:gravity="center"

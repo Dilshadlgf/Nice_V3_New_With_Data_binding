@@ -192,15 +192,15 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
             ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen._70sdp), (int)getResources().getDimension(R.dimen._70sdp));
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
             layoutParams.rightMargin=3;
             if(i==0){
-                ((ViewGroup)v).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)v).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card);
             }
 
             v.setLayoutParams(layoutParams);
@@ -220,9 +220,9 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         callDONEApi(c);
         for (int i = 0; i < binding.catLayout.getChildCount(); i++) {
             if(i==index){
-                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card);
             }
         }
     }

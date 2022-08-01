@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/may_nav"
-    app:startDestination="@id/dashboard">
+    app:startDestination="@id/dashboardfragment">
 
     <fragment
         android:id="@+id/contentFragment"
@@ -31,6 +31,7 @@
         <action
             android:id="@+id/action_profileFragment_to_queryTabFragment"
             app:destination="@id/queryTabFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/queryFragment"
@@ -39,9 +40,10 @@
         <action
             android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
             app:destination="@id/addFarmerqurie_Fragment" />
+
     </fragment>
     <fragment
-        android:id="@+id/dashboard"
+        android:id="@+id/dashboardfragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/activity_dsaboard" >
@@ -57,6 +59,9 @@
         <action
             android:id="@+id/action_dashboard_to_notificationListFragment"
             app:destination="@id/notificationListFragment" />
+        <action
+            android:id="@+id/action_dashboardfragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
     </fragment>
     <fragment
         android:id="@+id/queryTabFragment"
@@ -65,6 +70,9 @@
         <action
             android:id="@+id/action_queryTabFragment_to_addFarmerqurie_Fragment"
             app:destination="@id/addFarmerqurie_Fragment" />
+        <action
+            android:id="@+id/action_queryTabFragment_to_queryDetailPrintFragment"
+            app:destination="@id/queryDetailPrintFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationListFragment"
@@ -117,5 +125,9 @@
         android:id="@+id/addLiveStock_UpdateFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.AddLiveStock_UpdateFragment"
         android:label="AddLiveStock_UpdateFragment" />
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.WeatherFragment"
+        android:label="WeatherFragment" />
 
 </navigation>

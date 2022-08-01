@@ -29,10 +29,10 @@ android {
             manifestPlaceholders = [appLabel: "@string/app_name"]
         }
         debug {
-            def serverUrl = "jnkv.logikoof.org"
+            def serverUrl = "jnkv.nicessm.org"
             manifestPlaceholders = [dpurls: serverUrl]
             versionNameSuffix ".dev"
-            buildConfigField "String", "BASE_URL",  '"http://'+serverUrl+'/api/"'
+            buildConfigField "String", "BASE_URL",  '"https://'+serverUrl+'/api/"'
             manifestPlaceholders = [appLabel: "@string/app_name_dev"]
 
 
@@ -83,7 +83,7 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
-
+    implementation 'joda-time:joda-time:2.10.14'
 
 
 }

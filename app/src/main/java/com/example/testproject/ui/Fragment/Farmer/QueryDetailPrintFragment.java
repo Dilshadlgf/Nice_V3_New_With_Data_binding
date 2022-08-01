@@ -18,6 +18,7 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
@@ -25,6 +26,7 @@ import com.example.testproject.databinding.QuerydetailprintFragmentBinding;
 import com.example.testproject.model.DataModel;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RootOneModel;
+import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -39,13 +41,10 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private QuerydetailprintFragmentBinding binding;
-    String content, QueryDate, solution, query_type, village, Resolution,AssignDate, ResolvedDate, ResolvedBy,CreatedBy;
-
-    private String queryCat;
     private boolean isFarmerLogin;
-    private String queryStatus;
     private FarmerDao farmerDao;
     private RoleDao roleDao;
+    private QueryResponseDataNumModel responseDataModel;
 
     public static QueryDetailPrintFragment newInstance(Bundle args) {
         QueryDetailPrintFragment fragment = new QueryDetailPrintFragment();
@@ -60,6 +59,7 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
 
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
+        setupNetwork();
         binding = (QuerydetailprintFragmentBinding) viewDataBinding;
         farmerDao = AppDatabase.getInstance(getContext()).farmerDao();
         roleDao=AppDatabase.getInstance(getContext()).roleDao();
@@ -75,10 +75,11 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
             String queryUId=getArguments().getString("QueryUId");
             String id=getArguments().getString("id");
             String title="Q Id:"+queryUId;
+            String d=getArguments().getString("model");
+            if(d!=null)
+                 responseDataModel= (QueryResponseDataNumModel) CommonUtils.jsonToPojo(getArguments().getString("model"), QueryResponseDataNumModel.class);
+                binding.setMydata(responseDataModel);
 
-
-                  setupNetwork();
-                   mApiManager.getSingleQuery(id);
 
 
         }
@@ -110,7 +111,7 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
                 if(ServiceCode== AppConstants.QUERIES_LIST_REQUEST){
                     RootOneModel rootOneModel= (RootOneModel) response;
                     DataModel model=rootOneModel.getResponse().getData();
-                    binding.setMydata(model);
+//                    binding.setMydata(model);
                     if(model!=null) {
                       //  fillData(true, model);
                     }else {

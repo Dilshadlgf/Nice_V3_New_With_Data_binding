@@ -1,5 +1,7 @@
 package com.example.testproject.Network;
 
+import com.example.testproject.BuildConfig;
+
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
 //    public static String BASE_URL="https://nicedemo.logikoof.org/api/";
-    public static String BASE_URL="https://jnkv.logikoof.org/api/";
+    public static String BASE_URL= BuildConfig.BASE_URL;
     private static Retrofit retrofit = null;
     public static Retrofit getClient() {
         if (retrofit==null) {

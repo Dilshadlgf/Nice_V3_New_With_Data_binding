@@ -37,6 +37,16 @@ public interface ApiInterface {
     Call<SingleObjRootOneResModel> mobnovalidRequest(@Query("value") String mobile);
 
 
+    @POST("farmer/registration/generateotp")
+    Call<SingleObjRootOneResModel> registrationWithOtp(@Body JsonObject request);
+
+    @POST("farmer/registration/validateotp")
+    Call<SingleObjRootOneResModel> registrationValidateOtp(@Body JsonObject request);
+
+
+    @GET("common/uniqueness")
+    Call<SingleObjRootOneResModel> checkMobUniqueness(@Query("from") String from ,@Query("key") String key,@Query("value") String value);
+
     @POST("farmer")
     Call<SingleObjRootOneResModel> farmeregistration(@Body JsonObject request);
 
@@ -78,7 +88,13 @@ public interface ApiInterface {
     @GET("farmer")
     Call<RootOneModel> getProfile( @Query("id") String id);
 
-   @POST("commoditycategory/filter?pageno=no")
+    @POST("apptoken/login")
+    Call<SingleObjRootOneResModel> sendFbToken(@Body JsonObject request);
+
+    @DELETE("apptoken/logout")
+    Call<SingleObjRootOneResModel> deleteFbToken(@Query("id") String id);
+
+    @POST("commoditycategory/filter?pageno=no")
    Call<RootOneResModel> commodityCategoryFilter( @Body JsonObject request);
 
     @POST("farmerLiveStock")
@@ -125,5 +141,10 @@ public interface ApiInterface {
     @POST("query")
     Call<RootQueryModel> sendAddQueryRequest(@Body JsonObject weatherJSONRequest);
 
+    @POST("state/filter?pageno=no")
+    Call<RootOneResModel> stateWeather( @Body JsonObject request);
+
+    @POST("stateWeatherData/filter")
+    Call<RootOneResModel> getWeatherData( @Body JsonObject request,@Query("pageno") String pageno);
 
 }

@@ -23,9 +23,11 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.NotificationListFragmentBinding;
 import com.example.testproject.model.NotificationDataModel;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -48,6 +50,7 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
     private NotificationListAdaptor adaptor;
     private List<NotificationDataModel> mainList;
     private NavController navController;
+    private FarmerDao farmerDao;
 
     public static NotificationListFragment newInstance(Bundle args) {
 
@@ -67,27 +70,11 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
         binding = (NotificationListFragmentBinding) viewDataBinding;
         setupNetwork();
         navController= NavHostFragment.findNavController(this);
-       // ((FragmentActivity) getActivity()).setScreenTitle("");
-     //   loginDao = AppDatabase.getInstance(getContext()).loginDetails();
-//        if(loginDao!=null && loginDao.getLoginResponse()!=null){
-//            isFarmerLogin=loginDao.getLoginResponse().getRole().equalsIgnoreCase("farmer");
-////        }
-//        ((FragmentActivity) getActivity()).btnPrint.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).img_help.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).shareimg.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).img_help.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).imgfeedback.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).enableNavigationViews(false);
-//        ((FragmentActivity) getActivity()).setScreenTitle("Notification List");
-//
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-//
-//        ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackCustom();
-//            }
-//        });
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
+
+        ((FarmerMainActivity) getActivity()).setTittle("Notification");
+
+
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -119,7 +106,9 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
             JsonArray statsArr=new JsonArray();
             statsArr.add("Active");
             JsonArray idArr=new JsonArray();
-            idArr.add("623adc6b4d13f2bb63f346b1");
+//            idArr.add("623adc6b4d13f2bb63f346b1");
+        idArr.add(farmerDao.getFarmer().getId());
+
 //          idArr.add(loginDao.getLoginResponse().getId());
             main.add("status",statsArr);
             main.add("userName",idArr);

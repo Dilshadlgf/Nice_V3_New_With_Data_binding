@@ -21,6 +21,7 @@ import com.example.testproject.databinding.FragmentAllQueryFragmnetBinding;
 import com.example.testproject.databinding.FragmentQuery2Binding;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -56,6 +57,7 @@ public class AllQueryFragmnet extends BaseFragment {
 
         binding = (FragmentAllQueryFragmnetBinding) viewDataBinding;
         binding.tab.setupWithViewPager(binding.viewpager);
+        ((FarmerMainActivity) getActivity()).setTittle("Common Query");
         VpAdapter vpAdapter = new VpAdapter(getChildFragmentManager());
         vpAdapter.addFragment(new UnResolvedFragment(),"UnResolved");
         vpAdapter.addFragment(new AssignedFragment(),"Assigned");

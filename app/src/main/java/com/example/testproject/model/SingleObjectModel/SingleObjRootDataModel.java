@@ -1,17 +1,15 @@
 package com.example.testproject.model.SingleObjectModel;
 
 import com.example.testproject.model.DataModelTwo;
-import com.example.testproject.model.FarmerModel;
+import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.SearchContentResponseDataModel;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class SingleObjRootDataModel {
 
     @SerializedName("farmer")
-    private FarmerModel farmer;
+    private FarmerDataModel farmer;
 
     public LivestocksArrayModel getFarmerLiveStock() {
         return farmerLiveStock;
@@ -46,6 +44,16 @@ public class SingleObjRootDataModel {
     @SerializedName("duplicate")
     private String duplicate;
 
+    @SerializedName("otp")
+    private String otp;
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
 
     public SearchContentResponseDataModel getContent() {
         return content;
@@ -58,11 +66,11 @@ public class SingleObjRootDataModel {
     @SerializedName("content")
     private SearchContentResponseDataModel content;
 
-    public FarmerModel getFarmer() {
+    public FarmerDataModel getFarmer() {
         return farmer;
     }
 
-    public void setFarmer(FarmerModel farmer) {
+    public void setFarmer(FarmerDataModel farmer) {
         farmer = farmer;
     }
 

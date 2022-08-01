@@ -9,4 +9,5 @@
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 </layout>

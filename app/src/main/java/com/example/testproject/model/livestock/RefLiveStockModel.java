@@ -1,8 +1,8 @@
 package com.example.testproject.model.livestock;
 
 import com.example.testproject.model.DistrictDataModel;
-import com.example.testproject.model.Farmer;
-import com.example.testproject.model.FarmerModel;
+import com.example.testproject.model.FarmerDataModel;
+import com.example.testproject.model.FarmerOrg;
 import com.example.testproject.model.StateDataModel;
 import com.example.testproject.model.VillageDataModel;
 import com.example.testproject.model.livestoks;
@@ -23,11 +23,11 @@ public class RefLiveStockModel {
         this.liveStock = liveStock;
     }
 
-    public Farmer getFarmer() {
+    public FarmerDataModel getFarmer() {
         return farmer;
     }
 
-    public void setFarmer(Farmer farmer) {
+    public void setFarmer(FarmerDataModel farmer) {
         this.farmer = farmer;
     }
 
@@ -77,7 +77,7 @@ public class RefLiveStockModel {
 
     @SerializedName("farmer")
     @Expose
-    private Farmer farmer;
+    private FarmerDataModel farmer;
 
     @SerializedName("stage")
     @Expose
@@ -107,11 +107,35 @@ public class RefLiveStockModel {
     @Expose
     private AssignedToModel resolvedBy;
 
-    public FarmerModel getCreatedByFarmer() {
+    @SerializedName("block")
+    @Expose
+    private FarmerOrg block;
+
+    @SerializedName("gramPanchayat")
+    @Expose
+    private FarmerOrg gramPanchayat;
+
+    public FarmerOrg getGramPanchayat() {
+        return gramPanchayat;
+    }
+
+    public void setGramPanchayat(FarmerOrg gramPanchayat) {
+        this.gramPanchayat = gramPanchayat;
+    }
+
+    public FarmerOrg getBlock() {
+        return block;
+    }
+
+    public void setBlock(FarmerOrg block) {
+        this.block = block;
+    }
+
+    public FarmerDataModel getCreatedByFarmer() {
         return createdByFarmer;
     }
 
-    public void setCreatedByFarmer(FarmerModel createdByFarmer) {
+    public void setCreatedByFarmer(FarmerDataModel createdByFarmer) {
         this.createdByFarmer = createdByFarmer;
     }
 
@@ -131,5 +155,5 @@ public class RefLiveStockModel {
         this.resolvedBy = resolvedBy;
     }
 
-    private FarmerModel createdByFarmer;
+    private FarmerDataModel createdByFarmer;
 }

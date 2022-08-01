@@ -117,6 +117,16 @@ public class DataModel2 {
     @SerializedName("pagination")
     private Pagination1 pagination1;
 
+    @SerializedName("stateweatherdata")
+    private List<WeatherStateModel>stateWeatherModels;
+
+    public List<WeatherStateModel> getStateWeatherModels() {
+        return stateWeatherModels;
+    }
+
+    public void setStateWeatherModels(List<WeatherStateModel> stateWeatherModels) {
+        this.stateWeatherModels = stateWeatherModels;
+    }
 //    @SerializedName("commodity")
 //    private List<LivestocksArrayModel> commodity;
 

@@ -12,11 +12,12 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.database.convertor.FarmerListConverter;
 import com.example.testproject.database.convertor.RoleConvertor;
+import com.example.testproject.database.convertor.StateModelConvertor;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RoleModel;
 
 @Database(entities = {FarmerDataModel.class, RoleModel.class}, version = 1)
-@TypeConverters({FarmerListConverter.class, RoleConvertor.class})
+@TypeConverters({FarmerListConverter.class, RoleConvertor.class, StateModelConvertor.class})
 
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;

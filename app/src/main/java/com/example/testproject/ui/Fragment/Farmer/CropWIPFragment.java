@@ -18,6 +18,8 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.FragmentCropWip1Binding;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.interfaces.QueryListClickListner;
@@ -46,6 +48,7 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     private ApiResponseInterface mInterFace;
     List<LivestocksArrayModel> modelListLiveStockName;
     private int selectedCatindex;
+    private FarmerDao farmerDao;
 
 
     public static CropWIPFragment newInstance(Bundle args) {
@@ -62,12 +65,12 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentCropWip1Binding) viewDataBinding;
-        ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
+
         setupNetwork();
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.wipRecycler.setLayoutManager(linearLayoutManager);
 //
-//        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
 
         JsonObject mainObj=new JsonObject();
         JsonArray statusArr=new JsonArray();
@@ -89,8 +92,8 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
 
         object.add("status", array);
 //        object.add("category", cat);
-//        object.addProperty("farmer",loginDao.getLoginResponse().getId());
-        object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
+        object.addProperty("farmer",farmerDao.getFarmer().getId());
+       // object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
         mApiManager.farmerCropDetaile(object);
     }
     @Override
@@ -139,15 +142,15 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
             ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen._70sdp), (int)getResources().getDimension(R.dimen._70sdp));
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
             layoutParams.rightMargin=3;
             if(i==0){
-                ((ViewGroup)v).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)v).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card);
             }
             v.setLayoutParams(layoutParams);
             v.setOnClickListener(new View.OnClickListener() {
@@ -166,9 +169,9 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
         callWIPApi(c);
         for (int i = 0; i < binding.catLayout.getChildCount(); i++) {
             if(i==index){
-                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)binding.catLayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card);
             }
         }
     }

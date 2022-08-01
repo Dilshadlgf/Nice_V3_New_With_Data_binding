@@ -363,9 +363,7 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
         }else if (resultCode == getActivity().RESULT_OK ) {
 
-
-
-            //initialize blank list
+           //initialize blank list
             if(imageUriList==null){
                 imageUriList= new ArrayList<>( Arrays.asList(Uri.parse(""),Uri.parse(""),Uri.parse("")));
             }

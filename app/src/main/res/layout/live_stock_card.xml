@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/landlyout"
-    android:layout_width="@dimen/_90sdp"
-    android:layout_height="@dimen/_90sdp"
-    android:background="@drawable/deactivecom"
+    android:layout_width="@dimen/_130sdp"
+    android:layout_height="@dimen/_60sdp"
+    android:background="@drawable/custom_card"
     android:gravity="center">
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:layout_centerInParent="true"
         android:src="@drawable/vegetablecrop" />
 
@@ -22,8 +22,9 @@
         android:layout_marginTop="@dimen/_35sdp"
         android:fontFamily="@font/poppinsregular_400"
         android:gravity="center"
+
         android:text="Vegetable Crops"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_green"
         android:textFontWeight="600"
         android:textSize="@dimen/_8sdp" />
 </RelativeLayout>

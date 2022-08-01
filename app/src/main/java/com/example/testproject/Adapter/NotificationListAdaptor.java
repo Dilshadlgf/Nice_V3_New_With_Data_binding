@@ -45,7 +45,7 @@ public class NotificationListAdaptor extends RecyclerView.Adapter<NotificationLi
     }
     @SuppressLint("NotifyDataSetChanged")
     public void addToList(List<NotificationDataModel> modelList){
-        listdata.clear();
+//        listdata.clear();
         listdata.addAll(modelList);
         notifyDataSetChanged();
     }
@@ -63,11 +63,11 @@ public class NotificationListAdaptor extends RecyclerView.Adapter<NotificationLi
             NotificationDataModel model= listdata.get(position);
             holder.binding.setMydata(model);
             holder.binding.txtDate.setText(CommonUtils.getOnlyDateFormat(model.getSentDate()));
-            if(model.getData().getQuery_Type().equals("ViewSingleQuery")){
-                holder.binding.tvCreatedBy.setText("Query");
-            }else {
-                holder.binding.tvCreatedBy.setText("Content");
-            }
+//            if(model.getData().getQuery_Type().equals("ViewSingleQuery")){
+//                holder.binding.tvCreatedBy.setText("Query");
+//            }else {
+//                holder.binding.tvCreatedBy.setText("Content");
+//            }
 
             holder.binding.textquery.setVisibility(View.INVISIBLE);
             holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {

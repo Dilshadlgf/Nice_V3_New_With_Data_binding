@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testproject.databinding.SearchContentItemListRowBinding;
+import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;
 import com.example.testproject.R;
 import com.example.testproject.ui.Activity.FarmerLoginActivity;
@@ -30,14 +31,16 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
     private List<ContentModel> data;
     private Context context;
     NavController navController ;
+    private QueryListClickListner queryListClickListner;
 
     private SearchContentItemListRowBinding binding;
 
 
-    public SearchContentAdapter(List<ContentModel> data, Context context) {
+    public SearchContentAdapter(List<ContentModel> data, Context context,QueryListClickListner queryListClickListner) {
         if(this.data==null){
             this.data=new ArrayList<>();
         }
+        this.queryListClickListner=queryListClickListner;
         this.data.addAll(data);
         this.context = context;
     }
@@ -70,7 +73,9 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
         holder.binding.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                queryListClickListner.onRowClick(position);
                Navigation.findNavController(view).navigate(R.id.action_contentFragment_to_queryFragment);
+
             }
         });
 
@@ -96,7 +101,5 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
 
 
     }
-
-
 
 }

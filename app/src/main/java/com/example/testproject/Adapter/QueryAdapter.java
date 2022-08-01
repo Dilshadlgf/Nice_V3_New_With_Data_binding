@@ -1,12 +1,18 @@
 package com.example.testproject.Adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testproject.R;
+import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.FarmerquerylistBinding;
 import com.example.testproject.databinding.SearchContentItemListRowBinding;
 import com.example.testproject.model.ContentModel;
@@ -20,6 +26,7 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
     private List<QueryResponseDataNumModel> data;
     private Context context;
 
+    NavController navController ;
 
     public QueryAdapter(List<QueryResponseDataNumModel> data, Context context) {
         if (this.data == null) {
@@ -45,13 +52,21 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
         return new MyVHolder(binding);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull QueryAdapter.MyVHolder holder, int position) {
         QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
         //  holder.binding.setMydata(queryResponseDataNumModel);
         holder.binding.setMydata(queryResponseDataNumModel);
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString("model", CommonUtils.pojoToJson(queryResponseDataNumModel));
+                Navigation.findNavController(view).navigate(R.id.action_queryTabFragment_to_queryDetailPrintFragment);
 
+
+            }
+        });
     }
 
     @Override

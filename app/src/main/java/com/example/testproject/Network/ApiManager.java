@@ -171,6 +171,47 @@ public class ApiManager {
 
 
     ///////=======================================================
+    public void sendOrDeleteFbToken(JsonObject jsonObject,String id,boolean isSendToken) {
+        showDialog("Loading");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call;
+        if(isSendToken){
+            call = apiService.sendFbToken(jsonObject);
+        }else {
+            call = apiService.deleteFbToken(id);
+        }
+
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.SendFbToken);
+
+                } else {
+                    mApiResponseInterface.isSuccess(null, AppConstants.SendFbToken);
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                mApiResponseInterface.isSuccess(null, AppConstants.SendFbToken);
+//                if (t instanceof IOException) {
+//                    mApiResponseInterface.isError("Internet is not Connected");
+//                } else {
+//                    mApiResponseInterface.isError("Please contact to Administrator");
+//                }
+            }
+        });
+    }
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++
     public void searchContentList(String token, JsonObject jsonObject,int callType) {
         showDialog("Loding");
         ApiInterface apiService =
@@ -821,6 +862,74 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
 //       Call<Farmerlistnewdatamodel> farmerListt(@Url String url) ;
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++=====================================
+    public void stateWeather(JsonObject jsonObject) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.stateWeather(jsonObject);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.StateWeather);
+
+                } else {
+                    mApiResponseInterface.isError("WetherData API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++==================================================
+    public void getWeatherData(JsonObject jsonObject,String pageno) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<RootOneResModel> call = apiService.getWeatherData(jsonObject,pageno);
+        call.enqueue(new Callback<RootOneResModel>() {
+            @Override
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.WeatherData);
+
+                } else {
+                    mApiResponseInterface.isError("WetherData API TimeOut Please contact to Administrator");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Response Model Conversion Issue");
+                }
+            }
+        });
+    }
+
+    //++++++++++++++++++++++++++++++++++++++++++++=============
     public void updateQuery(String token, JsonObject jsonObject) {
         showDialog("Adding Query");
         ApiInterface apiService =
@@ -912,7 +1021,6 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
 
                 }
             }
-
 
             @Override
             public void onFailure(Call<RootOneResModel> call, Throwable t) {
@@ -1183,6 +1291,111 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
     }
 
     //++++++++++++++++++++++++++++++================
+    public void registrationValidateOtp(JsonObject jsonObject) {
+        showDialog("Registration");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.registrationValidateOtp(jsonObject);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.REGISTRATION_REQUEST);
+                } else {
+
+                    if (response.body() != null) {
+                        mApiResponseInterface.isError(response.body().getResponse().getMessage().toString());
+
+                    } else {
+                        mApiResponseInterface.isError("Wrong data Or Invalid Otp");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Mobile number is already exists");
+                }
+            }
+        });
+    }
+
+    //_____________________________+++++++++++++++++++++
+    public void checkMobileNumberUniqueness(String moduleName,String key,String mobNo) {
+        showDialog("");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.checkMobUniqueness(moduleName,key,mobNo);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.UniqueNumber);
+                } else {
+
+                    mApiResponseInterface.isError("Failed");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Please Contact to Administrator");
+                }
+            }
+        });
+    }
+
+    //____________________________________________________++++
+    public void registrationWithOtp(JsonObject jsonObject) {
+        showDialog("Registration");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.registrationWithOtp(jsonObject);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+                if (response.body() != null && response.body().getResponse().getStatusCode() == 200) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.SEND_OTP_REQUEST);
+                } else {
+
+                    if (response.body() != null) {
+                        mApiResponseInterface.isError(response.body().getResponse().getMessage().toString());
+
+                    } else {
+                        mApiResponseInterface.isError("Something wrong please try later");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("Mobile number is already exists");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++++++===========================
     public void geoFilter(String path, JsonObject jsonObject) {
         showDialog("Loading");
         ApiInterface apiService =

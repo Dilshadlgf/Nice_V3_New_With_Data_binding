@@ -14,6 +14,8 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.FragmentFeedbackListBinding;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
@@ -21,7 +23,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
-
+/**
+ * Created by Suraj on 07-07-2022.
+ */
 public class FeedbackList_Fragment extends BaseFragment {
 
   private FragmentFeedbackListBinding binding;
@@ -33,6 +37,7 @@ public class FeedbackList_Fragment extends BaseFragment {
     int mPosition;
     int maxLimit=1;
     private int pageNo=1,maxPage=1;
+    private FarmerDao farmerDao;
 
     private RootQueryModel rootQueryModel;
     private  QueryResponseDataNumModel queryResponseDataNumModel;
@@ -53,6 +58,7 @@ public class FeedbackList_Fragment extends BaseFragment {
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding = (FragmentFeedbackListBinding) viewDataBinding;
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
 
         setUpNetWork();
 
@@ -90,7 +96,7 @@ public class FeedbackList_Fragment extends BaseFragment {
         JsonObject object=new JsonObject();
 
         JsonArray jsonArray=new JsonArray();
-        jsonArray.add("625e4b9997ce98d03648e28c");
+        jsonArray.add(farmerDao.getFarmer().getId());
         object.add("content",jsonArray);
         JsonArray  jsonArray1=new JsonArray();
         jsonArray1.add("Active");

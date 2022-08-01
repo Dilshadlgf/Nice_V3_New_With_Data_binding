@@ -24,7 +24,7 @@ public class DataModel {
     private FarmerDataModel data;
 
     @SerializedName("farmer")
-    private FarmerModel farmer;
+    private FarmerDataModel farmer;
 
 
     @SerializedName("farmerLiveStock")
@@ -75,11 +75,11 @@ public class DataModel {
         this.ref = ref;
     }
 
-    public FarmerModel getFarmer() {
+    public FarmerDataModel getFarmer() {
         return farmer;
     }
 
-    public void setFarmer(FarmerModel farmer) {
+    public void setFarmer(FarmerDataModel farmer) {
         this.farmer = farmer;
     }
 
