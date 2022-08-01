@@ -19,12 +19,12 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:orientation="vertical">
-            <ScrollView
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:id="@+id/bottomlayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:orientation="horizontal">
@@ -34,7 +34,7 @@
                     <!--                    >-->
                     <!--                </include>-->
                 </LinearLayout>
-            </ScrollView>
+            </HorizontalScrollView>
 
             <ProgressBar
                 android:id="@+id/nearby_farmer_cardview_progress"

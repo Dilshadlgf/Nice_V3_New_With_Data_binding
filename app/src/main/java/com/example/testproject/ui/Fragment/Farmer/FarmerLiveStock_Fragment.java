@@ -28,6 +28,7 @@ import com.example.testproject.databinding.CrpLivestocklistFragmentBinding;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -90,27 +91,14 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (CrpLivestocklistFragmentBinding) viewDataBinding;
         navController= NavHostFragment.findNavController(this);
+        ((FarmerMainActivity) getActivity()).setTittle("Farmer Live Stock");
         setupNetwork();
         farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
-//        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
 
         pres = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
-//        ((FragmentActivity) getActivity()).setScreenTitle("Livestocks Detail List");
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-      //  btmview = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation);
+//
         binding.edtLivestocklinearLyout.setOnClickListener(this);
-       // ((FragmentActivity) getActivity()).btnPrint.setVisibility(View.INVISIBLE);
-//        btmview.setVisibility(View.GONE);
 
-//        ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (getActivity() != null) {
-//                    getFragmentManager().popBackStack();
-//                    ((FragmentActivity) getActivity()).mBack.setVisibility(View.GONE);
-//                }
-//            }
-//        });
         {
             JsonObject mainObj=new JsonObject();
             JsonArray statusArr=new JsonArray();
@@ -127,13 +115,6 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         }
 
     }
-
-//    @Override
-//    public void onBackCustom() {
-//        ((FragmentActivity) getActivity()).btnPrint.setVisibility(View.INVISIBLE);
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.INVISIBLE);
-//        getFragmentManager().popBackStack();
-//    }
 
 
     private void setupNetwork() {
@@ -208,15 +189,15 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
             ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.with(getContext()).load(BuildConfig.BASE_URL+modelListLiveStockName.get(i).getIcon()).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            Picasso.with(getContext()).load(BuildConfig.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.livestock).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
-            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(R.dimen._70sdp), (int)getResources().getDimension(R.dimen._70sdp));
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
             layoutParams.rightMargin=3;
             if(i==0){
-                ((ViewGroup)v).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)v).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)v).setBackgroundResource(R.drawable.custom_card);
             }
 
             v.setLayoutParams(layoutParams);
@@ -236,9 +217,9 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         callLiveStockApi(c);
         for (int i = 0; i < binding.bottomlayout.getChildCount(); i++) {
             if(i==index){
-                ((ViewGroup)binding.bottomlayout.getChildAt(i)).setBackgroundResource(R.drawable.activecom);
+                ((ViewGroup)binding.bottomlayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card_selcted);
             }else {
-                ((ViewGroup)binding.bottomlayout.getChildAt(i)).setBackgroundResource(R.drawable.deactivecom);
+                ((ViewGroup)binding.bottomlayout.getChildAt(i)).setBackgroundResource(R.drawable.custom_card);
             }
         }
     }

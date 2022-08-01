@@ -36,7 +36,7 @@ public class DashboardFragment extends BaseFragment {
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding= (ActivityDsaboardBinding) viewDataBinding;
-      ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
+//      ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
 
         navController= NavHostFragment.findNavController(this);
 //        ((GifDrawable) binding.gif.getDrawable()).start();

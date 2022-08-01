@@ -59,6 +59,7 @@ public class QueryTabFragment extends BaseFragment{
         }
         setupViewPager(binding.viewpager);
         binding.tab.setupWithViewPager(binding.viewpager);
+        binding.tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         settabIcon();
         binding.tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
