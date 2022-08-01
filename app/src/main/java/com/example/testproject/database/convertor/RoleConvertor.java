@@ -2,6 +2,7 @@ package com.example.testproject.database.convertor;
 
 import androidx.room.TypeConverter;
 
+import com.example.testproject.model.FarmerRefModel;
 import com.example.testproject.model.RoleModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,4 +22,5 @@ public class RoleConvertor {
         String json = gson.toJson(list);
         return json;
     }
+
 }

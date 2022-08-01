@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.Activity.MainSplashActivity"
     android:background="@drawable/bg1"
-    >
-    <Button
+     >
+
+     <Button
         android:id="@+id/layfarmer"
         android:layout_width="match_parent"
         android:layout_margin="20dp"
         android:layout_height="90dp"
         android:text="Farmer"
+        android:textColor="@color/white"
         android:visibility="gone"
         android:textStyle="bold"
         android:textSize="25sp"
@@ -32,6 +34,7 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/dark_green"
         android:text="USER"
+        android:textColor="@color/white"
         android:visibility="gone"
         android:textSize="25sp"
         android:textStyle="bold"

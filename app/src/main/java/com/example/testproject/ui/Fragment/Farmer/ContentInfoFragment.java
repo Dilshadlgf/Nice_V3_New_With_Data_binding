@@ -1,25 +1,37 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
- import com.example.testproject.databinding.FragmentContentInfoBinding;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.databinding.FragmentContentInfoBinding;
 import com.example.testproject.model.QueryRef;
 import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SearchContentResponseDataModel;
+import com.example.testproject.model.SearchContentResponseDataModel;    
 
+
+/**
+ * Created by Suraj  on 07-07-2022.
+ */
 
 public class ContentInfoFragment extends BaseFragment {
     private FragmentContentInfoBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private SearchContentResponseDataModel responseDataModel;
+    private FarmerDao farmerDao;
 
+    public static Fragment newInstance(Bundle infoBundle) {
+        return null;
+    }
 
 
     @Override
@@ -34,8 +46,9 @@ public class ContentInfoFragment extends BaseFragment {
 
         binding = (FragmentContentInfoBinding) viewDataBinding;
         setUpNetWork();
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
 
-        mApiManager.searchContentsListDetailRequest("624fcf49aa13e5f499128ec8");
+        mApiManager.searchContentsListDetailRequest(farmerDao.getFarmer().getId());
     }
 
     private void setUpNetWork() {

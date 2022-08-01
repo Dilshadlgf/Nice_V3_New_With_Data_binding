@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testproject.R;
@@ -16,6 +18,7 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
 import com.example.testproject.model.RoleModel;
+import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -25,6 +28,7 @@ public class QueryTabFragment extends BaseFragment{
     String queryModule;
     private FarmerDao farmerDao;
     private RoleDao roleDao;
+  private NavController navController ;
 
     public static QueryTabFragment newInstance(Bundle args) {
         QueryTabFragment fragment = new QueryTabFragment();
@@ -40,8 +44,10 @@ public class QueryTabFragment extends BaseFragment{
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         super.setUpUi(view, viewDataBinding);
         binding= (FragmentQueryTabsBinding) viewDataBinding;
-//        farmerDao= AppDatabase.getInstance(getContext()).get
-        roleDao= AppDatabase.getInstance(getContext()).roleDao();
+        binding.btnAddQuery.setVisibility(View.VISIBLE);
+         roleDao= AppDatabase.getInstance(getContext()).roleDao();
+        ((FarmerMainActivity) getActivity()).setTittle("Common Query");
+
 
         if(getArguments()!=null) {
             queryModule = getArguments().getString("queryModule", "common");
@@ -53,6 +59,7 @@ public class QueryTabFragment extends BaseFragment{
         }
         setupViewPager(binding.viewpager);
         binding.tab.setupWithViewPager(binding.viewpager);
+        binding.tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         settabIcon();
         binding.tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -68,10 +75,10 @@ public class QueryTabFragment extends BaseFragment{
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
     }
 
     private void settabIcon(){
-
 
         for (int i = 0; i <binding.tab.getTabCount() ; i++) {
             View headerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -119,5 +126,16 @@ public class QueryTabFragment extends BaseFragment{
 
 
         viewPager.setAdapter(viewPagerAdapter);
+        navController= NavHostFragment.findNavController(this);
+
+        binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_queryTabFragment_to_addFarmerqurie_Fragment);
+
+            }
+        });
+
     }
+
 }

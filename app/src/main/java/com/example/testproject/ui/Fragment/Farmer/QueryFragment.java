@@ -163,7 +163,6 @@ public class QueryFragment extends BaseFragment {
 
             }
 
-
             @Override
             public void isSuccess(Object response, int ServiceCode) {
                 if(ServiceCode== AppConstants.QUERIES_LIST_REQUEST_FEEDBACK)

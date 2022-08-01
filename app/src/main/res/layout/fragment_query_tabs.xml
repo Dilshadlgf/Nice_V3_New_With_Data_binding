@@ -19,18 +19,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:tabSelectedTextColor="@color/weathergrid"
-                    app:tabIndicatorHeight="2dp"
-
+                     app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabIndicatorHeight="4dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="@dimen/_4sdp"
+                    android:layout_margin="@dimen/_5sdp"
                     android:tabStripEnabled="true"
                     app:tabBackground="@drawable/tab_background"
-                    app:tabMode="auto"
-                    app:tabGravity="fill"
+
                     app:tabIconTintMode="add"
                     app:tabIndicatorColor="@color/graycolor"
-                    app:tabPaddingEnd="@dimen/_10sdp"
-                    app:tabPaddingStart="@dimen/_10sdp"
+
                     app:tabTextAppearance="@style/TabLayoutTextStyle"
                     app:tabTextColor="@color/dark_green"
 
@@ -44,19 +43,20 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_query"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddQuery"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/addgreen"
             android:fontFamily="@font/poppinsbold_700"
-            android:src="@drawable/addgreen"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true" />
 

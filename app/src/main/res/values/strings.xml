@@ -8,9 +8,32 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="start_date">Start Date</string>
+    <string name="area">Area</string>
+    <string name="Enter_your_Mobile_number">Enter Username/Mobile Number</string>
+    <string name="Enter_your_Password">Enter Your Password</string>
+    <string name="Next">Next</string>
+    <string name="registeratn">Registration</string>
+    <string name="enter_fullname">Enter Full Name</string>
+    <string name="enter_fathername">Enter Father Name/Husband Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="agree">I Agree To Share Data With N.I.C.E.</string>
+    <string name="signup">SIGNUP</string>
+    <string name="login">LOGIN</string>
+    <string name="name_required">Name Required</string>
+    <string name="name_error">Enter name only alphabetical character.</string>
+    <string name="father_name_required">Father Name Required.</string>
+    <string name="dob_required">Date Of Birth Required.</string>
+    <string name="fathername_error">Enter father name only alphabetical character.</string>
+    <string name="gender_required">Gender Required</string>
+    <string name="registration_success">Registration Successful</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="livestock_update_success">LiveStock Successfully Updated</string>
+    <string name="livestock_added_success"> Successfully Added</string>
+    <string name="selectlang">Select your language</string>
 
 
     <string name="open">open</string>
@@ -31,6 +54,7 @@
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_logout">Logout</string>
     <string name="crops">Crops</string>
     <string name="Livestock">Livestock</string>
     <string name="query">Query</string>
@@ -38,7 +62,11 @@
     <string name="address">Address :</string>
     <string name="address1">Address-</string>
     <string name="save">Save</string>
-
+    <string name="myprofile">My Profile</string>
+    <string name="notification">Notification</string>
+    <string name="logout">Logout</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -50,6 +78,17 @@
     <string name="resolvequery">RESOLVED QUERY</string>
     <string name="unresolvequery">UNRESOLVED QUERY</string>
     <string name="assignedquery">Assigned QUERY</string>
+    <string name="todo">todo</string>
+    <string name="Solution">Solution</string>
+    <string name="content">Content </string>
+    <string name="contentInfo">Info</string>
+    <string name="query_update_success">Query Successfully Updated</string>
+    <string name="query_added_success">Query Successfully Added</string>
+    <string name="variety">Variety</string>
+    <string name="Content">Content</string>
+    <string name="Info">Info</string>
+    <string name="Query">Query</string>
+    <string name="Feedback">Feedback</string>
 
 
 </resources>

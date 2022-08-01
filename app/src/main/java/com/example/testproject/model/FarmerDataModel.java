@@ -1,5 +1,6 @@
 package com.example.testproject.model;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,6 +16,7 @@ public class FarmerDataModel {
 
     @SerializedName("name")
     private String name;
+
 
     @SerializedName("fatherName")
     private String fatherName;
@@ -48,6 +50,30 @@ public class FarmerDataModel {
 
     @SerializedName("vacantArea")
     private String vacantArea;
+
+    @SerializedName("state")
+    private String stateid;
+
+
+    @SerializedName("ref")
+    @Embedded
+    private FarmerRefModel ref;
+
+    public String getStateid() {
+        return stateid;
+    }
+
+    public void setStateid(String stateid) {
+        this.stateid = stateid;
+    }
+
+    public FarmerRefModel getRef() {
+        return ref;
+    }
+
+    public void setRef(FarmerRefModel ref) {
+        this.ref = ref;
+    }
 
     public int getIdd() {
         return idd;
