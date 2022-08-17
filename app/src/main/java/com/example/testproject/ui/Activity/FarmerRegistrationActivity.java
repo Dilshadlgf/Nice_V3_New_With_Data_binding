@@ -62,7 +62,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
     AlertDialog alertDialog;
     CheckBox checkBox,checkBox_wOtp;
     ImageView imgdrpdwngram, imgaddgram, imgdropdwnvill, imgaddvill, imgdropdwnblok, imgaddblok;
-    EditText et_full_name, et_father_name, et_mobile_number, et_otp_pswd, et_email, edtblock, edtvill;
+    EditText et_full_name, et_father_name, et_mobile_number, et_otp_pswd, et_email, othervillage;
     private HashMap<String, String> spinnerStateMap;
     private HashMap<String, String> spinnerDistrictMap;
     private HashMap<String, String> spinnerBlockMap;
@@ -80,7 +80,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
     private final int REQ_CODE_SPEECH_INPUT_fathername = 101;
     private final int REQ_CODE_SPEECH_INPUT_mob = 102;
     ImageView voicetotxt, voicetotxtt;
-    RelativeLayout otp_lyout;
+    RelativeLayout otp_lyout,edtvill;
     String speechtxt = "Welcome to  Registration";
     //    String speechtxt = "Welcome to Nicessm Registration, Please Click Mike for Voice based Registration";
     String enternametxt = "Please Enter Your Full Name";
@@ -116,6 +116,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         et_father_name = (EditText) findViewById(R.id.et_father_name);
         et_mobile_number = (EditText) findViewById(R.id.et_mobile_number);
         et_email = (EditText) findViewById(R.id.et_email);
+        othervillage = (EditText) findViewById(R.id.othervillage);
         ed_dob = (Button) findViewById(R.id.et_dob_);
         submitOtpBtn = (Button) findViewById(R.id.submitOtpBtn);
         sp_organization = (TextView) findViewById(R.id.sp_organization);
@@ -130,6 +131,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         nextbtn = (Button) findViewById(R.id.nextbtn);
         btnotp = (Button) findViewById(R.id.btnotp);
         otp_lyout = (RelativeLayout) findViewById(R.id.otp_lyout);
+        edtvill = (RelativeLayout) findViewById(R.id.village);
         voicetotxt = (ImageView) findViewById(R.id.voice_to_txt);
         voicetotxtt = (ImageView) findViewById(R.id.voice_to_txtt);
         otpnextbtn=(Button) findViewById(R.id.otpnextbtn);
@@ -382,6 +384,11 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
                 nextSpinnerId = spVillage.getId();
                 callFilterApi("village", "grampanchayat", spinnerGrampanchayatMap.get(spGrampanchayat.getSelectedItem().toString()));
             } else if (parent.getId() == spVillage.getId()) {
+                if(spVillage.getSelectedItemPosition()==(spVillage.getAdapter().getCount()-1)){
+                    edtvill.setVisibility(View.VISIBLE);
+                }else {
+                    edtvill.setVisibility(View.GONE);
+                }
 //                nextSpinnerId = spVillage.getId();
 //                callFilterApi("district", "state", spinnerVillageMap.get(spVillage.getSelectedItem().toString()));
             }
@@ -431,6 +438,7 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
         }
 //        districlist.add("---Select District---");
         // Creating adapter for spinner
+        districlist.add("Other");
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, R.layout.spinner_textview, districlist);
         // Drop down layout style - list view with radio button
         dataAdapter2.setDropDownViewResource(R.layout.textview);
@@ -753,6 +761,10 @@ public class FarmerRegistrationActivity extends AppCompatActivity implements Ada
             errorMessage = ("mobile number is not valid");
             Toast.makeText(getApplicationContext(), "mobile number is not valid", Toast.LENGTH_SHORT).show();
             return false;
+        }else if (othervillage.getVisibility()==View.VISIBLE && TextUtils.isEmpty(othervillage.getText().toString().trim())) {
+            errorMessage = ("Village name required");
+            return false;
+
         }
 
 //        else if ((spstate.getSelectedItemPosition() == 0)) {

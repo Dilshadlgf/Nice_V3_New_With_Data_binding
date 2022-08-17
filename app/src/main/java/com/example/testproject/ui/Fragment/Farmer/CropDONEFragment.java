@@ -22,6 +22,8 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.database.AppDatabase;
+import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.FragmentCropDone1Binding;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.interfaces.QueryListClickListner;
@@ -47,10 +49,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
     public FragmentCropDone1Binding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-//    private LoginDao loginDao;
-//    private VillageDao villageDao;
-//    private QueriesDao queriesDao;
-//    private QueriesResponseModel queryofflinrmodel;
+
     private QueryListClickListner queryListClickListner;
     private ResolutionClickListener resolutionClickListener;
 //    private QueriesResponseDataModel queriesResponseDataModel;
@@ -71,6 +70,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
     private String yield;
     List<LivestocksArrayModel> modelListLiveStockName;
     private int selectedCatindex;
+    private FarmerDao farmerDao;
 
     public static CropDONEFragment newInstance(Bundle args) {
         CropDONEFragment fragment = new CropDONEFragment();
@@ -86,10 +86,8 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentCropDone1Binding) viewDataBinding;
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-//        user_role = SharedPreferenceHelper.getSharedPreferenceString(getContext(), "user_role", "");
+        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
 
-        /*  ((FragmentActivity) getActivity()).setmBack("Back");*/
         userrolesh = getActivity().getSharedPreferences("userrole", 0);
         pref = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
         if (pref != null) {
@@ -100,21 +98,6 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
 
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.doneRecycler.setLayoutManager(linearLayoutManager);
-//        FarmerCrops_Done_Win_Adapter adapter=new FarmerCrops_Done_Win_Adapter(croplist,getContext());
-//        binding.doneRecycler.setAdapter(adapter);
-//        binding.doneRecycler.setLayoutManager(linearLayoutManager);
-//        binding.doneRecycler.setItemAnimator(new DefaultItemAnimator());
-
-//        if (getArguments() != null) {
-//            queryType = getArguments().getString("query");
-//            if(queryType.equalsIgnoreCase("unpicked")){
-//
-//            }
-//        }
-//
-//        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
-//        villageDao = AppDatabase.getInstance(getContext()).getVillageDBModelResponse();
-//        queriesDao = AppDatabase.getInstance(getContext()).queriesResponseModel();
         setupNetwork();
 
         JsonObject mainObj=new JsonObject();
@@ -183,7 +166,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         object.add("status", array);
 //        object.add("category", cat);
 //        object.addProperty("farmer",loginDao.getLoginResponse().getId());
-        object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
+        object.addProperty("farmer",farmerDao.getFarmer().getId());
         mApiManager.farmerCropDetaile(object);
     }
 

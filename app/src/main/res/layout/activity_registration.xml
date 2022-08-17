@@ -553,6 +553,39 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/village"
+                        android:visibility="gone"
+                        android:background="@drawable/custom_card"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:src="@drawable/village" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/othervillage"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="60dp"
+                            android:background="@null"
+                            android:fontFamily="@font/aldrich"
+                            android:hint="Enter Village"
+                            android:text=""
+                            android:textColor="@color/dark_green"
+                            android:textColorHint="@color/color_hint"
+                            android:textFontWeight="300"
+                            android:textSize="@dimen/_11sdp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"

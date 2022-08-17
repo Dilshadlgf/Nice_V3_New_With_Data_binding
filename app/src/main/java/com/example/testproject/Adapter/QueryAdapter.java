@@ -57,16 +57,8 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
         QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
         //  holder.binding.setMydata(queryResponseDataNumModel);
         holder.binding.setMydata(queryResponseDataNumModel);
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle=new Bundle();
-                bundle.putString("model", CommonUtils.pojoToJson(queryResponseDataNumModel));
-                Navigation.findNavController(view).navigate(R.id.action_queryTabFragment_to_queryDetailPrintFragment);
+        holder.binding.getRoot().setTag(position);
 
-
-            }
-        });
     }
 
     @Override
@@ -80,6 +72,18 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
         public MyVHolder(@NonNull FarmerquerylistBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+             binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = (int) view.getTag();
+
+                    Bundle bundle=new Bundle();
+                    bundle.putString("model", CommonUtils.pojoToJson(data.get(position)));
+                    Navigation.findNavController(view).navigate(R.id.action_queryTabFragment_to_queryDetailPrintFragment);
+
+
+                }
+            });
 
 
         }

@@ -2,6 +2,7 @@ package com.example.testproject.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.SearchContentItemListRowBinding;
 import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;
@@ -67,18 +69,8 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
         ContentModel contentModel = data.get(position);
         holder.binding.setMydata(contentModel);
-
+         holder.binding.card.setTag(position);
 //        navController= NavHostFragment.findNavController();
-
-        holder.binding.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                queryListClickListner.onRowClick(position);
-               Navigation.findNavController(view).navigate(R.id.action_contentFragment_to_queryFragment);
-
-            }
-        });
-
 
 
     }
@@ -95,10 +87,20 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
         public myviewholder(@NonNull SearchContentItemListRowBinding binding  ) {
             super(binding.getRoot());
             this.binding=binding;
+            binding.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = (int) view.getTag();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("model", CommonUtils.pojoToJson(data.get(position)));
+                    queryListClickListner.onRowClick(position);
+                    Navigation.findNavController(view).navigate(R.id.action_contentFragment_to_queryFragment,bundle);
+
+                }
+            });
 
 
         }
-
 
     }
 

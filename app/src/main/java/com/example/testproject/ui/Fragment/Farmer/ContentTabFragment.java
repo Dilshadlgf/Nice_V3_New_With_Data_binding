@@ -5,6 +5,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,6 +20,14 @@ import com.google.android.material.tabs.TabLayout;
 public class ContentTabFragment extends BaseFragment {
     private FragmentQueryTabsBinding binding;
     private NavController navController ;
+
+    public static ContentTabFragment newInstance(Bundle bundle) {
+        ContentTabFragment fragment = new ContentTabFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+
     @Override
     protected void init() {
         layoutId = R.layout.fragment_query_tabs;
@@ -28,6 +37,7 @@ public class ContentTabFragment extends BaseFragment {
         binding = (FragmentQueryTabsBinding) viewDataBinding;
         binding.tab.setupWithViewPager(binding.viewpager);
         ((FarmerMainActivity) getActivity()).setTittle("Content");
+        binding.tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         VpAdapter vpAdapter = new VpAdapter(getChildFragmentManager());
         vpAdapter.addFragment(new SearchContentDetailsFragment(),getResources().getString(R.string.Content));
         vpAdapter.addFragment(new ContentInfoFragment(),getResources().getString(R.string.Info));

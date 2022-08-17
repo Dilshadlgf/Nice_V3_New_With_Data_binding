@@ -1,27 +1,38 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.databinding.ViewDataBinding;
 
-import android.view.LayoutInflater;
+import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.testproject.R;
+import com.example.testproject.databinding.SearchContentDetailFragmentBinding;
 
-public class SearchContentDetailsFragment extends Fragment {
+public class SearchContentDetailsFragment extends BaseFragment implements View.OnClickListener, Html.ImageGetter {
+    private SearchContentDetailFragmentBinding binding;
 
     public static QueryFragment newInstance(Bundle args) {
         QueryFragment fragment = new QueryFragment();
         fragment.setArguments(args);
         return fragment;
     }
+    protected void init() {
+        layoutId = R.layout.search_content_detail_fragment;
+    }
+    protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
+        binding = (SearchContentDetailFragmentBinding) viewDataBinding;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank1, container, false);
+    public Drawable getDrawable(String s) {
+        return null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
