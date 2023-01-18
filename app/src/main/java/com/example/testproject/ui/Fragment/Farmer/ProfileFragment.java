@@ -218,6 +218,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        if (getActivity() != null) {
+            ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
+        }
         switch (view.getId()){
             case R.id.cardcrop:
                 try {

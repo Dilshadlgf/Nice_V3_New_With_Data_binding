@@ -89,6 +89,9 @@
     <string name="Info">Info</string>
     <string name="Query">Query</string>
     <string name="Feedback">Feedback</string>
+    <string name="viewInYoutube" />
+    <string name="video_not_open" />
+    <string name="click_here" />
 
 
 </resources>

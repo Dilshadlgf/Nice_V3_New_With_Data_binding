@@ -12,10 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:id="@+id/appbar"
-                android:layout_height="wrap_content">
+
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -32,20 +29,19 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/ic_baseline_edit_24"
                     android:visibility="gone" />
 
 
             </androidx.appcompat.widget.Toolbar>
-            </com.google.android.material.appbar.AppBarLayout>
             <fragment
                 android:id="@+id/fragmentContainerView3"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/nav_bottom"
-                android:layout_below="@id/appbar"
+                android:layout_below="@id/toolbar"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/may_nav" />
 
