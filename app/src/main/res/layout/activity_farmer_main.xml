@@ -39,6 +39,7 @@
 
             </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
+
             <fragment
                 android:id="@+id/fragmentContainerView3"
                 android:name="androidx.navigation.fragment.NavHostFragment"
