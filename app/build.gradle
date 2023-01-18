@@ -34,8 +34,6 @@ android {
             versionNameSuffix ".dev"
             buildConfigField "String", "BASE_URL",  '"https://'+serverUrl+'/api/"'
             manifestPlaceholders = [appLabel: "@string/app_name_dev"]
-
-
         }
     }
     dataBinding {
