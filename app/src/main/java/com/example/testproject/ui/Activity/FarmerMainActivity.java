@@ -21,6 +21,7 @@ import com.example.testproject.Util.LocaleHelper;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
+
 import com.example.testproject.databinding.ActivityFarmerMainBinding;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RoleModel;
@@ -143,7 +144,7 @@ public class FarmerMainActivity extends AppCompatActivity {
 
                         new AlertDialog.Builder(FarmerMainActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Logout")
-                                .setMessage("Would you like to logout?")
+                                .setMessage("Do You Want to logout?")
 
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {

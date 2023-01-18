@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+
     }
 }
 dependencyResolutionManagement {
@@ -12,5 +13,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TestProject"
+rootProject.name = "NiceV3_With_Data_Binding"
 include ':app'

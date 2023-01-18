@@ -175,7 +175,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
             ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.with(getContext()).load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            Picasso.get().load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;

@@ -89,8 +89,7 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
         if(list!=null && list.size()>0){
             for (int i = 0; i < list.size(); i++) {
                 ImageView imageView=new ImageView(getActivity());
-                Picasso.with(getActivity())
-                        .load(ApiClient.BASE_URL+list.get(i))
+                Picasso.get().load(ApiClient.BASE_URL+list.get(i))
                         .into(imageView);
                 assert binding.imageContainer != null;
                 binding.imageContainer.addView(imageView);

@@ -215,13 +215,13 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                      imageUriList.set(i,Uri.parse(model.getImages().get(i)));
                         switch (i){
                             case 0:
-                                Picasso.with(getContext()).load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv1);
+                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv1);
                                 break;
                             case 1:
-                                Picasso.with(getContext()).load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv2);
+                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv2);
                                 break;
                             case 2:
-                                Picasso.with(getContext()).load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv3);
+                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv3);
                                 break;
                         }
                  }
