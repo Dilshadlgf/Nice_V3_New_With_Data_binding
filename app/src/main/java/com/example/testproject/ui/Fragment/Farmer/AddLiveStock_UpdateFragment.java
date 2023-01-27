@@ -1,13 +1,10 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.databinding.ViewDataBinding;
@@ -25,11 +22,11 @@ import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
 import com.example.testproject.model.stagemodel;
 import com.example.testproject.model.varietymodel;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -218,26 +215,12 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
             binding.spstages.setAdapter(dataAdapter1);
         }
 
-
-
     }
     @Override
     public void onClick(View v) {
 
     }
 
-
-
-//    @Override
-//    public void onBackCustom() {
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.GONE);
-//        getFragmentManager().popBackStack();
-//    }
-
-//    @Override
-//    public void okDialogClick(int Id) {
-//
-//    }
     private void callVarietyApi(){
         JsonObject mainObj=new JsonObject();
         JsonArray statusArr=new JsonArray();

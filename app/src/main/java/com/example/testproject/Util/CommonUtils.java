@@ -1,11 +1,15 @@
 package com.example.testproject.Util;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -35,7 +39,12 @@ import java.util.regex.Pattern;
  * Created by Monika on 06/02/19.
  */
 public class CommonUtils {
-
+    public static String addNAifValueEmptyORNull(String str){
+        if(str==null || str.isEmpty()){
+            return "N/A";
+        }
+        return str;
+    }
     public static String extractYTId(String ytUrl) {
 
         String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
@@ -87,6 +96,29 @@ public class CommonUtils {
     }
 
 
+    public static void setLocalLanguage(Context context,String lang){
+        Locale locale = new Locale(lang);
+        locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = context.getSharedPreferences("settings", MODE_PRIVATE).edit();
+        editor.putString("mylang", lang);
+        editor.apply();
+    }
+    public static String loadLocalLanguage(Context context){
+        SharedPreferences sp= context.getSharedPreferences("settings", MODE_PRIVATE);
+        String lang=sp.getString("mylang","en");
+        if(lang.isEmpty()){
+            lang="en";
+        }
+        Locale locale = new Locale(lang);
+        locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+        return lang;
+    }
 
     public static String validMobile(String mobile) {
 

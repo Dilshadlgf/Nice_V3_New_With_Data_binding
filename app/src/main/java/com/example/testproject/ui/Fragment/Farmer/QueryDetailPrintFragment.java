@@ -1,17 +1,13 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.testproject.Network.ApiClient;
 import com.example.testproject.Network.ApiManager;
@@ -24,11 +20,9 @@ import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.QuerydetailprintFragmentBinding;
 import com.example.testproject.model.DataModel;
-import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.example.testproject.ui.base.BaseFragment;
 import com.squareup.picasso.Picasso;
 
 
@@ -57,6 +51,7 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
         layoutId = R.layout.querydetailprint_fragment;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         setupNetwork();
@@ -79,8 +74,6 @@ public class QueryDetailPrintFragment extends BaseFragment implements View.OnCli
             if(d!=null)
                  responseDataModel= (QueryResponseDataNumModel) CommonUtils.jsonToPojo(getArguments().getString("model"), QueryResponseDataNumModel.class);
                 binding.setMydata(responseDataModel);
-
-
 
         }
     }

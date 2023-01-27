@@ -7,8 +7,6 @@ public class RootOneResModel {
     @SerializedName("response")
     private RootTwoResModel response;
 
-
-
     public RootTwoResModel getResponse() {
         return response;
     }

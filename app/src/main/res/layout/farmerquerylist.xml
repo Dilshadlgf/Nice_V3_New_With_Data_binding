@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data >
+        <import type="com.example.testproject.Util.CommonUtils"/>
         <variable
             name="mydata"
             type="com.example.testproject.model.query.QueryResponseDataNumModel" />
@@ -65,7 +66,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Query"
+                                        android:text="@string/query"
+                                        android:fontFamily="@font/poppinsregular_400"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/_10sdp" />
                                 </RelativeLayout>
@@ -112,7 +114,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="@string/Date"
-                                            android:textColor="#ffc700"
+                                            android:fontFamily="@font/poppinsregular_400"
+                                            android:textColor="@color/lightyellow"
                                             android:textSize="@dimen/_8sdp" />
 
                                         <TextView
@@ -120,7 +123,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:fontFamily="@font/aldrich"
-                                            android:text="08-04-2022"
+                                            android:text="@{CommonUtils.getOnlyDateFormat(mydata.date)}"
                                             android:textColor="@color/black"
                                             android:textFontWeight="300"
                                             android:textSize="@dimen/_8sdp" />
@@ -159,7 +162,6 @@
                                 android:justificationMode="inter_word"
                                 android:text="@{mydata.query}"
                                 android:textColor="@color/black"
-                                android:textFontWeight="400"
                                 android:textSize="@dimen/_8sdp" />
 
 
@@ -202,8 +204,10 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
+                                            android:id="@+id/tv_created"
                                             android:layout_marginLeft="@dimen/_3sdp"
-                                            android:text="Created By -"
+                                            android:text="@string/createdBy"
+                                            android:fontFamily="@font/poppinsregular_400"
                                             android:textColor="@color/black"
                                             android:textSize="@dimen/_10sdp" />
 
@@ -212,12 +216,11 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/_2sdp"
-                                            android:fontFamily="@font/aldrich"
-                                            android:text="bala"
+                                            android:fontFamily="@font/poppinsregular_400"
+                                            android:text="@{CommonUtils.addNAifValueEmptyORNull(mydata.ref.createdByUser.userName)}"
                                             android:layout_marginTop="@dimen/_1sdp"
                                             android:gravity="center"
-                                            android:textColor="#808080"
-                                            android:textFontWeight="400"
+                                            android:textColor="@color/black_trans"
                                             android:textSize="@dimen/_8sdp" />
                                     </LinearLayout>
                                 </RelativeLayout>
@@ -252,8 +255,8 @@
                                             android:layout_marginLeft="@dimen/_3sdp"
                                             android:layout_gravity="center_vertical"
                                             android:fontFamily="@font/aldrich"
-                                            android:text="2"
-                                            android:textColor="#808080"
+                                            android:text="@{CommonUtils.getOnlyDayFromDate(mydata.date)}"
+                                            android:textColor="@color/black_trans"
                                             android:textFontWeight="400"
                                             android:textSize="@dimen/_8sdp" />
 
@@ -263,10 +266,9 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_vertical"
                                             android:layout_marginLeft="@dimen/_2sdp"
-                                            android:fontFamily="@font/aldrich"
-                                            android:text="hours ago"
-                                            android:textColor="#808080"
-                                            android:textFontWeight="400"
+                                            android:fontFamily="@font/poppinsregular_400"
+                                            android:text="@string/Hourago"
+                                            android:textColor="@color/black_trans"
                                             android:textSize="@dimen/_8sdp" />
                                     </LinearLayout>
                                 </RelativeLayout>
@@ -322,7 +324,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Solution by -"
-                            android:textFontWeight="400"
+                            android:fontFamily="@font/poppinsregular_400"
                             android:layout_marginLeft="@dimen/_3sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
@@ -330,7 +332,7 @@
                             android:id="@+id/txt_resolved_by"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="@{mydata.solution}"
                             android:layout_marginLeft="@dimen/_2sdp"
                             android:textFontWeight="400"
                             android:fontFamily="@font/aldrich"
@@ -349,8 +351,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date -"
-                            android:textFontWeight="400"
+                            android:text="@string/Date"
+                            android:fontFamily="@font/poppinsregular_400"
                             android:layout_marginLeft="@dimen/_3sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp"/>
@@ -358,7 +360,7 @@
                             android:id="@+id/txt_resolved_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="@{CommonUtils.getOnlyDateFormat(mydata.date)}"
                             android:layout_marginLeft="@dimen/_2sdp"
                             android:textFontWeight="400"
                             android:fontFamily="@font/aldrich"

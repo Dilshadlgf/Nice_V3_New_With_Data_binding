@@ -1,31 +1,19 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.os.Bundle;
-
-import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.testproject.Adapter.QueryAdapter;
 import com.example.testproject.Adapter.VpAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.Util.AppConstants;
 import com.example.testproject.databinding.FragmentAllQueryFragmnetBinding;
-import com.example.testproject.databinding.FragmentQuery2Binding;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
-import java.util.List;
+import com.example.testproject.ui.base.BaseFragment;
 
 
 public class AllQueryFragmnet extends BaseFragment {

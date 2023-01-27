@@ -42,7 +42,6 @@ public class ApiManager {
 
 
     private Context mContext;
-   // private String jsessionid,jsessionidd = "";
     private ProgressDialog dialog;
     private ApiResponseInterface mApiResponseInterface;
     private String jsessionid,jsessionidd = "";
@@ -169,10 +168,43 @@ public class ApiManager {
         });
     }
 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void getweatherStateData(String token) {
+//        showDialog("Weather Loading");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.getCurrentWeatherData(token);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+
+                if (response.body() != null) {
+
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.WeatherAlert_LIST_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Weather data not available");
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("002: Server not responding ");
+                }
+            }
+        });
+    }
 
     ///////=======================================================
     public void sendOrDeleteFbToken(JsonObject jsonObject,String id,boolean isSendToken) {
-        showDialog("Loading");
+//        showDialog("Loading");
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         Call<SingleObjRootOneResModel> call;
@@ -248,6 +280,41 @@ public class ApiManager {
     }
 
     //===============================++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public void addFeedbackRequest( JsonObject jsonObject) {
+        showDialog("Adding Feedback");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<SingleObjRootOneResModel> call = apiService.addFeedbackRequest( jsonObject);
+        call.enqueue(new Callback<SingleObjRootOneResModel>() {
+            @Override
+            public void onResponse(Call<SingleObjRootOneResModel> call, Response<SingleObjRootOneResModel> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    mApiResponseInterface.isSuccess(response.body(), AppConstants.ADD_FEEDBACK_REQUEST);
+
+                } else {
+                    mApiResponseInterface.isError("Add Feedback , TimeOut try later");
+//                    mApiResponseInterface.isError("Feedback saved successfully");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SingleObjRootOneResModel> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError("Internet is not Connected");
+                } else {
+                    mApiResponseInterface.isError("002: Server not responding ");
+                }
+            }
+        });
+    }
+
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void LiveStockRequest(JsonObject jsonObject) {
         showDialog("Livestock");
         ApiInterface apiService =
@@ -608,10 +675,10 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
         showDialog("");
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-        Call<RootQueryModel> call = apiService.feedbacklistRequest(object,pageno);
-        call.enqueue(new Callback<RootQueryModel>() {
+        Call<RootOneResModel> call = apiService.feedbacklistRequest(object,pageno);
+        call.enqueue(new Callback<RootOneResModel>() {
             @Override
-            public void onResponse(Call<RootQueryModel> call, Response<RootQueryModel> response) {
+            public void onResponse(Call<RootOneResModel> call, Response<RootOneResModel> response) {
                 closeDialog();
                 if (response.body() != null) {
 
@@ -625,7 +692,7 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
 
 
             @Override
-            public void onFailure(Call<RootQueryModel> call, Throwable t) {
+            public void onFailure(Call<RootOneResModel> call, Throwable t) {
                 closeDialog();
                 if (t instanceof IOException) {
                     mApiResponseInterface.isError("Internet is not Connected");
@@ -1468,6 +1535,7 @@ public void queriesListRequest(JsonObject jsonObject,String pageno) {
             message="Loading";
         }
         dialog.setMessage(message);
+        dialog.setCancelable(false);
         dialog.show();
     }
 

@@ -10,19 +10,23 @@ import androidx.room.TypeConverters;
 import com.example.testproject.BuildConfig;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.database.Dao.WeatherDetailsDao;
 import com.example.testproject.database.convertor.FarmerListConverter;
 import com.example.testproject.database.convertor.RoleConvertor;
 import com.example.testproject.database.convertor.StateModelConvertor;
+import com.example.testproject.database.convertor.WeatherDetailsConverter;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RoleModel;
+import com.example.testproject.model.WeatherStateModel;
 
-@Database(entities = {FarmerDataModel.class, RoleModel.class}, version = 1)
-@TypeConverters({FarmerListConverter.class, RoleConvertor.class, StateModelConvertor.class})
+@Database(entities = {FarmerDataModel.class, RoleModel.class, WeatherStateModel.class}, version = 1)
+@TypeConverters({FarmerListConverter.class, RoleConvertor.class, StateModelConvertor.class, WeatherDetailsConverter.class})
 
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
     public abstract FarmerDao farmerDao();
     public abstract RoleDao roleDao();
+    public abstract WeatherDetailsDao weatherDetailsResponseModel();
 
 
     public static AppDatabase getInstance(Context context){

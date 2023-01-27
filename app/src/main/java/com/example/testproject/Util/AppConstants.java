@@ -17,8 +17,8 @@ public class AppConstants {
     public static final int farmerInterCropList=64;
     public static final int FarmerSeasonList=65;
     public static final int FarmerVarietyList=66;
-    public static final int DeletecropList=67;
-    public static final int CropDoneRequest=68;
+    public static final int WeatherAlert_LIST_REQUEST=67;
+    public static final int ADD_FEEDBACK_REQUEST=68;
     public static final int CropCalenderRequest=69;
     public static final int UpdateCrop=70;
     public static final int UpdateCropCalender=71;
@@ -53,6 +53,7 @@ public class AppConstants {
     public static final int WeatherData=100;
 
 
+    final public static int DIALOG_LOGIN_BACK_ID = 10001;
 
 
 

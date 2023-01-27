@@ -1,30 +1,43 @@
 package com.example.testproject.ui.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.Util.LocaleHelper;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 
 import com.example.testproject.databinding.ActivityFarmerMainBinding;
+import com.example.testproject.databinding.HeaderLayoutBinding;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.RoleModel;
+import com.example.testproject.ui.base.BaseActivity;
+import com.example.testproject.ui.base.BaseFragment;
+import com.example.testproject.ui.base.BaseFragmentInterface;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,54 +48,43 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.core.view.GravityCompat;
+import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
 import java.util.Locale;
 
-public class FarmerMainActivity extends AppCompatActivity {
+public class FarmerMainActivity extends BaseActivity {
 
     private ActivityFarmerMainBinding binding;
     private NavController navController;
     private AppBarConfiguration mAppBarConfiguration;
     private ApiManager mApiManager;
-   // private LoginDao loginDao;
     private FarmerDao farmerDao;
     private RoleDao roleDao;
     private ApiResponseInterface mInterFace;
-    boolean click = true;
-    private String languageCode = "";
-    private ImageView toolbarEditIcon;
+    private HeaderLayoutBinding headerLayoutBinding;
+    @Override
+    protected void init() {
+        layoutId = R.layout.activity_farmer_main;
 
-
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityFarmerMainBinding.inflate(getLayoutInflater());
+    protected void setUpUi(Bundle savedInstanceState, ViewDataBinding viewDataBinding) {
+        binding = (ActivityFarmerMainBinding) viewDataBinding;
         setUpNetWork();
         setContentView(binding.getRoot());
-        FarmerDao  farmerDao = AppDatabase.getInstance(this).farmerDao();
-        RoleDao roleDao=AppDatabase.getInstance(this).roleDao();
-        toolbarEditIcon=binding.toolbar.findViewById(R.id.iconedit);
-//         Passing each menu ID as a set of Ids because each
-//         menu should be considered as top level destinations.
-
-//        binding.toolbar.inflateMenu(R.menu.icon_menu);
-//        binding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Log.i("","menu");
-//                return false;
-//            }
-//        });
-
+        farmerDao = AppDatabase.getInstance(this).farmerDao();
+        roleDao=AppDatabase.getInstance(this).roleDao();
         navController = Navigation.findNavController(this, R.id.fragmentContainerView3);
- //        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bottom);
-        setSupportActionBar(binding.toolbar);
          mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.dashboardfragment, R.id.profileFragment)
                 .setOpenableLayout(binding.drawerLayout)
@@ -90,42 +92,18 @@ public class FarmerMainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupWithNavController(binding.navBottom, navController);
-        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout);
-//
-//        NavigationUI.setupWithNavController(
-//                binding.toolbar, navController, mAppBarConfiguration);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        headerLayoutBinding=HeaderLayoutBinding.inflate(LayoutInflater.from(this));
+        binding.navView.addHeaderView(headerLayoutBinding.getRoot());
 
+        binding.topBar.toggleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.drawerLayout.openDrawer(GravityCompat.START);
 
-//        getSupportActionBar().setIcon(R.drawable.ic_baseline_edit_24);
-//
-//        RoleDao roleDao= AppDatabase.getInstance(this).roleDao();
-//        FarmerDao farmerDao= AppDatabase.getInstance(this).farmerDao();
-//        if(roleDao.getRole()==null){
-//            RoleModel roleModel=new RoleModel();
-//            roleModel.setFarmer(true);
-//            roleDao.insertRoleResponse(roleModel);
-//        }
-//        RoleModel m=roleDao.getRole();
-//        if(farmerDao.getFarmer()==null){
-//            FarmerDataModel farmerDataModel=new FarmerDataModel();
-//            farmerDataModel.setId("621758b11daffc762c720138");
-//            farmerDao.insertFarmerResponse(farmerDataModel);
-//        }
+            }
+        });
+
         Log.i("","");
-
-
-
-               navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-                   @Override
-                   public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                       getSupportActionBar().setDisplayShowHomeEnabled(true);
-                       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                       ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(FarmerMainActivity.this,binding.drawerLayout,binding.toolbar,R.string.nav_open,R.string.nav_close);
-                       binding.drawerLayout.addDrawerListener(toggle);
-                       toggle.syncState();
-                   }
-               });
 
         binding.navBottom.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -133,6 +111,8 @@ public class FarmerMainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.dashboardfragment:
                          navController.navigate(R.id.dashboardfragment);
+                         hideIcon();
+                         setTittle("Dashboard");
                         break;
 
                     case R.id.profileFragment:
@@ -141,28 +121,7 @@ public class FarmerMainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.logout:
-
-                        new AlertDialog.Builder(FarmerMainActivity.this,R.style.MyDialogTheme)
-                                .setTitle("Logout")
-                                .setMessage("Do You Want to logout?")
-
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // logout
-                                        mApiManager.sendOrDeleteFbToken(null,farmerDao.getFarmer().getId(),false);
-                                        AppDatabase.destroyInstance();
-                                        roleDao.deleteRoleModel();
-                                        farmerDao.deleteFarmer();
-                                        startActivity(new Intent(FarmerMainActivity.this, FarmerLoginActivity.class));
-
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // user doesn't want to logout
-                                    }
-                                })
-                                .show();
+                        showDialog(FarmerMainActivity.this,"Do you want to logout",true,true,AppConstants.DIALOG_LOGIN_BACK_ID);
                         break;
 
                 }
@@ -195,27 +154,7 @@ public class FarmerMainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.logout:
-                        new AlertDialog.Builder(FarmerMainActivity.this,R.style.MyDialogTheme)
-                                .setTitle("Logout")
-                                .setMessage("Would you like to logout?")
-
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // logout
-                                        mApiManager.sendOrDeleteFbToken(null,farmerDao.getFarmer().getId(),false);
-                                        AppDatabase.destroyInstance();
-                                        roleDao.deleteRoleModel();
-                                        farmerDao.deleteFarmer();
-                                        startActivity(new Intent(FarmerMainActivity.this, FarmerLoginActivity.class));
-
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // user doesn't want to logout
-                                    }
-                                })
-                                .show();
+                        showDialog(FarmerMainActivity.this,"Do you want to logout",true,true,AppConstants.DIALOG_LOGIN_BACK_ID);
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
 
                         break;
@@ -224,7 +163,6 @@ public class FarmerMainActivity extends AppCompatActivity {
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
 
                         break;
-
                 }
                 return false;
             }
@@ -252,25 +190,51 @@ public class FarmerMainActivity extends AppCompatActivity {
 
     }
 
-    public ImageView getToolIcon1(){
-        return toolbarEditIcon;
+    public void showHideEditIcon(boolean  b){
+        if (!b){
+            binding.topBar.edit.setVisibility(View.GONE);
+            binding.topBar.backBtn.setVisibility(View.VISIBLE);
+            binding.topBar.toggleBtn.setVisibility(View.GONE);
+        }else {
+            binding.topBar.edit.setVisibility(View.VISIBLE);
+            binding.topBar.backBtn.setVisibility(View.GONE);
+            binding.topBar.toggleBtn.setVisibility(View.VISIBLE);
+
+        }
+    }
+    public void hideIcon(){
+        binding.topBar.edit.setVisibility(View.GONE);
+        binding.topBar.backBtn.setVisibility(View.GONE);
+        binding.topBar.toggleBtn.setVisibility(View.VISIBLE);
     }
     public void setTittle(String tittle){
-        binding.toolbar.setTitle(tittle);
+        binding.topBar.txtTittle.setText(tittle);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, binding.drawerLayout);
     }
-    @Override
-    public void onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+@Override
+public void onBackPressed() {
+    NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView3);
+    int backStackEntryCount = navHostFragment.getChildFragmentManager().getBackStackEntryCount();
+    if(backStackEntryCount>0 ){
+        String st= (String) navController.getCurrentDestination().getLabel();
+        if(st.equals("Dashboard")){
+            finish();
+            return;
+        }else {
+            hideIcon();
         }
+        navController.popBackStack();
+        setTittle("Dashboard");
+
+    }else {
+        showDialog(FarmerMainActivity.this,getString(R.string.doyouwanttoexit),true,true,1);
     }
+}
+
     private void setlocale(String lang) {
         Locale locale = new Locale(lang);
         locale.setDefault(locale);
@@ -281,16 +245,29 @@ public class FarmerMainActivity extends AppCompatActivity {
         editor.putString("my lang", lang);
         editor.apply();
     }
-//
-//     View hView = binding.navView.getHeaderView(0);
-//    ImageView english = hView.findViewById(R.id.ivenglish);
-//    ImageView hindi = hView.findViewById(R.id.ivhindi);
-//    ImageView marathi = hView.findViewById(R.id.ivmarathi);
-//    ImageView tamil = hView.findViewById(R.id.ivtamil);
+    public void onBack(View v){
+        navController.navigateUp();
+        hideIcon();
+        setTittle("Dashboard");
+    }
 
-//    @SuppressLint("ResourceType")
-//    NavigationView navigationView1 = (NavigationView) findViewById(R.layout.header_layout);
-//    View hView1 = navigationView1.getHeaderView(0);
-//        ImageView english = hView1.findViewById(R.id.ivenglish);
+    @Override
+    public void okDialogClick(int Id) {
+        if (Id == AppConstants.DIALOG_LOGIN_BACK_ID) {
+            mApiManager.sendOrDeleteFbToken(null,farmerDao.getFarmer().getId(),false);
+            AppDatabase.destroyInstance();
+            roleDao.deleteRoleModel();
+            farmerDao.deleteFarmer();
+            startActivity(new Intent(FarmerMainActivity.this, FarmerLoginActivity.class));
+            finish();
+        }else if (Id==1){
+            finish();
 
+        }
+    }
+
+    @Override
+    public void cancelDialogClick(int Id) {
+
+    }
 }

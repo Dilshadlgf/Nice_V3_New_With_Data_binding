@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
@@ -31,6 +30,7 @@ import com.example.testproject.interfaces.ResolutionClickListener;
 import com.example.testproject.model.CropDataModel;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;

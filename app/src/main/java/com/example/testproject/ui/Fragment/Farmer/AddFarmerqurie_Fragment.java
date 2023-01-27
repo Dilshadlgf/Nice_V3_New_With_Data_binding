@@ -7,38 +7,21 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.testproject.BuildConfig;
 import com.example.testproject.Network.ApiClient;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
@@ -55,31 +38,24 @@ import com.example.testproject.model.SubDomainDataModel;
 import com.example.testproject.model.query.ChatbotqueryModel;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClickListener {
@@ -119,16 +95,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
     private String edit_QueryId;
     private String edit_QueryStatus;
 
-    @Override
-    public void setRetainInstance(boolean retain) {
-        super.setRetainInstance(retain);
-    }
-
-    public ApiResponseInterface getmInterFace() {
-        return mInterFace;
-    }
-
-
     public static AddFarmerqurie_Fragment newInstance(Bundle args) {
         AddFarmerqurie_Fragment fragment = new AddFarmerqurie_Fragment();
         fragment.setArguments(args);
@@ -160,45 +126,21 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
         binding.previewivcancel1.setOnClickListener(this);
         binding.previewivcancel2.setOnClickListener(this);
         binding.previewivcancel3.setOnClickListener(this);
-//        binding.btnUploadImage5.setOnClickListener(this);
-//        binding.commonquery.setOnClickListener(this);
-//        binding.farmerQuery.setOnClickListener(this);
 
         binding.btnSubmit.setOnClickListener(this);
         dialog = new ProgressDialog(getContext());
         dialog.setCancelable(true);
 
-//        binding.spKnowledgeDomain.setVisibility(View.GONE);
-
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        /*  ((FragmentActivity) getActivity()).setmBack("Back");*/
-       // ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackCustom();
-//
-//            }
-//        });
         binding.voiceToTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
             }
         });
-        if (getActivity() != null) {
-//            ((FragmentActivity) getActivity()).enableNavigationViews(false);
-//            ((FragmentActivity) getActivity()).enableBottomNavigation(true);
-//            ((FragmentActivity) getActivity()).setScreenTitle("Add Farmer Query");
-        }
-
-
         if(getArguments()!=null)
         isEdit=getArguments().getBoolean("isEdit",false);
 
          if(isEdit){
-             //((FragmentActivity) getActivity()).setScreenTitle("Update Query");
              Gson gson=new Gson();
              QueryResponseDataNumModel model=gson.fromJson(getArguments().getString("res"), QueryResponseDataNumModel.class);
              binding.etQuery.setText(model.getQuery());
@@ -233,24 +175,11 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
         spinnerKnowledgeDomainMapp = new HashMap<>();
         spinnerSubDomainMap = new HashMap<>();
 
-
-
-//        binding.etFarmername.setText(farmerdao.getFarmerListResponse().getName());
-
-
-      //  farmerListClickListner = position -> {
-        //    binding.etQuery.setText(res.getResponse().getData().getQuery().get(position).getQuery());
-//            binding.farmerRecycler.setVisibility(View.GONE);
             loadAutoSuggest=false;
-        };
-
-
-   // }
+        }
     private void setUploadFileTextCount(int count){
         binding.txtUploadFiletext.setText("Upload Files "+count+"/3");
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -381,19 +310,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
                     setPreviewImage(bitmap,path);
                 }
-//                else if(requestCode==1){
-//                    binding.btnUploadImage2.setImageBitmap(bitmap);
-//                    imageUriList.set(1,path);
-//                }else if(requestCode==2){
-//                    binding.btnUploadImage3.setImageBitmap(bitmap);
-//                    imageUriList.set(2,path);
-//                }else if(requestCode==3){
-//                    binding.btnUploadImage4.setImageBitmap(bitmap);
-//                    imageUriList.set(3,path);
-//                }else if(requestCode==4){
-//                    binding.btnUploadImage5.setImageBitmap(bitmap);
-//                    imageUriList.set(4,path);
-//                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -441,24 +357,14 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidRequest() {
 
-//        if (TextUtils.isEmpty(binding.etTitle.getText().toString())) {
-//            errorMessage = "Enter Title";
-//            showDialog(errorMessage);
-//            return false;
-//        } else
             if (TextUtils.isEmpty(binding.etQuery.getText().toString())) {
             errorMessage = "Enter Query";
-            showDialog(errorMessage);
+            showDialog(getActivity(),getString(R.string.enter_query),true,true,1);
             return false;
         } else {
             return true;
         }
     }
-
-
-
-
-
 
 
     private void setupNetwork() {
@@ -484,27 +390,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                 else if (ServiceCode == AppConstants.addqueryautosuggRequest) {
                     res = (ChatbotqueryModel) response;
 
-//                    binding.farmerRecycler.setVisibility(View.VISIBLE);
-//
-//
-//                    if (res.getResponse().getData() != null && res.getResponse().getData().getQuery() != null) {
-//                        Queryautosuggest_Adapter adapter = new Queryautosuggest_Adapter(getContext(),
-//                                farmerListClickListner, res.getResponse().getData().getQuery());
-//                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-//                                LinearLayoutManager.VERTICAL, false);
-//                        binding.farmerRecycler.setLayoutManager(linearLayoutManager);
-//                        binding.farmerRecycler.setItemAnimator(new DefaultItemAnimator());
-//                        binding.farmerRecycler.setAdapter(adapter);
-//                        adapter.notifyDataSetChanged();
-//
-//
-//                    } else {
-//                        loadAutoSuggest=false;
-////                        showDialog(getActivity(), "Data Not Found", false, true, 0);
-////                        Toast.makeText(getActivity(),"Data Not Found",Toast.LENGTH_SHORT).show();
-//                        binding.farmerRecycler.setVisibility(View.GONE);
-////                        binding.etQuery.setText("");
-//                    }
                 }
 
                 else if (ServiceCode == AppConstants.ACTIVE_KNOWLEDGE_REQUEST) try {
@@ -520,7 +405,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                         }
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
                         adapter.setDropDownViewResource(R.layout.spinner_item);
-//                       binding.spKnowledgeDomain.setAdapter(adapter);
 
                     }
                 } catch (Exception e) {
@@ -541,7 +425,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                             ArrayAdapter<String> adapterr = new ArrayAdapter<>(getActivity(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
                             adapterr.setDropDownViewResource(R.layout.spinner_item);
 //                            binding.spKnowledgeDomain.setAdapter(adapterr);
-                            closeDialog();
 
                         }
                     }
@@ -553,7 +436,6 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                         submitQuery(null);
                     }else {
                         RootQueryModel loginModel= (RootQueryModel) response;
-                     //   submitQuery(loginModel.getResponse().getData().FileURIs);
                     }
 
                 }else if (ServiceCode == AppConstants.ADD_QUERY_REQUEST) {
@@ -640,40 +522,9 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
         }
     }
 
-    //    @Override
-/*
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT:
-                try {
-                    {
-                        if (resultCode == RESULT_OK && null != data) {
-
-                            ArrayList<String> result = data
-                                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                            binding.etQuery.setText(result.get(0));
-                        }
-                        break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-        }
-    }
-*/
-    private void
-    showDialog(String message) {
-        dialog.setMessage(message);
-        dialog.show();
-    }
-
-    /**
-     * The purpose of this method is to close the dialog
-     */
-    private void closeDialog() {
-        if (dialog != null && dialog.isShowing()) {
+    @Override
+    public void okDialogClick(int id) {
+        if (id==1){
             dialog.dismiss();
         }
     }

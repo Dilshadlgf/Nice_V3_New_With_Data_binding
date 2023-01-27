@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testproject.R;
 import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.FarmerquerylistBinding;
-import com.example.testproject.databinding.SearchContentItemListRowBinding;
-import com.example.testproject.model.ContentModel;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 
 import java.util.ArrayList;
@@ -25,15 +23,42 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
     private FarmerquerylistBinding binding;
     private List<QueryResponseDataNumModel> data;
     private Context context;
+    private String queryType;
 
     NavController navController ;
 
-    public QueryAdapter(List<QueryResponseDataNumModel> data, Context context) {
+    public QueryAdapter(List<QueryResponseDataNumModel> data, Context context, String queryType) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
         this.data.addAll(data);
         this.context = context;
+        switch (queryType){
+            case "R":
+                this.queryType = "resolved";
+                break;
+            case "C":
+                this.queryType="unresolved";
+                break;
+            case "M":
+                this.queryType ="unresolved";
+            case "O":
+                this.queryType="assigned";
+                break;
+        }
+    }
+    private String getQueryStatus(String s){
+        switch (s) {
+            case "R":
+                return  "resolved";
+            case "C":
+            case "M":
+                return "unresolved";
+            case "O":
+                return "assigned";
+
+        }
+        return "unresolved";
     }
 
     public void addNewList(List<QueryResponseDataNumModel> data) {
@@ -56,6 +81,14 @@ public class QueryAdapter extends RecyclerView.Adapter<QueryAdapter.MyVHolder> {
     public void onBindViewHolder(@NonNull QueryAdapter.MyVHolder holder, int position) {
         QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
         //  holder.binding.setMydata(queryResponseDataNumModel);
+        queryType=getQueryStatus(queryResponseDataNumModel.getStatus());
+        if (queryType.equals("assigned")){
+            holder.binding.txtAssignTo.setText(context.getString(R.string.assignedby));
+            holder.binding.txtResolvedBy.setText(CommonUtils.addNAifValueEmptyORNull(queryResponseDataNumModel.getRef().getAssignedTo().getFirstName()));
+        }else if (queryType.equals("resolved")){
+//            holder.binding.txtResolvedBy.setText(CommonUtils.addNAifValueEmptyORNull(queryResponseDataNumModel.getRef().getReviewedBy().getName()));
+
+        }
         holder.binding.setMydata(queryResponseDataNumModel);
         holder.binding.getRoot().setTag(position);
 

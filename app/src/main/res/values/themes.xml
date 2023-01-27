@@ -40,9 +40,13 @@
     <style name="Theme.App1" parent="Theme.MaterialComponents.BottomSheetDialog">
 
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
-        <item name="colorPrimary">#FB8C00</item>
-        <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/light_green</item>
+        <item name="android:iconTint" tools:ignore="NewApi">@color/black_trans</item>
+        <item name="colorOnPrimary">@color/black_trans</item>
     </style>
-
+    <style name="BottomNavigation">
+        <item name="colorPrimary">@color/light_green</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
 </resources>

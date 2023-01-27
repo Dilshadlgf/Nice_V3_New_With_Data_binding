@@ -14,25 +14,29 @@
         android:theme="@style/Theme.TestProject">
         <activity
             android:name=".ui.Activity.FarmerRegistrationActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
             <activity
-            android:name=".ui.Fragment.Farmer.ContentListFragment"
+            android:name=".ui.Fragment.Farmer.ContentFragment"
             android:exported="false"
-            tools:ignore="Instantiatable" />
+                android:screenOrientation="portrait"
+                tools:ignore="Instantiatable" />
         <activity
             android:theme="@style/Theme.TestProject"
             android:name=".ui.Activity.FarmerMainActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
 
         </activity>
         <activity
             android:name=".ui.Activity.FarmerLoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
 
         </activity>
         <activity
             android:name=".ui.Activity.MainSplashActivity"
-            android:theme="@style/Theme.Fab_Bottom_app_bar"
+            android:screenOrientation="portrait"
              android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

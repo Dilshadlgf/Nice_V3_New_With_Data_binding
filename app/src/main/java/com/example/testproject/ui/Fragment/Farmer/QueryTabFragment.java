@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.databinding.ViewDataBinding;
 import androidx.navigation.NavController;
@@ -17,12 +18,12 @@ import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
-import com.example.testproject.model.RoleModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class QueryTabFragment extends BaseFragment{
+public class QueryTabFragment extends BaseFragment {
 
     FragmentQueryTabsBinding binding;
     String queryModule;
@@ -47,8 +48,7 @@ public class QueryTabFragment extends BaseFragment{
         binding.btnAddQuery.setVisibility(View.VISIBLE);
          roleDao= AppDatabase.getInstance(getContext()).roleDao();
         ((FarmerMainActivity) getActivity()).setTittle("Common Query");
-
-
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         if(getArguments()!=null) {
             queryModule = getArguments().getString("queryModule", "common");
             if(queryModule.equals("common")) {
@@ -138,4 +138,13 @@ public class QueryTabFragment extends BaseFragment{
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

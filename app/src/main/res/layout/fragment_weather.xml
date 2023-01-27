@@ -44,7 +44,6 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_50sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_50sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/weatherfilter"
             app:layout_constraintStart_toStartOf="@+id/textView22"

@@ -1,15 +1,15 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.ViewDataBinding;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import com.example.testproject.Adapter.SearchContentAdapter;
 import com.example.testproject.Network.ApiManager;
@@ -24,8 +24,8 @@ import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ import java.util.List;
 import retrofit2.Call;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
-
 
     private RootOneModel rootOneModel;
     private SearchContentAdapter adapter;
@@ -43,7 +42,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     NavController navController ;
     private FragmentProfileBinding binding;
     private FarmerDao farmerDao;
-
+    private ImageView editIcon;
     @Override
     protected void init() {
         layoutId= R.layout.fragment_profile;
@@ -57,7 +56,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         makeEditBox(false);
         setUpNetWork();
         ((FarmerMainActivity) getActivity()).setTittle("My Profile");
-
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(true);
+        ConstraintLayout constraintLayout=(ConstraintLayout)((FarmerMainActivity)getActivity()).findViewById(R.id.top_bar);
+        editIcon = (ImageView) constraintLayout.findViewById(R.id.edit);
         binding.cardcrop.setOnClickListener(this);
         binding.livestoklyout.setOnClickListener(this);
         binding.querieslayout.setOnClickListener(this);
@@ -72,10 +73,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         dataAdapter0.setDropDownViewResource(R.layout.spinner_item);
         // attaching data adapter to spinner
         binding.tvGender.setAdapter(dataAdapter0);
-       if (getActivity() != null) {
-            ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.VISIBLE);
-       }
-//        mApiManager.getProfile("621758b11daffc762c720138");
         mApiManager.getProfile(farmerDao.getFarmer().getId());
     }
     private void makeEditBox(boolean isEnable) {
@@ -147,7 +144,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 //                        binding.tvGender.setSelection(2);
 //                    }
                     if (getActivity()!=null){
-                        ((FarmerMainActivity)getActivity()).getToolIcon1().setOnClickListener(new View.OnClickListener() {
+                        editIcon.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 makeEditBox(true);
@@ -219,7 +216,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (getActivity() != null) {
-            ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
+            ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         }
         switch (view.getId()){
             case R.id.cardcrop:

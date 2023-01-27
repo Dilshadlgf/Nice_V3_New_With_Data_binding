@@ -1,16 +1,20 @@
-package com.example.testproject.ui.Fragment.Farmer;
+package com.example.testproject.ui.base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +30,7 @@ import com.example.testproject.R;
  * Use the {@link BaseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements BaseFragmentInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,7 +74,10 @@ public class BaseFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
     }
 
     @Override
@@ -144,6 +151,7 @@ public class BaseFragment extends Fragment {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.alert_dialog);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             TextView text = dialog.findViewById(R.id.text_dialog);
             text.setText(msg);
@@ -182,18 +190,24 @@ public class BaseFragment extends Fragment {
 
     }
 
-    private void cancelDialogClick(int id) {
+    public void cancelDialogClick(int id) {
 
     }
 
-    private void okDialogClick(int id) {
+    public void okDialogClick(int id) {
 
 
     }
+    OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+        @Override
+        public void handleOnBackPressed() {
+            // Handle the back button event
+            onBackCustom();
+        }
+    };
 
 
     public void onBackCustom() {
-
 
     }
 

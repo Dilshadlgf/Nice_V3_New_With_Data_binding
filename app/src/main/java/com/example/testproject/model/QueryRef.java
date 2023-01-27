@@ -1,4 +1,5 @@
 package com.example.testproject.model;
+ import com.example.testproject.model.query.AssignedToModel;
  import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,9 +30,31 @@ public class QueryRef   {
     @Expose
     private DistrictDataModel district;
 
+    public AssignedToModel getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(AssignedToModel assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
     @SerializedName("createdByFarmer")
     private CreatedByFarmer createdByFarmer;
 
+    public FarmerDataModel getCreatedByUser() {
+        return createdByUser;
+    }
+
+    public void setCreatedByUser(FarmerDataModel createdByUser) {
+        this.createdByUser = createdByUser;
+    }
+
+    @SerializedName("createdByUser")
+    @Expose
+    private FarmerDataModel createdByUser;
+    @SerializedName("assignedTo")
+    @Expose
+    private AssignedToModel assignedTo;
     public CreatedByFarmer getCreatedByFarmer() {
         return createdByFarmer;
     }

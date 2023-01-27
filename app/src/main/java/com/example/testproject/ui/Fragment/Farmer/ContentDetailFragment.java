@@ -2,29 +2,24 @@ package com.example.testproject.ui.Fragment.Farmer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testproject.R;
-import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
 import com.example.testproject.ui.Views.ViewPagerAdapter;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -67,42 +62,6 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
 
         btmview.setVisibility(View.GONE);
 
-
-//        btmview=(BottomNavigationView)getActivity().findViewById(R.id.bottom_navigation);
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-//        ((FragmentActivity) getActivity()).btnPrint.setVisibility(View.GONE);
-//        ((FragmentActivity) getActivity()).shareimg.setVisibility(View.GONE);
-//        /* ((FragmentActivity) getActivity()).setmBack("Back");*/
-//        ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackCustom();
-//            }
-//        });
-//        btmview.setVisibility(View.GONE);
-//        binding.btnAddQuery.setOnClickListener(this);
-//       // ((FragmentActivity) getActivity()).imgfeedback.setVisibility(View.VISIBLE);
-//        ((FragmentActivity) getActivity()).imgfeedback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle feedbckbundle = new Bundle();
-//                String contentId = getArguments().getString("contentId","");
-//                feedbckbundle.putString("contentId",contentId);
-//              //  CustomFragmentManager.replaceFragment(getFragmentManager(), AddFeedbackFragment.newInstance(feedbckbundle), true);
-//
-//            }
-//        });
-
-//
-//        if(loginDao!=null && loginDao.getLoginResponse()!=null){
-//           isFarmerLogin=loginDao.getLoginResponse().getRole().equalsIgnoreCase("farmer");
-//        }
-//        if(!isFarmerLogin){
-//            ((FragmentActivity) getActivity()).lay_bottom_navigation.setVisibility(View.GONE);
-//        }
-//
-//
-//        ((FragmentActivity) getActivity()).setScreenTitle(getString(R.string.content));
         queryModule="farmer";
 
         setupViewPager(binding.viewpager);

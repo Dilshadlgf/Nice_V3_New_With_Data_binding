@@ -4,6 +4,7 @@ import com.example.testproject.model.DataModelTwo;
 import com.example.testproject.model.FarmerDataModel;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.SearchContentResponseDataModel;
+import com.example.testproject.model.WeatherStateModel;
 import com.google.gson.annotations.SerializedName;
 
 public class SingleObjRootDataModel {
@@ -32,6 +33,16 @@ public class SingleObjRootDataModel {
 
     @SerializedName("farmerLiveStock")
     private LivestocksArrayModel farmerLiveStock;
+    @SerializedName("stateweatherdata")
+    private WeatherStateModel stateweatherdata;
+
+    public WeatherStateModel getStateweatherdata() {
+        return stateweatherdata;
+    }
+
+    public void setStateweatherdata(WeatherStateModel stateweatherdata) {
+        this.stateweatherdata = stateweatherdata;
+    }
 
     public String getDuplicate() {
         return duplicate;

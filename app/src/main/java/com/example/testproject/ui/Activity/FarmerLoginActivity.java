@@ -2,6 +2,7 @@ package com.example.testproject.ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.ui.base.BaseActivity;
 import com.google.gson.JsonObject;
 
 import java.util.Locale;
@@ -32,7 +34,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
-public class FarmerLoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class FarmerLoginActivity extends BaseActivity implements View.OnClickListener{
 
     private LoginActivityFarmerBinding binding;
     private Retrofit retrofit;
@@ -46,10 +48,14 @@ public class FarmerLoginActivity extends AppCompatActivity implements View.OnCli
     private String languageCode = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.login_activity_farmer);
-//       ((GifDrawable) binding.gif.getDrawable()).start();
+    protected void init() {
+        layoutId=R.layout.login_activity_farmer;
+    }
+
+    @Override
+    protected void setUpUi(Bundle savedInstanceState, ViewDataBinding viewDataBinding) {
+        binding=(LoginActivityFarmerBinding) viewDataBinding;
+        //       ((GifDrawable) binding.gif.getDrawable()).start();
         setUpNetWork();
         roleDao= AppDatabase.getInstance(this).roleDao();
         farmerDao= AppDatabase.getInstance(this).farmerDao();
@@ -127,6 +133,7 @@ public class FarmerLoginActivity extends AppCompatActivity implements View.OnCli
                     model.setFarmer(true);
                     roleDao.insertRoleResponse(model);
                     startActivity(new Intent(FarmerLoginActivity.this, FarmerMainActivity.class));
+                    finish();
                 }
 
             }
@@ -228,4 +235,19 @@ public class FarmerLoginActivity extends AppCompatActivity implements View.OnCli
         editor.apply();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(FarmerLoginActivity.this,MainSplashActivity.class));
+        finish();
+    }
+
+    @Override
+    public void okDialogClick(int Id) {
+
+    }
+
+    @Override
+    public void cancelDialogClick(int Id) {
+
+    }
 }

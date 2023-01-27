@@ -57,6 +57,9 @@ public interface ApiInterface {
     @POST("content/filter")
     Call<RootOneModel> searchContentList( @Body JsonObject request,@Query("pageno") String pageno);
 
+    @POST("feedback")
+    Call<SingleObjRootOneResModel> addFeedbackRequest(@Body JsonObject feedbackJSONRequest);
+
     @POST("farmerLiveStock/filter?pageno=no")
     Call<RootOneResModel> LiveStockrequest( @Body JsonObject request);
 
@@ -123,7 +126,7 @@ public interface ApiInterface {
     Call<RootQueryModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);
 
     @POST("feedback/filter")
-    Call<RootQueryModel> feedbacklistRequest(@Body JsonObject request,@Query("pageno") String mobile);
+    Call<RootOneResModel> feedbacklistRequest(@Body JsonObject request,@Query("pageno") String mobile);
 
 
     @POST("notificationLog/filter")
@@ -146,5 +149,6 @@ public interface ApiInterface {
 
     @POST("stateWeatherData/filter")
     Call<RootOneResModel> getWeatherData( @Body JsonObject request,@Query("pageno") String pageno);
-
+    @GET("stateWeatherData/currentdate")
+    Call<SingleObjRootOneResModel> getCurrentWeatherData( @Query("id") String token);
 }

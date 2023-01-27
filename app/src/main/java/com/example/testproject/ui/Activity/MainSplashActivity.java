@@ -2,6 +2,7 @@ package com.example.testproject.ui.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.example.testproject.Util.AppConstants;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.ActivityMainBinding;
@@ -17,22 +19,28 @@ import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
+import com.example.testproject.ui.base.BaseActivity;
 
 import pl.droidsonroids.gif.GifDrawable;
 import retrofit2.Call;
 
-public class MainSplashActivity extends AppCompatActivity {
+public class MainSplashActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
     private ApiResponseInterface mInterFace;
     private Call<RootOneModel> call;
     private ApiManager  mApiManager;
     private FarmerDao farmerDao;
+
     @Override
-    protected  void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-         binding=DataBindingUtil.setContentView(this, R.layout.activity_main);
-         setUpNetWork();
+    protected void init() {
+        layoutId=R.layout.activity_main;
+    }
+
+    @Override
+    protected void setUpUi(Bundle savedInstanceState, ViewDataBinding viewDataBinding) {
+        binding=(ActivityMainBinding) viewDataBinding;
+        setUpNetWork();
         FarmerDao farmerDao= AppDatabase.getInstance(this).farmerDao();
 
 
@@ -45,7 +53,7 @@ public class MainSplashActivity extends AppCompatActivity {
                         startActivity(new Intent(MainSplashActivity.this, FarmerMainActivity.class));
 
                     }
-
+                    finish();
                 }
 
             });
@@ -60,10 +68,7 @@ public class MainSplashActivity extends AppCompatActivity {
         mInterFace = new ApiResponseInterface() {
             @Override
             public void isError(String errorCode) {
-//                showDialog(LoginActivity.this, errorCode, false, true, 0);
-//                Intent dashboardIntent = new Intent(LoginActivity.this, LoginActivity.class);
-//                overridePendingTransition(0, 0);
-//                startActivity(dashboardIntent);
+
             }
 
             @Override
@@ -102,5 +107,20 @@ public class MainSplashActivity extends AppCompatActivity {
         mApiManager = new ApiManager(this, mInterFace);
     }
 
+    @Override
+    public void onBackPressed() {
+        showDialog(MainSplashActivity.this,"Do you want to exit",true,true, AppConstants.DIALOG_LOGIN_BACK_ID);
+    }
 
+    @Override
+    public void okDialogClick(int Id) {
+        if (Id==AppConstants.DIALOG_LOGIN_BACK_ID){
+            finish();
+        }
+    }
+
+    @Override
+    public void cancelDialogClick(int Id) {
+
+    }
 }

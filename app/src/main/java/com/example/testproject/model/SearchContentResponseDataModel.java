@@ -74,18 +74,18 @@ public class SearchContentResponseDataModel {
     @Expose
     private String linkType;
 
+//
+//    public QueryRef getRef() {
+//        return Ref;
+//    }
+//
+//    public void setRef(QueryRef ref) {
+//        Ref = ref;
+//    }
 
-    public QueryRef getRef() {
-        return Ref;
-    }
-
-    public void setRef(QueryRef ref) {
-        Ref = ref;
-    }
-
-    @SerializedName("ref")
-    @Expose
-    private QueryRef Ref;
+//    @SerializedName("ref")
+//    @Expose
+//    private QueryRef Ref;
 
     public String getId() {
         return id;

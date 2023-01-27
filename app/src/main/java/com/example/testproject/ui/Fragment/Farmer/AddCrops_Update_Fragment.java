@@ -14,9 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.testproject.Network.ApiManager;
@@ -25,7 +23,6 @@ import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.AddcropUpdatefragment1Binding;
-import com.example.testproject.databinding.AddcropUpdatefragmentBinding;
 import com.example.testproject.model.CropDataModel;
 import com.example.testproject.model.CropSeasonDataModel;
 import com.example.testproject.model.LivestocksArrayModel;
@@ -33,6 +30,7 @@ import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.varietymodel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
@@ -111,7 +109,7 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
 //        ((FragmentActivity) getActivity()).enableNavigationViews(false);
 //        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
 //        if (getActivity() != null) {
-            ((FarmerMainActivity) getActivity()).getToolIcon1().setVisibility(View.GONE);
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
 //        }
 //        // ((FragmentActivity) getActivity()).setScreenTitle("Add Crops");
 //        ((FragmentActivity)getActivity()).setScreenTitle(getString(R.string.addcrops));

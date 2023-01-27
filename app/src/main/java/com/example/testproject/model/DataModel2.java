@@ -10,7 +10,6 @@ public class DataModel2 {
     @SerializedName("content")
     @Expose
     private SearchContentResponseDataModel content;
-
     @SerializedName("farmerCrop")
     private List<CropDataModel> farmerCrop;
 
@@ -19,6 +18,28 @@ public class DataModel2 {
 
     @SerializedName("data")
     private List<DataModelTwo> data;
+    @SerializedName("commodity")
+    private List<LivestocksArrayModel> commodity;
+
+    @SerializedName("variety")
+    private List<varietymodel> variety;
+    @SerializedName("category")
+    private List<LivestocksArrayModel> liveStockCategory;
+
+    @SerializedName("farmerLiveStock")
+    private List<LivestocksArrayModel> farmerLiveStock;
+
+    @SerializedName("stage")
+    private List<stagemodel> stage;
+
+    @SerializedName("notificationlog")
+    private List<NotificationDataModel> notificationlog;
+
+    @SerializedName("pagination")
+    private Pagination1 pagination1;
+
+    @SerializedName("stateweatherdata")
+    private List<WeatherStateModel>stateWeatherModels;
 
     public List<DataModelTwo> getData() {
         return data;
@@ -36,11 +57,6 @@ public class DataModel2 {
         this.cropseason = cropseason;
     }
 
-    @SerializedName("commodity")
-    private List<LivestocksArrayModel> commodity;
-
-    @SerializedName("variety")
-    private List<varietymodel> variety;
 
 //    public List<varietymodel> getVariety() {
 //        return variety;
@@ -66,17 +82,9 @@ public class DataModel2 {
         this.farmerCrop = farmerCrop;
     }
 
-    @SerializedName("category")
-    private List<LivestocksArrayModel> liveStockCategory;
-
-    @SerializedName("farmerLiveStock")
-    private List<LivestocksArrayModel> farmerLiveStock;
 
 //    @SerializedName("variety")
 //    private List<varietymodel> variety;
-
-    @SerializedName("stage")
-    private List<stagemodel> stage;
 
     public List<stagemodel> getStage() {
         return stage;
@@ -110,15 +118,6 @@ public class DataModel2 {
     public void setLiveStockCategory(List<LivestocksArrayModel> liveStockCategory) {
         this.liveStockCategory = liveStockCategory;
     }
-
-    @SerializedName("notificationlog")
-    private List<NotificationDataModel> notificationlog;
-
-    @SerializedName("pagination")
-    private Pagination1 pagination1;
-
-    @SerializedName("stateweatherdata")
-    private List<WeatherStateModel>stateWeatherModels;
 
     public List<WeatherStateModel> getStateWeatherModels() {
         return stateWeatherModels;

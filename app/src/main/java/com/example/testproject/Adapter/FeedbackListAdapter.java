@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testproject.R;
+import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.database.AppDatabase;
 import com.example.testproject.databinding.CustmAddFeedbackforQueryBinding;
 import com.example.testproject.databinding.FarmerquerylistBinding;
+import com.example.testproject.model.DataModelTwo;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 
 import java.util.ArrayList;
@@ -17,19 +21,22 @@ import java.util.List;
 
 public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapter.myviewholder> {
     private CustmAddFeedbackforQueryBinding binding;
-    private List<QueryResponseDataNumModel> data;
+    private List<DataModelTwo> data;
     private Context context;
+    private String farmerName="";
 
 
-    public FeedbackListAdapter(List<QueryResponseDataNumModel> data, Context context) {
+    public FeedbackListAdapter(List<DataModelTwo> data, Context context) {
         if (this.data == null) {
             this.data = new ArrayList<>();
+            farmerName= AppDatabase.getInstance(context).farmerDao().getFarmer().getName();
+
         }
         this.data.addAll(data);
         this.context = context;
     }
 
-    public void addNewList(List<QueryResponseDataNumModel> data) {
+    public void addNewList(List<DataModelTwo> data) {
         this.data.addAll(data);
         notifyDataSetChanged();
     }
@@ -47,9 +54,12 @@ public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FeedbackListAdapter.myviewholder holder, int position) {
-        QueryResponseDataNumModel queryResponseDataNumModel = data.get(position);
-        holder.binding.setMydata(queryResponseDataNumModel);
-
+//        DataModelTwo queryResponseDataNumModel = data.get(position);
+        DataModelTwo dataModelTwo=data.get(position);
+        holder.binding.setMydata(dataModelTwo);
+        holder.binding.txtName.setText(farmerName);
+        holder.binding.textView8.setText("Date -"+CommonUtils.getOnlyDateFormat(dataModelTwo.getCreatedOn().getOn()));
+        holder.binding.txtRating.setRating(Float.parseFloat(dataModelTwo.getRating()));
     }
 
     @Override

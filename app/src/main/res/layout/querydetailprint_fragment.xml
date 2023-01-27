@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.example.testproject.Util.CommonUtils"/>
         <variable
             name="mydata"
             type="com.example.testproject.model.query.QueryResponseDataNumModel" />
@@ -63,7 +64,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_toRightOf="@+id/iv_lay"
-                            android:text="Query"
+                            android:text="@string/query"
+                            android:fontFamily="@font/poppinsregular_400"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
                     </RelativeLayout>
@@ -109,7 +111,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/Date"
-                                android:textColor="#ffc700"
+                                android:textColor="@color/lightyellow"
+                                android:fontFamily="@font/poppinsregular_400"
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
@@ -117,7 +120,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/aldrich"
-                                android:text="@{mydata.date}"
+                                android:text="@{CommonUtils.getOnlyDateFormat(mydata.date)}"
                                 android:textColor="@color/black"
                                 android:textFontWeight="300"
                                 android:textSize="@dimen/_8sdp" />
@@ -256,9 +259,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_3sdp"
-                                android:text="Created by -"
+                                android:text="@string/createdBy"
+                                android:fontFamily="@font/poppinsregular_400"
                                 android:textColor="@color/black_trans"
-                                android:textFontWeight="400"
                                 android:textSize="@dimen/_10sdp" />
 
                             <TextView
@@ -266,9 +269,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_2sdp"
-                                android:fontFamily="@font/aldrich"
-
-                                android:textFontWeight="400"
+                                android:fontFamily="@font/poppinsregular_400"
+                                android:text="@{mydata.createdBy}"
                                 android:textSize="@dimen/_8sdp" />
                         </LinearLayout>
 
@@ -293,9 +295,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_3sdp"
-                            android:text="Addr. of Creator-"
+                            android:text="@string/addofcreated"
                             android:textColor="@color/black_trans"
-                            android:textFontWeight="400"
+                            android:fontFamily="@font/poppinsregular_400"
                             android:textSize="@dimen/_10sdp" />
 
                         <TextView
@@ -304,7 +306,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_2sdp"
                             android:fontFamily="@font/aldrich"
-                            android:text=""
+                            android:text="@{mydata.ref.district.name}"
                             android:textFontWeight="400"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>

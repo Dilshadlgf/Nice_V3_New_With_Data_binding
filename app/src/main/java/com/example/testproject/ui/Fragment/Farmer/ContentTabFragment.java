@@ -13,20 +13,23 @@ import android.widget.TextView;
 
 import com.example.testproject.Adapter.VpAdapter;
 import com.example.testproject.R;
-import com.example.testproject.databinding.FragmentQueryBinding;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
+import com.example.testproject.model.ContentModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
+
 public class ContentTabFragment extends BaseFragment {
     private FragmentQueryTabsBinding binding;
     private NavController navController ;
-
+    private List<ContentModel>data;
     public static ContentTabFragment newInstance(Bundle bundle) {
         ContentTabFragment fragment = new ContentTabFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Override
     protected void init() {
@@ -36,13 +39,17 @@ public class ContentTabFragment extends BaseFragment {
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentQueryTabsBinding) viewDataBinding;
         binding.tab.setupWithViewPager(binding.viewpager);
-        ((FarmerMainActivity) getActivity()).setTittle("Content");
+        ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.content));
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         binding.tab.setTabMode(TabLayout.MODE_SCROLLABLE);
         VpAdapter vpAdapter = new VpAdapter(getChildFragmentManager());
-        vpAdapter.addFragment(new SearchContentDetailsFragment(),getResources().getString(R.string.Content));
-        vpAdapter.addFragment(new ContentInfoFragment(),getResources().getString(R.string.Info));
-        vpAdapter.addFragment(new QueryFragment(),getResources().getString(R.string.Query));
-        vpAdapter.addFragment(new FeedbackList_Fragment(),getResources().getString(R.string.Feedback));
+        Bundle bundle =new Bundle();
+        String model = getArguments().getString("model","");
+        bundle.putString("model", model);
+        vpAdapter.addFragment(new SearchContentDetailsFragment(),getResources().getString(R.string.content));
+        vpAdapter.addFragment( ContentInfoFragment.newInstance(bundle),getResources().getString(R.string.contentInfo));
+        vpAdapter.addFragment(new QueryFragment(),getResources().getString(R.string.query));
+        vpAdapter.addFragment( FeedbackList_Fragment.newInstance(bundle),getResources().getString(R.string.feedback));
         binding.viewpager.setAdapter(vpAdapter);
         setupViewPager(binding.viewpager);
         binding.tab.setupWithViewPager(binding.viewpager);
@@ -93,7 +100,14 @@ public class ContentTabFragment extends BaseFragment {
         binding.btnAddQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_queryFragment_to_addFarmerqurie_Fragment);
+                if (binding.tab.getSelectedTabPosition() == 2) {
+                    navController.navigate(R.id.action_queryFragment_to_addFarmerqurie_Fragment);
+                }else if (binding.tab.getSelectedTabPosition()==3){
+                    Bundle feedbckbundle = new Bundle();
+                    String model = getArguments().getString("model","");
+                    feedbckbundle.putString("model", model);
+                    navController.navigate(R.id.action_queryFragment_to_addFeedbackFragment,feedbckbundle);
+                }
             }
         });
     }

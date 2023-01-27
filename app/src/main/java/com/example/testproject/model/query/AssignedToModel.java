@@ -8,9 +8,6 @@ import java.util.List;
 
 public class AssignedToModel {
 
-
-
-
         @SerializedName("id")
         @Expose
         private String id;

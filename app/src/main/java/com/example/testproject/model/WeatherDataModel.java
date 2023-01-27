@@ -29,11 +29,19 @@ public class WeatherDataModel {
         return rain;
     }
 
+    public List<WeatherModel> getWeather() {
+        return weather;
+    }
+
+    public void setWeather(List<WeatherModel> weather) {
+        this.weather = weather;
+    }
+
     public void setRain(Double rain) {
         this.rain = rain;
     }
 
-    //private List<WeatherModel> weather = null;
+    private List<WeatherModel> weather = null;
     private Double uvi;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

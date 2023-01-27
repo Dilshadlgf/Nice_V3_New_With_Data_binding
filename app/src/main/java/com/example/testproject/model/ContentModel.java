@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class ContentModel {
 
-    @SerializedName("recordId")
+    @SerializedName("id")
+    @Expose
     private String id;
 
     @SerializedName("content")

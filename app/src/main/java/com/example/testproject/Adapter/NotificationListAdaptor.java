@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.example.testproject.R;
 import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.NotiListItemBinding;
 import com.example.testproject.model.NotificationDataModel;
+import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -76,20 +78,23 @@ public class NotificationListAdaptor extends RecyclerView.Adapter<NotificationLi
 
                     Bundle mbundle=new Bundle();
                     FragmentManager manager = ((AppCompatActivity )content).getSupportFragmentManager();
-                    if(model.getData().getQuery_Type().equals("ViewSingleQuery")){
-                        mbundle.putString("id",model.getData().getId());
-                        mbundle.putString("query","contentQuery");
-                        mbundle.putString("queryModule","farmer");
-                        mbundle.putBoolean("callFromOut",true);
-                       // CustomFragmentManager.replaceFragment(manager, QueryDetailPrintFragment.newInstance(mbundle), true);
-                        navController.navigate(R.id.action_notificationListFragment_to_queryDetailPrintFragment,mbundle);
-                    }else {
-                        mbundle.putString("contentId", model.getData().getId());
-                        navController.navigate(R.id.action_notificationListFragment_to_contentDetailFragment,mbundle);
+                    if (model.getData().getQuery_Type()!=null){
+                        if(model.getData().getQuery_Type().equals("ViewSingleQuery")){
+                            mbundle.putString("id",model.getData().getId());
+                            mbundle.putString("query","contentQuery");
+                            mbundle.putString("queryModule","farmer");
+                            mbundle.putBoolean("callFromOut",true);
+                            // CustomFragmentManager.replaceFragment(manager, QueryDetailPrintFragment.newInstance(mbundle), true);
+                            navController.navigate(R.id.action_notificationListFragment_to_queryDetailPrintFragment,mbundle);
+                        }else {
+                            mbundle.putString("contentId", model.getData().getId());
+                            navController.navigate(R.id.action_notificationListFragment_to_contentDetailFragment,mbundle);
 
-                        // CustomFragmentManager.replaceFragment(manager, ContentDetailFragment.newInstance(mbundle), true);
-                    }
-
+                            // CustomFragmentManager.replaceFragment(manager, ContentDetailFragment.newInstance(mbundle), true);
+                        }
+                    }else{
+                        Toast toast = Toast.makeText(content, "Query Type Not Available", Toast.LENGTH_LONG);
+                        toast.show();                    }
                 }
             });
     }

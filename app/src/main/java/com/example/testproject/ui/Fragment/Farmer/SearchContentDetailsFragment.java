@@ -7,18 +7,13 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.MediaController;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.testproject.BuildConfig;
@@ -31,6 +26,7 @@ import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.databinding.FragmentBlank1Binding;
 import com.example.testproject.model.SearchContentResponseDataModel;
 import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;

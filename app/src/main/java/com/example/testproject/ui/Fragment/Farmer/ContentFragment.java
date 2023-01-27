@@ -1,12 +1,12 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +22,7 @@ import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.databinding.ActivityContentBinding;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -29,8 +30,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class ContentListFragment extends BaseFragment {
-
+public class ContentFragment extends BaseFragment {
     private ActivityContentBinding binding;
 
    private String[] contenttype;
@@ -41,7 +41,8 @@ public class ContentListFragment extends BaseFragment {
     private ApiResponseInterface mInterFace;
     private Call<RootOneModel> call;
     private ApiManager mApiManager;
-
+    private List<ContentModel> contentModels;
+    private NavController navController;
     int num = 10, count, total = 1, totalV = 1, totalU = 1, totalD = 1, totalP = 1, totalsuper = 1;
     int mPosition,maxLimit=1;
     private int lastindex;
@@ -59,9 +60,9 @@ public class ContentListFragment extends BaseFragment {
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding = (ActivityContentBinding) viewDataBinding;
-        ((FarmerMainActivity) getActivity()).setTittle("Search Content");
+        ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.search_content));
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         setUpNetWork();
-
         binding.searchContentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         binding.idNestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -189,6 +190,7 @@ public class ContentListFragment extends BaseFragment {
 
             }
 
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void isSuccess(Object response, int ServiceCode) {
 
@@ -200,7 +202,7 @@ public class ContentListFragment extends BaseFragment {
                     }
                     rootOneModel=(RootOneModel) response;
 
-                List<ContentModel> contentModels=rootOneModel.getResponse().getData().getContent();
+                contentModels=rootOneModel.getResponse().getData().getContent();
                 maxLimit=rootOneModel.getResponse().getData().getPagination().getTotalPage();
                 if(adapter==null) {
                     adapter = new SearchContentAdapter(contentModels, getActivity(), new QueryListClickListner() {
@@ -222,8 +224,6 @@ public class ContentListFragment extends BaseFragment {
             }
         };
         mApiManager = new ApiManager(getActivity(), mInterFace);
-
-
     }
 
     @Override
@@ -231,4 +231,24 @@ public class ContentListFragment extends BaseFragment {
      loadmore();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter=null;
+        assert contentModels!=null;
+        contentModels.clear();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter==null){
+            total=1;
+            totalD=1;
+            totalP=1;
+            totalU=1;
+            totalV=1;
+            loadmore();
+        }
+    }
 }

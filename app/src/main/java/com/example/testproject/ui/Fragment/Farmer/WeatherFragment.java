@@ -2,21 +2,19 @@ package com.example.testproject.ui.Fragment.Farmer;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +37,7 @@ import com.example.testproject.model.DataModelTwo;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.model.WeatherStateModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -62,7 +61,7 @@ public class WeatherFragment extends BaseFragment {
    private WeatherAdapter adaptor;
    private HashMap<String, String> stateHash = new HashMap<>();
    private String fDate, tDate, stateId, dialogtdate, dialogfdate;
-
+   private List<WeatherStateModel>list;
    @Override
    protected void init() {
       layoutId = R.layout.fragment_weather;
@@ -73,7 +72,7 @@ public class WeatherFragment extends BaseFragment {
    protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
       binding = (FragmentWeatherBinding) viewDataBinding;
       ((FarmerMainActivity) getActivity()).setTittle("Weather Data");
-
+      ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
       farmerDao = AppDatabase.getInstance(getContext()).farmerDao();
       setUpNetWork();
       fDate = CommonUtils.getCurrentDateForServer();
@@ -115,6 +114,7 @@ public class WeatherFragment extends BaseFragment {
    private void showCustomDialog(List<String> stringList) {
       final Dialog dialog = new Dialog(getContext());
       dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
       dialog.setCancelable(false);
       dialog.setContentView(R.layout.custom_dilouge);
       TextView textView = dialog.findViewById(R.id.tvstart);
@@ -230,7 +230,7 @@ public class WeatherFragment extends BaseFragment {
 
                RootOneResModel rootOneResModel = (RootOneResModel) response;
                maxPage = rootOneResModel.getResponse().getDataModel2().getPagination1().getTotalPage();
-               List<WeatherStateModel> list = rootOneResModel.getResponse().getDataModel2().getStateWeatherModels();
+               list = rootOneResModel.getResponse().getDataModel2().getStateWeatherModels();
                if (list != null && list.size() > 0) {
                   if (adaptor == null) {
                      adaptor = new WeatherAdapter(getActivity(), list);
@@ -258,6 +258,16 @@ public class WeatherFragment extends BaseFragment {
 
    }
 
+   @Override
+   public void onPause() {
+      super.onPause();
+      adaptor=null;
+      assert list!=null;
+      list.clear();
+   }
 
-
+   @Override
+   public void onResume() {
+      super.onResume();
+   }
 }

@@ -2,13 +2,13 @@ package com.example.testproject.ui.Fragment.Farmer;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 ;
 import com.example.testproject.Adapter.QueryAdapter;
-import com.example.testproject.Adapter.SearchContentAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
@@ -18,17 +18,11 @@ import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.database.Dao.RoleDao;
 import com.example.testproject.databinding.FragmentQuery2Binding;
-import com.example.testproject.model.ContentModel;
-import com.example.testproject.model.RootOneModel;
-import com.example.testproject.model.query.PaginationModel;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
-import com.google.gson.Gson;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -50,7 +44,7 @@ public class QueryFragment extends BaseFragment {
     private RoleDao roleDao;
     private FarmerDao farmerDao;
     private  boolean isFarmerLogin;
-
+    private List<QueryResponseDataNumModel> list;
 
     public static QueryFragment newInstance(Bundle args) {
         QueryFragment fragment = new QueryFragment();
@@ -109,12 +103,15 @@ public class QueryFragment extends BaseFragment {
         if(roleDao.getRole().isFarmer()){
 
             JsonObject mainObj=new JsonObject();
-
             JsonArray fid=new JsonArray();
             fid.add(farmerDao.getFarmer().getId());
-            if(queryModule.equals("farmer")){
-                mainObj.add("farmer",fid);
-            }
+            if (queryModule!=null) {
+                if (queryModule.equals("farmer")) {
+                    mainObj.add("farmer", fid);
+                }
+            }else {
+                Toast toast = Toast.makeText(getContext(), "Farmer Type Not Available", Toast.LENGTH_LONG);
+                toast.show();              }
             if(queryType.equalsIgnoreCase("unresolved")){
                 JsonArray qarray=new JsonArray();
                 qarray.add("C");
@@ -173,13 +170,13 @@ public class QueryFragment extends BaseFragment {
                     }
                 rootQueryModel=(RootQueryModel) response;
 
-                List<QueryResponseDataNumModel> queryResponseDataNumModel=rootQueryModel.getResponse().getDataQueryModel().getData();
+                 list=rootQueryModel.getResponse().getDataQueryModel().getData();
                 maxLimit=rootQueryModel.getResponse().getDataQueryModel().getPaginationModel().getTotalPage();
                 if(adapter==null) {
-                    adapter = new QueryAdapter(queryResponseDataNumModel, getActivity());
+                    adapter = new QueryAdapter(list, getActivity(),queryType);
                     binding.queryRecycler.setAdapter(adapter);
                 }else{
-                    adapter.addNewList(queryResponseDataNumModel);
+                    adapter.addNewList(list);
                 }
 
             }
@@ -187,6 +184,18 @@ public class QueryFragment extends BaseFragment {
         mApiManager = new ApiManager(getContext(), mInterFace);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        adapter=null;
+        assert list!=null;
+        list.clear();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }
 
 

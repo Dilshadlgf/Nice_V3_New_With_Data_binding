@@ -29,6 +29,7 @@ import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.model.LivestocksArrayModel;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -92,6 +93,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         binding = (CrpLivestocklistFragmentBinding) viewDataBinding;
         navController= NavHostFragment.findNavController(this);
         ((FarmerMainActivity) getActivity()).setTittle("Farmer Live Stock");
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         setupNetwork();
         farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
 

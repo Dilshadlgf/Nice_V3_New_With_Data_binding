@@ -1,25 +1,21 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.os.Bundle;
-
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.testproject.Adapter.QueryAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
-import com.example.testproject.databinding.FragmentAssignedBinding;
 import com.example.testproject.databinding.FragmentResolvedBinding;
 import com.example.testproject.model.query.QueryResponseDataNumModel;
 import com.example.testproject.model.query.RootQueryModel;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -117,7 +113,7 @@ public class ResolvedFragment extends BaseFragment {
                 List<QueryResponseDataNumModel> queryResponseDataNumModel=rootQueryModel.getResponse().getDataQueryModel().getData();
                 maxLimit=rootQueryModel.getResponse().getDataQueryModel().getPaginationModel().getTotalPage();
                 if(adapter==null) {
-                    adapter = new QueryAdapter(queryResponseDataNumModel, getActivity());
+                    adapter = new QueryAdapter(queryResponseDataNumModel, getActivity(), queryType);
                     binding.queryRecycler.setAdapter(adapter);
                 }else{
                     adapter.addNewList(queryResponseDataNumModel);

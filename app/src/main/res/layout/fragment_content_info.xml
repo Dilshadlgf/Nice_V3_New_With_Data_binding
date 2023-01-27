@@ -48,10 +48,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Knowledge Domain"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/knowlegdomain"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvknowledgedomain"
@@ -59,8 +58,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
                             android:text="@{mydata.knowledgeDomain.name}"
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -87,10 +85,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Sub Domain"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/subdomain"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvsubdomain"
@@ -98,8 +95,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
                             android:text="@{mydata.subDomain.name}"
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -131,10 +127,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Topic"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/Topic"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvtopic"
@@ -142,8 +137,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
                             android:text="@{mydata.topic.name}"
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -170,10 +164,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Sub Topic"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/Sub_Topic"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvsubtopic"
@@ -181,8 +174,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
                             android:text=" "
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -214,19 +206,17 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Date"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/Date"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvdate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
-                            android:text=" "
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:text="@{mydata.reviewedBy.createdDate}"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -253,10 +243,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="State"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/state"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvstate"
@@ -297,10 +286,9 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="District"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/District"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvdistrict"
@@ -308,8 +296,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
                             android:text="@{mydata.district.name}"
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -336,19 +323,17 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppinsregular_400"
-                            android:text="Classification"
-                            android:textColor="#5D675E"
-                            android:textFontWeight="300"
+                            android:fontFamily="@font/poppinsbold_700"
+                            android:text="@string/Classification"
+                            android:textColor="@color/black_trans"
                             android:textSize="@dimen/_8sdp" />
                         <TextView
                             android:id="@+id/tvclassicficatn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppinsregular_400"
-                            android:text=" "
-                            android:textColor="#FFCA19"
-                            android:textFontWeight="300"
+                            android:text=""
+                            android:textColor="@color/lightyellow"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 

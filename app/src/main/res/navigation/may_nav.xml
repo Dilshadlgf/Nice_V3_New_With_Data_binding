@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/contentFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.ContentListFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.ContentFragment"
         android:label="activity_content"
         tools:layout="@layout/activity_content" >
         <action
@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
             app:destination="@id/addFarmerqurie_Fragment" />
+        <action
+            android:id="@+id/action_queryFragment_to_addFeedbackFragment"
+            app:destination="@id/addFeedbackFragment" />
 
     </fragment>
     <fragment
@@ -129,5 +132,9 @@
         android:id="@+id/weatherFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.WeatherFragment"
         android:label="WeatherFragment" />
+    <fragment
+        android:id="@+id/addFeedbackFragment"
+        android:name="com.example.testproject.ui.Fragment.Farmer.AddFeedbackFragment"
+        android:label="AddFeedbackFragment" />
 
 </navigation>

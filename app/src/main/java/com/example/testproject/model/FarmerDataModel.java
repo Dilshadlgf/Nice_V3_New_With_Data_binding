@@ -4,6 +4,7 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "farmer")
@@ -17,6 +18,17 @@ public class FarmerDataModel {
     @SerializedName("name")
     private String name;
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @SerializedName("userName")
+    @Expose
+    private String userName;
 
     @SerializedName("fatherName")
     private String fatherName;
@@ -51,9 +63,22 @@ public class FarmerDataModel {
     @SerializedName("vacantArea")
     private String vacantArea;
 
+
+
     @SerializedName("state")
     private String stateid;
 
+    public String getStateIdd() {
+        return stateIdd;
+    }
+
+    public void setStateIdd(String stateIdd) {
+        this.stateIdd = stateIdd;
+    }
+
+    @SerializedName("stateId")
+    @Expose
+    private String stateIdd;
 
     @SerializedName("ref")
     @Embedded

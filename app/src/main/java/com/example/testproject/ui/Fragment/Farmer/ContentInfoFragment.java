@@ -10,12 +10,15 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.FarmerDao;
 import com.example.testproject.databinding.FragmentContentInfoBinding;
+import com.example.testproject.model.ContentModel;
 import com.example.testproject.model.QueryRef;
 import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SearchContentResponseDataModel;    
+import com.example.testproject.model.SearchContentResponseDataModel;
+import com.example.testproject.ui.base.BaseFragment;
 
 
 /**
@@ -29,8 +32,10 @@ public class ContentInfoFragment extends BaseFragment {
     private SearchContentResponseDataModel responseDataModel;
     private FarmerDao farmerDao;
 
-    public static Fragment newInstance(Bundle infoBundle) {
-        return null;
+    public static ContentInfoFragment newInstance(Bundle bundle) {
+        ContentInfoFragment fragment = new ContentInfoFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
 
@@ -47,8 +52,9 @@ public class ContentInfoFragment extends BaseFragment {
         binding = (FragmentContentInfoBinding) viewDataBinding;
         setUpNetWork();
         farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
-
-        mApiManager.searchContentsListDetailRequest(farmerDao.getFarmer().getId());
+        String modelJson = getArguments().getString("model","");
+        ContentModel contentmodel = (ContentModel) CommonUtils.jsonToPojo(modelJson,ContentModel.class);
+        mApiManager.searchContentsListDetailRequest(contentmodel.getId());
     }
 
     private void setUpNetWork() {
@@ -61,7 +67,7 @@ public class ContentInfoFragment extends BaseFragment {
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
-                if (ServiceCode == AppConstants.SEARCH_CONTENT_LIST_Detail_REQUEST) {
+                if (ServiceCode == AppConstants.PROFILE_REQUEST) {
                     RootOneResModel rootOneResModel = (RootOneResModel) response;
                     QueryRef Q2 = rootOneResModel.getResponse().getDataModel2().getContent().getQueryRef();
 

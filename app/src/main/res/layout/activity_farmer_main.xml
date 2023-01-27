@@ -3,56 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        >
+        android:id="@+id/drawer_layout"
+        android:fitsSystemWindows="true">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/dark_green"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                >
-
-
-                <ImageView
-                    android:id="@+id/iconedit"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/ic_baseline_edit_24"
-                    android:visibility="gone" />
-
-
-            </androidx.appcompat.widget.Toolbar>
+            android:layout_height="match_parent">
+            <include
+                android:id="@+id/top_bar"
+                layout="@layout/top_bar"
+                />
             <fragment
                 android:id="@+id/fragmentContainerView3"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/nav_bottom"
-                android:layout_below="@id/toolbar"
+                android:layout_below="@id/top_bar"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/may_nav" />
-
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/nav_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentBottom="true"
-                android:theme="@style/Theme.App1"
+                android:background="@color/white"
+                android:theme="@style/BottomNavigation"
                 app:menu="@menu/bottom_nav_menu" />
-
 
         </RelativeLayout>
         <com.google.android.material.navigation.NavigationView
@@ -61,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/custom_side_bar"
-            app:headerLayout="@layout/header_layout"
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/_25sdp"
             app:menu="@menu/drawer_menu"
@@ -69,7 +46,5 @@
             app:itemTextColor="@color/white"
             android:fitsSystemWindows="true">
         </com.google.android.material.navigation.NavigationView>
-
     </androidx.drawerlayout.widget.DrawerLayout>
-
 </layout>

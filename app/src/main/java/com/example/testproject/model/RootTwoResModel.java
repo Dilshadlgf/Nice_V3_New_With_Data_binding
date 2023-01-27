@@ -14,8 +14,6 @@ public class RootTwoResModel {
     @Expose
     private DataModel2 dataModel2;
 
-
-
     public int getStatusCode() {
         return statusCode;
     }

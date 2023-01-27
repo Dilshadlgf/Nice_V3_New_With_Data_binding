@@ -1,16 +1,10 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -28,6 +22,7 @@ import com.example.testproject.databinding.NotificationListFragmentBinding;
 import com.example.testproject.model.NotificationDataModel;
 import com.example.testproject.model.RootOneResModel;
 import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -71,9 +66,8 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
         setupNetwork();
         navController= NavHostFragment.findNavController(this);
         farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
-
+        ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         ((FarmerMainActivity) getActivity()).setTittle("Notification");
-
 
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -100,14 +94,12 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
 
     }
     private void loadData(int pageNo){
-       // if(loginDao.getLoginResponse().getRole().equalsIgnoreCase("farmer")){
 
             JsonObject main=new JsonObject();
             JsonArray statsArr=new JsonArray();
             statsArr.add("Active");
             JsonArray idArr=new JsonArray();
-//            idArr.add("623adc6b4d13f2bb63f346b1");
-        idArr.add(farmerDao.getFarmer().getId());
+            idArr.add(farmerDao.getFarmer().getId());
 
 //          idArr.add(loginDao.getLoginResponse().getId());
             main.add("status",statsArr);
