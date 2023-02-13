@@ -31,6 +31,8 @@ import com.example.testproject.model.CropDataModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -102,6 +104,8 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
 
                     CropDataModel  model=croplist.get(position);
 //                     CropDataModel model=croplist.get(position).getResponse().getData().getFarmerCrop().get(position);
+//                    bindData(dashboardVH.crop,model.getRef().getCrop().getId());
+                    
                     dashboardVH.crop.setText(model.getRef().getCrop().getId());
                     dashboardVH.scientificName.setText(model.getRef().getCrop().getScientificName());
                     dashboardVH.interCrop.setText(model.getRef().getInterCrop().getCommonName());
@@ -146,11 +150,13 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
                         dashboardVH.edit.setVisibility(View.GONE);
                         dashboardVH.done.setVisibility(View.GONE);
                     }
-
+                    dashboardVH.done.setTag(R.string.crops,dashboardVH.itemView);
                     dashboardVH.done.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             currentCard= (int) view.getTag();
+                            View view1= (View) view.getTag(R.string.crops);
+                            showD(view1);
 //                            cropDoneDialog(null,currentCard);
 
                         }
@@ -163,6 +169,24 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
                 break;
         }
 
+    }
+    private void bindData(View view,String text){
+        if(text==null || text.isEmpty()){
+            text="N/A";
+        }
+        if(view instanceof TextView) {
+            ((TextView) view).setText(text);
+        }else if(view instanceof EditText){
+            ((EditText) view).setText(text);
+        }
+    }
+
+    private void showD(View view){
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(view);
+        dialog.show();
     }
     AlertDialog editDialog,doneDialog,calenderDialog;
 
