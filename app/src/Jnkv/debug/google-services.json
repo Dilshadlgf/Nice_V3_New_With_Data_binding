@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719789642468",
+    "project_id": "jnkv-mobile-app",
+    "storage_bucket": "jnkv-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719789642468:android:02208419bdb84e88e8d2f1",
+        "android_client_info": {
+          "package_name": "com.logikoofjnkvnice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719789642468-24jdf0cias13h02jshlbr4p4jl21ts5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7ISlkmwkrnOzLS3Ym25jw2r5OiC5YwwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719789642468-24jdf0cias13h02jshlbr4p4jl21ts5v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
