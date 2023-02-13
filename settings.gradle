@@ -11,6 +11,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io"}
     }
 }
 rootProject.name = "NiceV3_With_Data_Binding"

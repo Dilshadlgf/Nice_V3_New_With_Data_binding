@@ -6,17 +6,32 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.core.content.FileProvider;
+
+import com.example.testproject.R;
+import com.example.testproject.databinding.AlertDialogBinding;
+import com.example.testproject.interfaces.CustomAlertListener;
 import com.google.gson.Gson;
 
 import org.joda.time.DateTime;
@@ -25,7 +40,15 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,6 +68,149 @@ public class CommonUtils {
         }
         return str;
     }
+    public static void makeToast(Context context,String msg){
+        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+    }
+    private static ProgressDialog progressDialog;
+
+    public static void downloadFile(Context context, boolean isText, Bitmap bitmap, String url, String tittle, String msg) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    File outputFile=null;
+                    String fileext="";
+                    String mimeType="";
+                    String path="";
+                    fileext = ImageUtil.getFileExt(url);
+                    if(!isText && !fileext.isEmpty()) {
+
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog=new ProgressDialog(context);
+                                progressDialog.show();
+                            }
+                        });
+                        outputFile = ImageUtil.getTempFile(context, ImageUtil.getFileName(url)+"." + fileext);
+                        URL u = new URL(url);
+                        URLConnection conn = u.openConnection();
+                        int contentLength = conn.getContentLength();
+                        if(contentLength>10) {
+                            mimeType = conn.getContentType();
+                            if (mimeType != null) {
+                                String[] strings = mimeType.split("/");
+                                if (strings.length > 0) {
+                                    mimeType = strings[0];
+                                }
+                            }
+
+                            DataInputStream stream = new DataInputStream(u.openStream());
+
+                            byte[] buffer = new byte[contentLength];
+                            stream.readFully(buffer);
+                            stream.close();
+
+                            DataOutputStream fos = new DataOutputStream(new FileOutputStream(outputFile));
+                            fos.write(buffer);
+                            fos.flush();
+                            fos.close();
+                            path = outputFile.getAbsolutePath();
+                        }else{
+                            mimeType="";
+                            fileext="";
+                        }
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(progressDialog!=null && progressDialog.isShowing()){
+                                    progressDialog.dismiss();
+                                    progressDialog=null;
+                                }
+                            }
+                        });
+//                        mimeType=getMimeType(context,Uri.parse(path));
+                    }
+
+                    shareMediaWithText(context,isText,bitmap,path,mimeType,fileext,tittle,msg);
+                } catch (FileNotFoundException e) {
+                    return; // swallow a 404
+                } catch (IOException e) {
+                    return; // swallow a 404
+                }
+            }
+        }).start();
+    }
+    public static void openCustomDialog(Context context, CustomAlertListener customAlertListener, String msg, int id){
+        AlertDialog.Builder alertDialog= new AlertDialog.Builder(context, R.style.MyDialogTheme);
+        AlertDialogBinding binding=AlertDialogBinding.inflate(LayoutInflater.from(context));
+        alertDialog.setView(binding.getRoot());
+        binding.textDialog.setText(msg);
+        Dialog dialog=alertDialog.create();
+        binding.btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                customAlertListener.OnDialogOKClick(id);
+            }
+        });
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                customAlertListener.OnDialogCancel(id);
+            }
+        });
+        dialog.show();
+    }
+
+    public static void shareMediaWithText(Context context,boolean isText,Bitmap bitmap,String path,String fileType,String fileExt,String tittle,String msg){
+//        String path = ""; //should be local path of downloaded video
+        Uri bitmapUri=null;
+        boolean hasMedia=false;
+
+        if (!isText &&fileExt != null && !fileExt.isEmpty()) {
+            hasMedia=true;
+//            ContentValues content = new ContentValues(4);
+//            content.put(MediaStore.Video.VideoColumns.DATE_ADDED,
+//                    System.currentTimeMillis() / 1000);
+//            content.put(MediaStore.Video.Media.MIME_TYPE, fileType);
+//            content.put(MediaStore.Video.Media.DATA, path);
+//
+//            ContentResolver resolver = context.getContentResolver();
+//             uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, content);
+        }else {
+            if(bitmap!=null){
+                bitmapUri=ImageUtil.saveImage(context,bitmap);
+                fileType = "Image";
+            }else {
+                fileType = "text";
+            }
+        }
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType(fileType+"/*");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, tittle);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, msg);
+        if(hasMedia ) {
+            Uri muri=null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                muri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", new File(path));
+            } else {
+                muri = Uri.fromFile(new File(path));
+            }
+//                sharingIntent.setDataAndType(muri, context.getContentResolver().getType(muri));
+            sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, muri);
+//
+        }else if(bitmapUri!=null){
+            sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
+        }
+        context.startActivity(Intent.createChooser(sharingIntent, "Share Video"));
+    }
+
     public static String extractYTId(String ytUrl) {
 
         String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
@@ -67,6 +233,14 @@ public class CommonUtils {
     public final static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+    public static boolean isValidPhoneNumber(CharSequence target) {
+        if (target.length()!=10) {
+            return false;
+        } else {
+            return android.util.Patterns.PHONE.matcher(target).matches();
+        }
+    }
+
     public static String getFutuerAndBackDates(int day,boolean isBackDate,String format){
 //        DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.ss'Z'");
         org.joda.time.LocalDateTime dtf=null;
@@ -476,6 +650,12 @@ public class CommonUtils {
         return false;
     }
 
+    public static <T> Object getPojoFromStr (T className,String str){
+        return new Gson().fromJson(str, (Type) className);
+    }
+    public static <T> String getStrFromPojo (T className){
+        return new Gson().toJson(className);
+    }
 
 
 

@@ -44,7 +44,7 @@
     <string name="printer_connecting">शी कनेक्ट करत आहे</string>
     <string name="can_not_establish_connection">कनेक्शन स्थापित करू शकत नाही</string>
     <string name="launguage_selection">भाषा निवड</string>
-    <string name="date">तारीख</string>
+    <string name="date">तारीख :- </string>
     <string name="feedbackstar">अभिप्राय*</string>
     <string name="add_query_button_caption">जोडा</string>
     <string name="enter_query">क्वेरी प्रविष्ट करा</string>

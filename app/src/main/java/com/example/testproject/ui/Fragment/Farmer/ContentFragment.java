@@ -3,16 +3,22 @@ package com.example.testproject.ui.Fragment.Farmer;
 import androidx.core.widget.NestedScrollView;
 import androidx.databinding.ViewDataBinding;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testproject.Adapter.SearchContentAdapter;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;
 import com.example.testproject.model.RootOneModel;
@@ -21,7 +27,7 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.databinding.ActivityContentBinding;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -47,6 +53,8 @@ public class ContentFragment extends BaseFragment {
     int mPosition,maxLimit=1;
     private int lastindex;
     private boolean positionChanged;
+    List<ContentModel> unsolvelist;
+
     @Override
 
     protected void init() {
@@ -64,7 +72,7 @@ public class ContentFragment extends BaseFragment {
         ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         setUpNetWork();
         binding.searchContentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        navController= NavHostFragment.findNavController(this);
         binding.idNestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -84,6 +92,11 @@ public class ContentFragment extends BaseFragment {
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         binding.spSearchContent.setAdapter(spinnerArrayAdapter);
 
+        binding.searchContentRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        int id = binding.searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) binding.searchView.findViewById(id);
+        textView.setTextColor(Color.BLACK);
+        textView.setHintTextColor(Color.LTGRAY);
         binding.spSearchContent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -201,25 +214,51 @@ public class ContentFragment extends BaseFragment {
                         adapter.clearMyList();
                     }
                     rootOneModel=(RootOneModel) response;
+                if (rootOneModel.getResponse().getData().content!=null){
+                    contentModels= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().content.getAsJsonArray(),ContentModel.class);
 
-                contentModels=rootOneModel.getResponse().getData().getContent();
                 maxLimit=rootOneModel.getResponse().getData().getPagination().getTotalPage();
                 if(adapter==null) {
                     adapter = new SearchContentAdapter(contentModels, getActivity(), new QueryListClickListner() {
                         @Override
                         public void onRowClick(int position) {
-                            total=1;
-                            totalV=1;
-                            totalD=1;
-                            totalU=1;
-                            totalP=1;
-                            adapter=null;
+                            total = 1;
+                            totalV = 1;
+                            totalD = 1;
+                            totalU = 1;
+                            totalP = 1;
+                            adapter = null;
                         }
                     });
                     binding.searchContentRecycler.setAdapter(adapter);
-                }else{
+                }
+                 }else{
                     adapter.addNewList(contentModels);
                 }
+                binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        for (int f = 0; f < unsolvelist.size(); f++)
+                            if (unsolvelist.get(f).content.contains(query)) {
+                                adapter.getFilter().filter(query);
+                                return false;
+                            } else {
+                                Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
+                            }
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        if (adapter != null)
+//
+                            adapter.getFilter().filter(newText);
+//
+
+                        return true;
+                    }
+                });
+
 
             }
         };
@@ -228,27 +267,9 @@ public class ContentFragment extends BaseFragment {
 
     @Override
     public void onBackCustom() {
-     loadmore();
+        ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.dashboard));
+        ((FarmerMainActivity) getActivity()).hideIcon();
+        navController.navigate(R.id.dashboardfragment);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        adapter=null;
-        assert contentModels!=null;
-        contentModels.clear();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adapter==null){
-            total=1;
-            totalD=1;
-            totalP=1;
-            totalU=1;
-            totalV=1;
-            loadmore();
-        }
-    }
 }

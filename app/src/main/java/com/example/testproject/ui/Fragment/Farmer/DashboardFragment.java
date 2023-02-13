@@ -8,23 +8,19 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
-//import com.example.testproject.databinding.ActivityDsaboardBinding;
-//import com.example.testproject.databinding.ActivityLoginBinding;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.database.Dao.WeatherDetailsDao;
 import com.example.testproject.databinding.ActivityDsaboardBinding;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.model.TemperatureModel;
 import com.example.testproject.model.WeatherModel;
-import com.example.testproject.model.WeatherStateModel;
-import com.example.testproject.model.WeatherTemperatureModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 
 public class DashboardFragment extends BaseFragment {
@@ -33,8 +29,8 @@ public class DashboardFragment extends BaseFragment {
     private static boolean hitFirstWeatherApi;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    WeatherDetailsDao weatherDetailsDao;
-    private FarmerDao farmerDao;
+    private UserDao userDao;
+    private WeatherDetailsDao weatherDetailsDao;
     protected void init() {
         layoutId=R.layout.activity_dsaboard;
     }
@@ -45,7 +41,7 @@ public class DashboardFragment extends BaseFragment {
         binding= (ActivityDsaboardBinding) viewDataBinding;
         navController= NavHostFragment.findNavController(this);
         setupNetwork();
-        farmerDao= AppDatabase.getInstance(getContext()).farmerDao();
+        userDao= AppDatabase.getInstance(getContext()).userdao();
         weatherDetailsDao = AppDatabase.getInstance(getContext()).weatherDetailsResponseModel();
         setWeatherData(weatherDetailsDao.getWeatherDetailsResponseModel());
 
@@ -79,7 +75,7 @@ public class DashboardFragment extends BaseFragment {
 
         if(!hitFirstWeatherApi){
             hitFirstWeatherApi=true;
-            mApiManager.getweatherStateData(farmerDao.getFarmer().getStateid());
+            mApiManager.getweatherStateData(userDao.getUserResponse().state);
         }
     }
     private void setupNetwork() {
@@ -96,17 +92,18 @@ public class DashboardFragment extends BaseFragment {
             @Override
             public void isSuccess(Object response, int ServiceCode) {
                 if(ServiceCode==AppConstants.WeatherAlert_LIST_REQUEST){
-                    SingleObjRootOneResModel rootOneResModel= (SingleObjRootOneResModel) response;
-                    WeatherStateModel stateModel=rootOneResModel.getResponse().getData().getStateweatherdata();
-                    setWeatherData(stateModel);
-                    if(stateModel!=null){
-                        WeatherStateModel old= weatherDetailsDao.getWeatherDetailsResponseModel();
-                        if(old!=null){
-                            stateModel.setDbid(old.getDbid());
-                            weatherDetailsDao.updateWeatherDetailsResponseModel(stateModel);
-                        }else{
-                            weatherDetailsDao.insertWeatherDetailsResponseModel(stateModel);
+                    RootOneModel rootOneModel= (RootOneModel) response;
+                    if (rootOneModel.getResponse().getData().getStateWeatherModels()!=null){
+                        WeatherModel weatherModel= (WeatherModel) JsonMyUtils.getPojoFromJsonObj(WeatherModel.class,rootOneModel.getResponse().getData().getStateWeatherModels().getAsJsonObject());
+                    setWeatherData(weatherModel);
+                    if(weatherModel!=null) {
+                        WeatherModel old = weatherDetailsDao.getWeatherDetailsResponseModel();
+                        if (old != null) {
+                            weatherDetailsDao.updateWeatherDetailsResponseModel(old);
+                        } else {
+                            weatherDetailsDao.insertWeatherDetailsResponseModel(weatherModel);
                         }
+                    }
                     }
 
                 }
@@ -114,25 +111,36 @@ public class DashboardFragment extends BaseFragment {
         };
         mApiManager = new ApiManager(getContext(), mInterFace);
     }
-    private void setWeatherData(WeatherStateModel stateModel){
+    private void setWeatherData(WeatherModel stateModel){
 
         if(stateModel!=null) {
-            WeatherTemperatureModel temp = stateModel.getWeatherData().getTemp();
-            binding.maxtempTxt.setText(temp.getDay().intValue()+"°C" );
-            binding.mintempTxt.setText("Max: " + temp.getMax().intValue()+"°C");
-            binding.maxxtempTxt.setText("Min: " + temp.getMin().intValue()+"°C");
-            WeatherModel weatherModel=stateModel.getWeatherData().getWeather().get(0);
-            if(weatherModel.getId().intValue()==800){
+            TemperatureModel temp = stateModel.weatherData.temp;
+            binding.maxtempTxt.setText(temp.day.intValue()+"°C" );
+            binding.mintempTxt.setText("Max: " + temp.max.intValue()+"°C");
+            binding.maxxtempTxt.setText("Min: " + temp.min.intValue()+"°C");
+            TemperatureModel weatherModel=stateModel.weatherData.weather.get(0);
+            if(weatherModel.id.intValue()==800){
                 //  binding.imgTxt.setImageResource(R.drawable.ic_baseline_wb_sunny_24);
-            }else if(weatherModel.getId().intValue()==802||weatherModel.getId().intValue()==803|| weatherModel.getId().intValue()==804){
+            }else if(weatherModel.id.intValue()==802||weatherModel.id.intValue()==803|| weatherModel.id.intValue()==804){
                 //  binding.imgTxt.setImageResource(R.drawable.cloud_img);
-            }else if(weatherModel.getId().intValue()==500){
+            }else if(weatherModel.id.intValue()==500){
                 //  binding.imgTxt.setImageResource(R.drawable.rain_fall);
             }
             // binding.imgTxt.setVisibility(View.VISIBLE);
-            binding.placetxttem.setText(stateModel.getName());
-            binding.tvdatetem.setText(CommonUtils.getOnlyDateFormat(stateModel.getDate()));
+            binding.placetxttem.setText(stateModel.name);
+            binding.tvdatetem.setText(CommonUtils.getOnlyDateFormat(stateModel.date));
         }
     }
 
+    @Override
+    public void onBackCustom() {
+        showDialog(getActivity(),"Do you want to exit?",true,true,AppConstants.DIALOG_LOGIN_BACK_ID);
+    }
+
+    @Override
+    public void okDialogClick(int id) {
+        if (id ==AppConstants.DIALOG_LOGIN_BACK_ID){
+            getActivity().finish();
+        }
+    }
 }

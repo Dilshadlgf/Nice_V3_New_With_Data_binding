@@ -1,6 +1,7 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.testproject.Network.ApiClient;
 import com.example.testproject.Network.ApiManager;
@@ -28,16 +31,14 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.ImageUtil;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentAddQueryBinding;
-import com.example.testproject.model.ActiveKnowledgeDomainResponseDataModel;
-import com.example.testproject.model.Farmerlistnewdatamodel;
-import com.example.testproject.model.GeneralResponseModel;
-import com.example.testproject.model.SubDomainDataModel;
-import com.example.testproject.model.query.ChatbotqueryModel;
-import com.example.testproject.model.query.QueryResponseDataNumModel;
-import com.example.testproject.model.query.RootQueryModel;
+import com.example.testproject.model.ProjectModel;
+import com.example.testproject.model.QueryModel;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.model.RootTwoModel;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -53,47 +54,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClickListener {
-    private Farmerlistnewdatamodel farmerListModel;
-    MultipartBody.Part attachProof;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private FragmentAddQueryBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    private FarmerDao loginDao;
+    private UserDao userDao;
     private ProgressDialog dialog;
-    private FarmerDao villageDao;
-    ChatbotqueryModel res;
-//    FarmerListClickListner farmerListClickListner;
     private HashMap<Integer, String> spinnerKnowledgeDomainMapp;
     private HashMap<Integer, String> spinnerSubDomainMap;
-    private List<ActiveKnowledgeDomainResponseDataModel> activeKnowledgeDomainResponseDataModels;
-    private List<SubDomainDataModel> subDomainDataModelList;
     private String errorMessage = "";
     SharedPreferences pref;
-    private FarmerDao farmerdao;
-    GeneralResponseModel generalResponseModel;
-    private static int uploadImage2 = 2;
-    private static int uploadImage3 = 3;
-    private static int uploadImage4 = 4;
-    private static int uploadImage5 = 5;
-    private RequestBody userAvtar;
-    private String pictureImagePath = "";
-    private static int uploadImage1 = 1;
     private static final int REQUEST_CAMERA = 101, SELECT_FILE = 1;
-    int requestCode;
-    Intent datagallry;
-    private boolean loadAutoSuggest;
     private ArrayList<Uri> imageUriList;
     private String  mCurrentPhotoPath;
     private boolean isEdit;
     private String edit_QueryId;
     private String edit_QueryStatus;
+    private NavController navController;
+    private String modelJson;
+    private boolean loadAutoSuggest;
 
     public static AddFarmerqurie_Fragment newInstance(Bundle args) {
         AddFarmerqurie_Fragment fragment = new AddFarmerqurie_Fragment();
@@ -106,15 +88,17 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
         layoutId = R.layout.fragment_add_query;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentAddQueryBinding) viewDataBinding;
         pref = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
-        loginDao = AppDatabase.getInstance(getContext()).farmerDao();
-        farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
-        villageDao = AppDatabase.getInstance(getContext()).farmerDao();
+        userDao = AppDatabase.getInstance(getContext()).userdao();
         setupNetwork();
-
+        navController= NavHostFragment.findNavController(this);
+        if (getArguments()!=null) {
+            modelJson = getArguments().getString("model", "");
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -142,32 +126,32 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
          if(isEdit){
              Gson gson=new Gson();
-             QueryResponseDataNumModel model=gson.fromJson(getArguments().getString("res"), QueryResponseDataNumModel.class);
-             binding.etQuery.setText(model.getQuery());
-             edit_QueryId=model.getId();
-             edit_QueryStatus=model.getStatus();
+             QueryModel model=gson.fromJson(getArguments().getString("res"), QueryModel.class);
+             binding.etQuery.setText(model.query);
+             edit_QueryId=model.id;
+             edit_QueryStatus=model.status;
 
              if(imageUriList==null){
 
 
                  imageUriList= new ArrayList<>( Arrays.asList(Uri.parse(""),Uri.parse(""),Uri.parse("")));
              }
-             if(model.getImages()!=null) {
-                 for (int i = 0; i < model.getImages().size(); i++) {
-                     imageUriList.set(i,Uri.parse(model.getImages().get(i)));
+             if(model.images!=null) {
+                 for (int i = 0; i < model.images.size(); i++) {
+                     imageUriList.set(i,Uri.parse(model.images.get(i)));
                         switch (i){
                             case 0:
-                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv1);
+                                Picasso.get().load(ApiClient.BASE_URL+model.images.get(i)).into(binding.previewiv1);
                                 break;
                             case 1:
-                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv2);
+                                Picasso.get().load(ApiClient.BASE_URL+model.images.get(i)).into(binding.previewiv2);
                                 break;
                             case 2:
-                                Picasso.get().load(ApiClient.BASE_URL+model.getImages().get(i)).into(binding.previewiv3);
+                                Picasso.get().load(ApiClient.BASE_URL+model.images.get(i)).into(binding.previewiv3);
                                 break;
                         }
                  }
-                 setUploadFileTextCount(model.getImages().size());
+                 setUploadFileTextCount(model.images.size());
              }
          }
 
@@ -377,6 +361,8 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
+                RootOneModel rootOneModel=(RootOneModel) response;
+
                 if (ServiceCode == AppConstants.sessionrequest) try {
                     {
 
@@ -388,46 +374,51 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                     e.printStackTrace();
                 }
                 else if (ServiceCode == AppConstants.addqueryautosuggRequest) {
-                    res = (ChatbotqueryModel) response;
 
                 }
 
                 else if (ServiceCode == AppConstants.ACTIVE_KNOWLEDGE_REQUEST) try {
                     {
-                        activeKnowledgeDomainResponseDataModels = (List<ActiveKnowledgeDomainResponseDataModel>) response;
-                        String[] spinnerKnowledgeDomainArray = new String[activeKnowledgeDomainResponseDataModels.size() + 1];
-                        spinnerKnowledgeDomainArray[0] = "--Select Knowledge--";
-                        spinnerKnowledgeDomainMapp.put(0, "0");
+                        if (rootOneModel.getResponse().getData().data!=null){
+                            List<ProjectModel> projectModels= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),ProjectModel.class);
+                            String[] spinnerKnowledgeDomainArray = new String[projectModels.size() + 1];
+                            spinnerKnowledgeDomainArray[0] = "--Select Knowledge--";
+                            spinnerKnowledgeDomainMapp.put(0, "0");
 
-                        for (int i = 1; i <= activeKnowledgeDomainResponseDataModels.size(); i++) {
-                            spinnerKnowledgeDomainMapp.put(i, activeKnowledgeDomainResponseDataModels.get(i - 1).getId());
-                            spinnerKnowledgeDomainArray[i] = activeKnowledgeDomainResponseDataModels.get(i - 1).getName();
+                            for (int i = 1; i <= projectModels.size(); i++) {
+                                spinnerKnowledgeDomainMapp.put(i, projectModels.get(i - 1).id);
+                                spinnerKnowledgeDomainArray[i] = projectModels.get(i - 1).name;
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
+                            adapter.setDropDownViewResource(R.layout.spinner_item);
+
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
-                        adapter.setDropDownViewResource(R.layout.spinner_item);
 
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 else if (ServiceCode == AppConstants.FARMER_LIST_REQUEST) try {
-                    {
-                        farmerListModel = (Farmerlistnewdatamodel) response;
-                        String[] spinnerKnowledgeDomainArray = new String[farmerListModel.getFarmers().size() + 1];
-                        spinnerKnowledgeDomainArray[0] = "--Select Farmer--";
-                        spinnerKnowledgeDomainMapp.put(0, "0");
+//                    {
+//                        if (rootOneModel.getResponse().getData().data!=null) {
+//                            List<ProjectModel> projectModels = JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray());
+//                            String[] spinnerKnowledgeDomainArray = new String[projectModels.getFarmers().size() + 1];
+//                            spinnerKnowledgeDomainArray[0] = "--Select Farmer--";
+//                            spinnerKnowledgeDomainMapp.put(0, "0");
+//
+//                            for (int i = 1; i <= RootOneModel.getFarmers().size(); i++) {
+//                                spinnerKnowledgeDomainMapp.put(i, RootOneModel.getFarmers().get(i - 1).getId());
+//                                spinnerKnowledgeDomainArray[i] = RootOneModel.getFarmers().get(i - 1).getName();
+//                            }
+//                            if (getActivity() != null) {
+//                                ArrayAdapter<String> adapterr = new ArrayAdapter<>(getActivity(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
+//                                adapterr.setDropDownViewResource(R.layout.spinner_item);
+////                            binding.spKnowledgeDomain.setAdapter(adapterr);
+//
+//                            }
+//                        }
+//                        }
 
-                        for (int i = 1; i <= farmerListModel.getFarmers().size(); i++) {
-                            spinnerKnowledgeDomainMapp.put(i, farmerListModel.getFarmers().get(i - 1).getId());
-                            spinnerKnowledgeDomainArray[i] = farmerListModel.getFarmers().get(i - 1).getName();
-                        }
-                        if (getActivity() != null) {
-                            ArrayAdapter<String> adapterr = new ArrayAdapter<>(getActivity(), R.layout.spinner_textview, spinnerKnowledgeDomainArray);
-                            adapterr.setDropDownViewResource(R.layout.spinner_item);
-//                            binding.spKnowledgeDomain.setAdapter(adapterr);
-
-                        }
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -435,11 +426,11 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                     if(response==null){
                         submitQuery(null);
                     }else {
-                        RootQueryModel loginModel= (RootQueryModel) response;
+                        RootOneModel loginModel= (RootOneModel) response;
                     }
 
                 }else if (ServiceCode == AppConstants.ADD_QUERY_REQUEST) {
-                    RootQueryModel loginModel= (RootQueryModel) response;
+                    RootOneModel loginModel= (RootOneModel) response;
                     if(isEdit){
                         showDialog(getActivity(), getString(R.string.query_update_success), false, true, 10);
 
@@ -450,10 +441,10 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
                 }else if (ServiceCode == AppConstants.UpdateQuery) {
 
                     if(isEdit){
-                        showDialog(getActivity(), getString(R.string.query_update_success), false, true, 10);
+                        showDialog(getActivity(), getString(R.string.query_update_success), false, true, 11);
 
                     }else {
-                        showDialog(getActivity(), getString(R.string.query_added_success), false, false, 0);
+                        showDialog(getActivity(), getString(R.string.query_added_success), false, false, 12);
                     }
                     resetViews();
                 }
@@ -468,7 +459,7 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
             mainObj.addProperty("query", binding.etQuery.getText().toString());
 //            mainObj.addProperty("title", binding.etTitle.getText().toString());
             mainObj.addProperty("queryType", "farmer");
-            mainObj.addProperty("createdBy", farmerdao.getFarmer().getId());
+            mainObj.addProperty("createdBy", userDao.getUserResponse().id);
             mainObj.addProperty("createdType", "Farmer");
 //            mainObj.addProperty("village", villageDao.getVillageDBModelResponse().getVillageId());
 //            mainObj.addProperty("district", villageDao.getVillageDBModelResponse().getDistrictID());
@@ -524,12 +515,29 @@ public class AddFarmerqurie_Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void okDialogClick(int id) {
-        if (id==1){
-            dialog.dismiss();
+        if (id==11){
+            onBackCustom();
+        }else if (id==12){
+            onBackCustom();
+        }
+    }
+
+    @Override
+    public void onBackCustom() {
+        Bundle bundle=new Bundle();
+        int srcfragmentId = 0;
+        if (getArguments()!=null){
+            srcfragmentId=getArguments().getInt("fragmentId",1);
+        }
+        if (srcfragmentId==1){
+            bundle.putString("model",modelJson);
+            bundle.putString("type","2");
+            navController.navigate(R.id.queryFragment,bundle);
+
+        }else if (srcfragmentId==2){
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("queryModule","farmer");
+            navController.navigate(R.id.queryTabFragment,bundle1);
         }
     }
 }
-
-
-
-

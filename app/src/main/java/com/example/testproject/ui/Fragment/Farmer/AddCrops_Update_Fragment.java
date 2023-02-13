@@ -22,14 +22,15 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.databinding.AddcropUpdatefragment1Binding;
-import com.example.testproject.model.CropDataModel;
-import com.example.testproject.model.CropSeasonDataModel;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.Root.RootModelOne;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.varietymodel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.model.AddressModel;
+import com.example.testproject.model.CommodityModel;
+import com.example.testproject.model.CropModel;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.model.SeasonModel;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -45,23 +46,10 @@ import java.util.Locale;
  * Created by Suraj on 20-06-2022.
  */
 public class AddCrops_Update_Fragment extends BaseFragment implements View.OnClickListener {
-//    FarmerDetailsModel farmerDetailsModel;
     private String errorMessage = "";
     private AddcropUpdatefragment1Binding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-//    private LoginDao loginDao;
-    SharedPreferences.Editor editor;
-//    private VillageDao villageDao;
-    String enddate;
-    String farmerid;
-//    private FarmerListDao farmerDao;
-    ArrayAdapter<String> adapterseason;
-    ArrayAdapter<String> adaptercrop;
-    public Spinner splivestock, spvariety, spstages, spvarietycrop, spseason, spareaunit,
-            spirrigation, Seasonspinner, spcrop_new, spcrop;
-    EditText Quantity, startdate, area;
-    String selectedvarirtytxt, selectedlivestocktxt, cropid;
     private HashMap<String, String> spinnercropMap;
     private HashMap<String, String> spinnercroplistMap;
     private HashMap<String, String> spinnerIntercropMap;
@@ -73,12 +61,7 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
     private HashMap<String, String> spinnerVillageMap;
     private HashMap<String, String> spinnerGrampanchayatMap;
     private HashMap<String, String> spinnerBlockMap;
-    ArrayList<String> staticvarietylist;
-    ArrayList<String> staticvarietyidlist;
-    LivestocksArrayModel livestockmodel;
-    ArrayAdapter<String> seasoncropadapter;
-    ArrayAdapter<String> varietypadapter;
-    String selectedareaUnit, selectedirrigation, varietyid;
+    LivestockModel livestockmodel;
     SharedPreferences pres;
     private String[] spinnercroplist;
     private String[] spinneInterrcroplist;
@@ -106,15 +89,8 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
         pres = getActivity().getSharedPreferences("loginpref", MODE_PRIVATE);
         edt= pres.edit();
 
-//        ((FragmentActivity) getActivity()).enableNavigationViews(false);
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-//        if (getActivity() != null) {
         ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
-//        }
-//        // ((FragmentActivity) getActivity()).setScreenTitle("Add Crops");
-//        ((FragmentActivity)getActivity()).setScreenTitle(getString(R.string.addcrops));
-////        addNotification();
-//        loginDao = AppDatabase.getInstance(getContext()).loginDetails();
+
         spinnerVillageMap = new HashMap<>();
         spinnercropMap = new HashMap<>();
         spinnercroplistMap=new HashMap<>();
@@ -131,13 +107,6 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
            isWIP= getArguments().getBoolean("isWIP",false);
         }
 
-//        ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getFragmentManager().popBackStack();
-//                ((FragmentActivity) getActivity()).mBack.setVisibility(View.GONE);
-//            }
-//        });
         final Calendar newCalendar = Calendar.getInstance();
         final DatePickerDialog StartTime = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -225,12 +194,6 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
             e.printStackTrace();
         }
 
-
-
-
-
-
-
         binding.btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -281,21 +244,6 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
     public void onClick(View v) {
 
     }
-
-
-//    @Override
-//    public void onBackCustom() {
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.GONE);
-//        getFragmentManager().popBackStack();
-//    }
-
-//    @Override
-//    public void okDialogClick(int Id) {
-//        if(Id==10)
-//        onBackCustom();
-//
-//    }
-
     private void setDataOnSpinner(Spinner spinner,String[] sarr){
         ArrayAdapter aa1= new ArrayAdapter(getActivity(),R.layout.spinner_item,sarr);
         aa1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -313,60 +261,73 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
            public void isSuccess(Object response, int ServiceCode) {
                if (ServiceCode==AppConstants.farmerCropList)
                {
-                   RootOneResModel rootOneResModel=(RootOneResModel)response;
-                   List<LivestocksArrayModel> croplist= rootOneResModel.getResponse().getDataModel2().getCommodity();
-                   spinnercroplist=new String[croplist.size()+1];
+                   RootOneModel rootOneModel=(RootOneModel)response;
+                   if (rootOneModel.getResponse().getData().data!=null){
+                       List<LivestockModel> livestockModels= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),LivestockModel.class);
+
+//                   List<LivestocksArrayModel> croplist= rootOneModel.getResponse().getDataModel2().getCommodity();
+                   spinnercroplist=new String[livestockModels.size()+1];
                    spinnercroplist[0]="--- Select Crop ---";
                    spinnercroplistMap.put("0","0");
-                   for (int i=1;i<=croplist.size();i++)
+                   for (int i=1;i<=livestockModels.size();i++)
                    {
-                       spinnercroplist[i]=croplist.get(i-1).getCommonName();
-                       spinnercroplistMap.put(spinnercroplist[i],croplist.get(i-1).getId());
+                       spinnercroplist[i]=livestockModels.get(i-1).commonName;
+                       spinnercroplistMap.put(spinnercroplist[i],livestockModels.get(i-1).id);
                    }
                    binding.setCroplist(Arrays.asList(spinnercroplist));
+                   }
                }else if (ServiceCode==AppConstants.farmerInterCropList)
                {
-                   RootOneResModel rootOneResModel=(RootOneResModel)response;
-                   List<CropDataModel> intercroplist=rootOneResModel.getResponse().getDataModel2().getFarmerCrop();
-                   spinneInterrcroplist=new String[intercroplist.size()+1];
-                   spinneInterrcroplist[0]="--- Select Inter Crop ---";
-                   spinnerIntercroplistMap.put("0","0");
-                   for (int i=1;i<=intercroplist.size();i++)
-                   {
-                       spinneInterrcroplist[i]=intercroplist.get(i-1).getCrop();
-                       spinnerIntercroplistMap.put(spinneInterrcroplist[i],intercroplist.get(i-1).getId());
+                   RootOneModel rootOneModel=(RootOneModel)response;
+                   if (rootOneModel.getResponse().getData().data!=null){
+                       List<CropModel> intercroplist=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),CropModel.class);
+                       spinneInterrcroplist=new String[intercroplist.size()+1];
+                       spinneInterrcroplist[0]="--- Select Inter Crop ---";
+                       spinnerIntercroplistMap.put("0","0");
+                       for (int i=1;i<=intercroplist.size();i++)
+                       {
+                           spinneInterrcroplist[i]=intercroplist.get(i-1).crop;
+                           spinnerIntercroplistMap.put(spinneInterrcroplist[i],intercroplist.get(i-1).id);
+                       }
+                       binding.setIntercroplist(Arrays.asList(spinneInterrcroplist));
+
                    }
-                   binding.setIntercroplist(Arrays.asList(spinneInterrcroplist));
-               }else if (ServiceCode==AppConstants.FarmerVarietyList)
+                 }else if (ServiceCode==AppConstants.FarmerVarietyList)
                {
-                   RootOneResModel rootOneResModel=(RootOneResModel)response;
-                   List<varietymodel> Varietylist=rootOneResModel.getResponse().getDataModel2().getVariety();
-                   spinnevarietylist=new String[Varietylist.size()+1];
-                   spinnevarietylist[0]="--- Select Variety ---";
-                   spinnervarietylistMap.put("0","0");
-                   for (int i=1;i<=Varietylist.size();i++)
-                   {
-                       spinnevarietylist[i]=Varietylist.get(i-1).getName();
-                       spinnervarietylistMap.put(spinnevarietylist[i],Varietylist.get(i-1).getId());
+                   RootOneModel rootOneModel=(RootOneModel)response;
+                   if (rootOneModel.getResponse().getData().data!=null){
+                       List<CommodityModel> Varietylist =JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),CommodityModel.class);
+                       spinnevarietylist=new String[Varietylist.size()+1];
+                       spinnevarietylist[0]="--- Select Variety ---";
+                       spinnervarietylistMap.put("0","0");
+                       for (int i=1;i<=Varietylist.size();i++)
+                       {
+                           spinnevarietylist[i]=Varietylist.get(i-1).name;
+                           spinnervarietylistMap.put(spinnevarietylist[i],Varietylist.get(i-1).id);
+                       }
+                       binding.setVarieylist(Arrays.asList(spinnevarietylist));
+
                    }
-                   binding.setVarieylist(Arrays.asList(spinnevarietylist));
 
                }else if (ServiceCode==AppConstants.FarmerSeasonList)
                {
-                   RootOneResModel rootOneResModel=(RootOneResModel)response;
-                   List<CropSeasonDataModel> Seasonlist=rootOneResModel.getResponse().getDataModel2().getCropseason();
-                   spinneseasionlist=new String[Seasonlist.size()+1];
-                   spinneseasionlist[0]="--- Select CropSeason ---";
-                   spinnerseasonlistMap.put("0","0");
-                   for(int i=1;i<=Seasonlist.size();i++)
-                   {
-                       spinneseasionlist[i]=Seasonlist.get(i-1).getName();
-                       spinnerseasonlistMap.put(spinneseasionlist[i],Seasonlist.get(i-1).getId());
+                   RootOneModel rootOneModel=(RootOneModel)response;
+                   if (rootOneModel.getResponse().getData().data!=null){
+                       List<SeasonModel> Seasonlist =JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),SeasonModel.class);
+                       spinneseasionlist=new String[Seasonlist.size()+1];
+                       spinneseasionlist[0]="--- Select CropSeason ---";
+                       spinnerseasonlistMap.put("0","0");
+                       for(int i=1;i<=Seasonlist.size();i++)
+                       {
+                           spinneseasionlist[i]=Seasonlist.get(i-1).name;
+                           spinnerseasonlistMap.put(spinneseasionlist[i],Seasonlist.get(i-1).id);
+                       }
+                       binding.setSeasonlist(Arrays.asList(spinneseasionlist));
                    }
-                   binding.setSeasonlist(Arrays.asList(spinneseasionlist));
+
                }else if (ServiceCode==AppConstants.UpdateCrop)
                {
-                   RootModelOne rootModelOne=(RootModelOne)response;
+                   RootOneModel RootOneModel=(RootOneModel)response;
                    navController.navigate(R.id.action_addCrops_Update_Fragment_to_farmerCrops_Fragment);
                }
 
@@ -397,6 +358,11 @@ public class AddCrops_Update_Fragment extends BaseFragment implements View.OnCli
         } else {
             return true;
         }
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.farmerCrops_Fragment);
     }
 }
 

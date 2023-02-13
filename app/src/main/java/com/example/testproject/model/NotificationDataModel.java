@@ -18,10 +18,6 @@ public class NotificationDataModel {
         this.id = id;
     }
 
-
-
-
-
     public String getTittle() {
         return tittle;
     }
@@ -82,11 +78,11 @@ public class NotificationDataModel {
 
     public class Ndata {
         public String getQuery_Type() {
-            return Query_Type;
+            return notificationType;
         }
 
         public void setQuery_Type(String query_Type) {
-            Query_Type = query_Type;
+            notificationType = query_Type;
         }
 
         public String getId() {
@@ -97,7 +93,7 @@ public class NotificationDataModel {
             this.id = id;
         }
 
-        private String Query_Type;
+        private String notificationType;
         private String id;
     }
 }

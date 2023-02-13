@@ -14,6 +14,43 @@
         <item>Weather Alert</item>
         <item>Logout</item>
     </string-array>
+    <array name="drawable_array">
+        <item>@drawable/document_iv</item>
+        <item>@drawable/doc_iv</item>
+        <item>@drawable/video_iv</item>
+        <item>@drawable/mike</item>
+        <item>@drawable/sms_iv</item>
+    </array>
+    <string-array name="gender">
+        <item>Select-Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="user_role">
+        <item>Select-Role</item>
+        <item>Content_Creator</item>
+        <item>Self_Registration</item>
+        <item>Call_Center_Agent</item>
+        <item>Content_Manager</item>
+        <item>Content_Provider</item>
+        <item>Disseminator</item>
+        <item>Field_Agent</item>
+        <item>Language_Translator</item>
+        <item>Language_Approver</item>
+        <item>Management</item>
+        <item>District_Admin</item>
+        <item>Subject_Matter_Expert</item>
+        <item>System_Admin</item>
+        <item>Visitor_Viewer</item>
+        <item>Trainer</item>
+        <item>Field_Agent_Lead</item>
+        <item>Guest_User</item>
+        <item>Super_Admin</item>
+        <item>Translation_Approver</item>
+        <item>District_Admin</item>
+    </string-array>
+
 
 
     <string-array name="yes_no">

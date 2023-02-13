@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/mIShare"
+        android:icon="@drawable/ic_baseline_power_settings_new_24"
+        app:showAsAction="ifRoom"
+        android:title="">
+    </item>
+    <item
+        android:id="@+id/miInfo"
+        android:icon="@drawable/ic_baseline_logout_24"
+        app:showAsAction="ifRoom|withText"
+        android:title="">
+    </item>
+</menu>

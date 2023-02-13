@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +27,14 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.AddlivestocUpdatefragmentBinding;
 import com.example.testproject.interfaces.ListItemClickListener;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
-import com.example.testproject.model.livestock.RootLiveStockResponse;
-import com.example.testproject.model.stagemodel;
-import com.example.testproject.model.varietymodel;
+import com.example.testproject.model.CommodityModel;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -45,7 +45,7 @@ import java.util.List;
  * Created by Suraj on 27-06-2022.
  */
 public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-    List<LivestocksArrayModel> modelList;
+    List<LivestockModel> modelList;
     private static final int ITEM = 0;
     private Context context;
     ListItemClickListener farmerLivestockClickListner;
@@ -66,19 +66,18 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<String> stageIdList=new ArrayList<>();
     private boolean isFirstLiveSClick,isFirstV,isFirstS;
     private int cntIndex;
-    private FarmerDao farmerDao;
+    private UserDao userDao;
 
-    public FarmerLivastockAdapter(Context context, List<LivestocksArrayModel> farmerdetailmodel, ListItemClickListener farmerLivestockClickListner) {
+    public FarmerLivastockAdapter(Context context, List<LivestockModel> farmerdetailmodel, ListItemClickListener farmerLivestockClickListner) {
         this.context = context;
-//        this.modelList=new ArrayList<>();
-//        this.modelList.addAll(farmerdetailmodel);
+
         this.modelList=farmerdetailmodel;
-        farmerDao = AppDatabase.getInstance(context.getApplicationContext()).farmerDao();
+        userDao = AppDatabase.getInstance(context.getApplicationContext()).userdao();
         this.farmerLivestockClickListner= farmerLivestockClickListner;
         setupNetwork();
 
     }
-    public void setnewlist(List<LivestocksArrayModel> list){
+    public void setnewlist(List<LivestockModel> list){
 
         modelList.clear();
         modelList.addAll(list);
@@ -109,14 +108,14 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
                 DashboardVH dashboardVH = (DashboardVH) holder;
-                LivestocksArrayModel model=modelList.get(position);
+        LivestockModel model=modelList.get(position);
                 try {
 
-                    dashboardVH.tittle.setText(model.getRef().getLiveStock().getName());
-                    dashboardVH.variety.setText(model.getRef().getVeriety().getName());
-                    dashboardVH.stage.setText(model.getRef().getStage().getName());
-                    dashboardVH.no_of_livestoks.setText(model.getRef().getLiveStock().getCommonName());
-                    dashboardVH.quantity.setText(model.getQuantity());
+                    dashboardVH.tittle.setText(model.ref.liveStock.name);
+                    dashboardVH.variety.setText(model.ref.variety.name);
+                    dashboardVH.stage.setText(model.ref.stage.name);
+                    dashboardVH.no_of_livestoks.setText(model.ref.liveStock.commonName);
+                    dashboardVH.quantity.setText(model.quantity);
                     dashboardVH.edtlivestock.setTag(position);
                     dashboardVH.edtlivestock.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -141,9 +140,9 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     }
     AddlivestocUpdatefragmentBinding binding;
-    private LivestocksArrayModel selectedModel;
+    private LivestockModel selectedModel;
     private Dialog dialogitemView;
-    private void customDialog(LivestocksArrayModel model){
+    private void customDialog(LivestockModel model){
         isFirstLiveSClick=false;
         isFirstV=false;
         isFirstS=false;
@@ -163,7 +162,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         lives.add("Livestock");
         mainObj.add("classification",lives);
 
-        binding.quantity.setText(model.getQuantity());
+        binding.quantity.setText(model.quantity);
         mApiManager.getLiveStockList(mainObj);
         binding.splivestocks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -192,8 +191,8 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         livestockobj.addProperty("stage",stageIdList.get(binding.spvarieties.getSelectedItemPosition()));
                         livestockobj.addProperty("veriety",varietiresIdList.get(binding.spstages.getSelectedItemPosition()));
                         livestockobj.addProperty("quantity",Integer.parseInt(binding.quantity.getText().toString()));
-                        livestockobj.addProperty("farmer", farmerDao.getFarmer().getId());
-                        livestockobj.addProperty("id", model.getId());
+                        livestockobj.addProperty("farmer", userDao.getUserResponse().id);
+                        livestockobj.addProperty("id", model.id);
                         livestockobj.addProperty("activeStatus", true);
                         mApiManager.UpdateLivestock("",livestockobj);
                     } catch (Exception e) {
@@ -217,14 +216,14 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if(apiType==1){
             List<String> list = new ArrayList<String>();
 
-            List<LivestocksArrayModel> modelList= (List<LivestocksArrayModel>) obj;
+            List<LivestockModel> modelList= (List<LivestockModel>) obj;
             comodityIDList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list.add("---Select LiveStock---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    if (modelList.get(i).getCommonName() != null) {
-                        list.add(modelList.get(i).getCommonName());
-                        comodityIDList.add(modelList.get(i).getId());
+                    if (modelList.get(i).commonName != null) {
+                        list.add(modelList.get(i).commonName);
+                        comodityIDList.add(modelList.get(i).id);
                     }
                 }
             }else{
@@ -238,7 +237,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             binding.splivestocks.setAdapter(dataAdapter);
             if(!isFirstLiveSClick) {
                 for (int i = 0; i < binding.splivestocks.getCount(); i++) {
-                    if (selectedModel.getRef().getLiveStock().getCommonName().equals(binding.splivestocks.getItemAtPosition(i))) {
+                    if (selectedModel.ref.liveStock.commonName.equals(binding.splivestocks.getItemAtPosition(i))) {
                         binding.splivestocks.setSelection(i);
                     }
                 }
@@ -247,13 +246,13 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }else if(apiType==2){
             List<String> list2 = new ArrayList<String>();
 
-            List<varietymodel> modelList= (List<varietymodel>) obj;
+            List<CommodityModel> modelList= (List<CommodityModel>) obj;
             varietiresIdList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list2.add("---Select Varieties---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    list2.add(modelList.get(i).getName());
-                    varietiresIdList.add(modelList.get(i).getId());
+                    list2.add(modelList.get(i).name);
+                    varietiresIdList.add(modelList.get(i).id);
                 }
             }else{
                 list2.add("---Empty---");
@@ -266,7 +265,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             binding.spvarieties.setAdapter(dataAdapter1);
             if(!isFirstV) {
                 for (int i = 0; i < binding.spvarieties.getCount(); i++) {
-                    if (selectedModel.getRef().getVeriety().getName().equals(binding.spvarieties.getItemAtPosition(i))) {
+                    if (selectedModel.ref.variety.name.equals(binding.spvarieties.getItemAtPosition(i))) {
                         binding.spvarieties.setSelection(i);
                     }
                 }
@@ -276,14 +275,14 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }else if(apiType==3){
             List<String> list2 = new ArrayList<String>();
 
-            List<stagemodel> modelList= (List<stagemodel>) obj;
+            List<CommodityModel> modelList= (List<CommodityModel>) obj;
             stageIdList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list2.add("---Select Stage---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    if (modelList.get(i).getName() != null) {
-                        list2.add(modelList.get(i).getName());
-                        stageIdList.add(modelList.get(i).getId());
+                    if (modelList.get(i).name != null) {
+                        list2.add(modelList.get(i).name);
+                        stageIdList.add(modelList.get(i).id);
                     }
                 }
             }else {
@@ -298,7 +297,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             if(!isFirstS) {
                 for (int i = 0; i < binding.spstages.getCount(); i++) {
 
-                    if (selectedModel.getRef().getStage().getName()!=null && selectedModel.getRef().getStage().getName().equals(binding.spstages.getItemAtPosition(i))) {
+                    if (selectedModel.ref.stage.name!=null && selectedModel.ref.stage.name.equals(binding.spstages.getItemAtPosition(i))) {
                         binding.spstages.setSelection(i);
                     }
                 }
@@ -319,28 +318,37 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
             @Override
             public void isSuccess(Object response, int ServiceCode) {
-
+                RootOneModel rootOneModel= (RootOneModel) response;
                 if (ServiceCode == AppConstants.LiveSTOCKREQUEST) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    fillData(rootOneResModel.getResponse().getDataModel2().getCommodity(),1);
-                    cntComodityId=rootOneResModel.getResponse().getDataModel2().getCommodity().get(0).getId();
-                    callVarietyApi();
-                    callStageApi();
+                    if (rootOneModel.getResponse().getData().commodity!=null){
+                        List<LivestockModel> livestockModel=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().commodity.getAsJsonArray(),LivestockModel.class);
+                        fillData(livestockModel,1);
+                        cntComodityId=livestockModel.get(0).id;
+                        callVarietyApi();
+                        callStageApi();
+                    }
+
                 }else if (ServiceCode == AppConstants.VarietyListReq) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    fillData(rootOneResModel.getResponse().getDataModel2().getVariety(),2);
+                    if (rootOneModel.getResponse().getData().variety!=null){
+                        List<CommodityModel> commodityModels=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().variety.getAsJsonArray(),CommodityModel.class);
+                        fillData(commodityModels,2);
+
+                    }
                 }else if (ServiceCode == AppConstants.StageListReq) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    fillData(rootOneResModel.getResponse().getDataModel2().getStage(),3);
+                    if (rootOneModel.getResponse().getData().stage!=null){
+                        List<CommodityModel> commodityModels=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().variety.getAsJsonArray(),CommodityModel.class);
+                        fillData(commodityModels,3);
+
+                    }
                 }else if (ServiceCode == AppConstants.UpdatreLivesstock) {
-                    SingleObjRootOneResModel oneResModel= (SingleObjRootOneResModel) response;
+                    RootOneModel oneResModel= (RootOneModel) response;
 //                    Toast.makeText(context,""+context.getString(R.string.livestock_update_success),Toast.LENGTH_SHORT).show();
                     showDialog((Activity) context, context.getString(R.string.livestock_update_success),false,true, 10);
 //                    showDialog(getActivity(), getString(R.string.livestock_added_success), false, true, 0);
                 }else if (ServiceCode == AppConstants.DeleteLiveStock) {
-                    RootLiveStockResponse rootOneResModel= (RootLiveStockResponse) response;
+                    RootOneModel RootOneModel= (RootOneModel) response;
 //                    Toast.makeText(context,""+context.getString(R.string.livestock_delete_success),Toast.LENGTH_SHORT).show();
-                    if(rootOneResModel.getResponse().getStatusCode()==200) {
+                    if(RootOneModel.getResponse().getStatusCode()==200) {
                         showDialog((Activity) context, "Livestock Successfully Deleted",false,true, 0);
                         modelList.remove(cntIndex);
                         notifyItemRemoved(cntIndex);
@@ -431,6 +439,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setContentView(R.layout.alert_dialog);
 //            dialog.setTitle("Update Live Stock");
 
@@ -444,7 +453,7 @@ public class FarmerLivastockAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View v) {
 
                     if(Id==1){
-                        mApiManager.deleteliveStock(modelList.get(cntIndex).getId().trim());
+                        mApiManager.deleteliveStock(modelList.get(cntIndex).id.trim());
                     }else if(Id==10){
                         if(splivestock!=null){
                             farmerLivestockClickListner.onItemClick(splivestock.getSelectedItemPosition()-1,"");

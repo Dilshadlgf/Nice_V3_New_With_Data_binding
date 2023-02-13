@@ -1,7 +1,8 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +12,12 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentContentInfoBinding;
 import com.example.testproject.model.ContentModel;
-import com.example.testproject.model.QueryRef;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SearchContentResponseDataModel;
+import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.base.BaseFragment;
 
 
@@ -29,9 +29,9 @@ public class ContentInfoFragment extends BaseFragment {
     private FragmentContentInfoBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    private SearchContentResponseDataModel responseDataModel;
-    private FarmerDao farmerDao;
-
+    private UserDao userDao;
+    private String modelJson;
+    private NavController navController;
     public static ContentInfoFragment newInstance(Bundle bundle) {
         ContentInfoFragment fragment = new ContentInfoFragment();
         fragment.setArguments(bundle);
@@ -51,10 +51,11 @@ public class ContentInfoFragment extends BaseFragment {
 
         binding = (FragmentContentInfoBinding) viewDataBinding;
         setUpNetWork();
-        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
-        String modelJson = getArguments().getString("model","");
+        navController= NavHostFragment.findNavController(this);
+        userDao= AppDatabase.getInstance((getContext())).userdao();
+        modelJson = getArguments().getString("model","");
         ContentModel contentmodel = (ContentModel) CommonUtils.jsonToPojo(modelJson,ContentModel.class);
-        mApiManager.searchContentsListDetailRequest(contentmodel.getId());
+        mApiManager.searchContentsListDetailRequest(contentmodel.id);
     }
 
     private void setUpNetWork() {
@@ -67,14 +68,22 @@ public class ContentInfoFragment extends BaseFragment {
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
-                if (ServiceCode == AppConstants.PROFILE_REQUEST) {
-                    RootOneResModel rootOneResModel = (RootOneResModel) response;
-                    QueryRef Q2 = rootOneResModel.getResponse().getDataModel2().getContent().getQueryRef();
+                if (ServiceCode == AppConstants.SEARCH_CONTENT_LIST_Detail_REQUEST) {
+                    RootOneModel rootOneModel = (RootOneModel) response;
+                    if (rootOneModel.getResponse().getData().content!=null){
+                        ContentModel contentModel = (ContentModel) JsonMyUtils.getPojoFromJsonObj(ContentModel.class,rootOneModel.getResponse().getData().content.getAsJsonObject());
+                        binding.setMydata(contentModel.ref);
 
-                    binding.setMydata(Q2);
+                    }
+
                 }
             }
         };
         mApiManager = new ApiManager(getContext(), mInterFace);
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.contentFragment);
     }
 }

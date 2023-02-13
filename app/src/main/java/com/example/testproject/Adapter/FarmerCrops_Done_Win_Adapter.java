@@ -27,11 +27,9 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.interfaces.ListItemClickListener;
-import com.example.testproject.model.CropDataModel;
+import com.example.testproject.model.CropModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,7 +43,7 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
 //    private LoginDao loginDao;
     private String loginDao="628cc9e2a1e0bfbb4b7e3e8b";
 
-    private List<CropDataModel> croplist;
+    private List<CropModel> croplist;
     private Context context;
     private Boolean isWIP;
     private ApiManager mApiManager;
@@ -63,7 +61,7 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
     private TextView txArea;
 
     private ListItemClickListener listItemClickListener;
-    public FarmerCrops_Done_Win_Adapter(List<CropDataModel> croplist, ListItemClickListener listItemClickListener, Context context, Boolean isWIP) {
+    public FarmerCrops_Done_Win_Adapter(List<CropModel> croplist, ListItemClickListener listItemClickListener, Context context, Boolean isWIP) {
         this.croplist = croplist;
         this.context = context;
         this.isWIP=isWIP;
@@ -72,7 +70,7 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
 //        loginDao = AppDatabase.getInstance(context.getApplicationContext()).loginDetails();
     }
 
-    public FarmerCrops_Done_Win_Adapter(List<CropDataModel> croplist, Context context) {
+    public FarmerCrops_Done_Win_Adapter(List<CropModel> croplist, Context context) {
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,38 +100,36 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
                 try {
 
 
-                    CropDataModel  model=croplist.get(position);
+                    CropModel  model=croplist.get(position);
 //                     CropDataModel model=croplist.get(position).getResponse().getData().getFarmerCrop().get(position);
-//                    bindData(dashboardVH.crop,model.getRef().getCrop().getId());
-                    
-                    dashboardVH.crop.setText(model.getRef().getCrop().getId());
-                    dashboardVH.scientificName.setText(model.getRef().getCrop().getScientificName());
-                    dashboardVH.interCrop.setText(model.getRef().getInterCrop().getCommonName());
+                    dashboardVH.crop.setText(model.ref.crop.id);
+                    dashboardVH.scientificName.setText(model.ref.crop.scientificName);
+                    dashboardVH.interCrop.setText(model.ref.interCrop.commonName);
 
-                    if(model.getRef().getVariety().getName()==null || model.getRef().getVariety().getName().isEmpty()) {
+                    if(model.ref.variety.name==null || model.ref.variety.name.isEmpty()) {
                         dashboardVH.variety.setText("NA");
                     }else {
-                        dashboardVH.variety.setText(model.getRef().getVariety().getName());
+                        dashboardVH.variety.setText(model.ref.variety.name);
                     }
-                    if (model.getRef().getSeason().getName()==null || model.getRef().getSeason().getName().isEmpty())
+                    if (model.ref.season.name==null || model.ref.season.name.isEmpty())
                     {
                         dashboardVH.Seasion.setText("NA");
                     }else {
-                        dashboardVH.Seasion.setText(model.getRef().getSeason().getName());
+                        dashboardVH.Seasion.setText(model.ref.season.name);
                     }
-                    dashboardVH.Area_acre.setText(model.getArea());
-                    dashboardVH.Irrigation.setText(model.getIrrigation());
+                    dashboardVH.Area_acre.setText(model.area);
+                    dashboardVH.Irrigation.setText(model.irrigation);
                     dashboardVH.edit.setTag(model);
 //                    dashboardVH.Yield_Q.setText("hjvsdahudfshadwf");
 
-                    if(model.getYieldValue()==null)
+                    if(model.yeild==null)
                     {
                         dashboardVH.Yield_Q.setText("");
                     }
                     else {
 
-                        Integer n=model.getYieldValue();
-                        dashboardVH.Yield_Q.setText(""+model.getYieldValue());
+                        Integer n=model.yeild;
+                        dashboardVH.Yield_Q.setText(""+model.yeild);
                     }
 
                     dashboardVH.delete.setTag(position);
@@ -150,13 +146,11 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
                         dashboardVH.edit.setVisibility(View.GONE);
                         dashboardVH.done.setVisibility(View.GONE);
                     }
-                    dashboardVH.done.setTag(R.string.crops,dashboardVH.itemView);
+
                     dashboardVH.done.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             currentCard= (int) view.getTag();
-                            View view1= (View) view.getTag(R.string.crops);
-                            showD(view1);
 //                            cropDoneDialog(null,currentCard);
 
                         }
@@ -169,24 +163,6 @@ public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerV
                 break;
         }
 
-    }
-    private void bindData(View view,String text){
-        if(text==null || text.isEmpty()){
-            text="N/A";
-        }
-        if(view instanceof TextView) {
-            ((TextView) view).setText(text);
-        }else if(view instanceof EditText){
-            ((EditText) view).setText(text);
-        }
-    }
-
-    private void showD(View view){
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(view);
-        dialog.show();
     }
     AlertDialog editDialog,doneDialog,calenderDialog;
 

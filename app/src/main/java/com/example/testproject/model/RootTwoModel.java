@@ -1,28 +1,9 @@
 package com.example.testproject.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class RootTwoModel {
-
-    @SerializedName("statusCode")
-    private int statusCode;
-
-    @SerializedName("message")
     private String message;
-
-    @SerializedName("data")
+    private int statusCode;
     private DataModel data;
-
-
-
-
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
 
     public String getMessage() {
         return message;
@@ -30,6 +11,14 @@ public class RootTwoModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public DataModel getData() {

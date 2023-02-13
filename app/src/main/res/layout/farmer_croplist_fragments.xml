@@ -5,35 +5,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="@dimen/_10sdp"-->
-    <!--        android:layout_marginLeft="@dimen/_10sdp"-->
-    <!--        android:layout_marginTop="@dimen/_10sdp"-->
-    <!--        android:layout_marginEnd="@dimen/_10sdp"-->
-    <!--        android:layout_marginRight="@dimen/_10sdp"-->
-    <!--        android:layout_marginBottom="@dimen/_10sdp"-->
-    <!--        android:orientation="vertical">-->
+    android:layout_height="wrap_content"
+    android:background="@drawable/ract_white"
+    android:elevation="@dimen/_6sdp"
+    android:layout_margin="@dimen/_5sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_5sdp">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="10dp">
-
+        android:layout_height="wrap_content"
+        >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -65,10 +49,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Crop"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/crops"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -88,12 +71,11 @@
                                 android:id="@+id/tv_crop"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
                                 android:textColorHint="@color/black"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -121,10 +103,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Scientific Name"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/scientificname"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -144,12 +125,11 @@
                                 android:id="@+id/tv_scientificName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
                                 android:textColorHint="@color/black"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -176,10 +156,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Inter Crop"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/intercrop"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -199,12 +178,11 @@
                                 android:id="@+id/tv_interCrop"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
                                 android:textColorHint="@color/black"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -231,10 +209,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text="@string/variety"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -254,11 +231,10 @@
                                 android:id="@+id/tv_variety1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:text=""
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -284,10 +260,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Seasion"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/season"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -307,11 +282,10 @@
                                 android:id="@+id/tv_Seasion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -338,10 +312,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Area(acre)"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/area_acre"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -361,11 +334,10 @@
                                 android:id="@+id/tv_Area_acre"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -392,10 +364,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Irrigation"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/irrigation"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -415,11 +386,10 @@
                                 android:id="@+id/tv_Irrigation"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -446,10 +416,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Start Date"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/start_date"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -469,11 +438,10 @@
                                 android:id="@+id/tv_StartDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:text="DD-MM-YYYY"
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -501,10 +469,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
-                                android:text="Completed Date"
+                                android:fontFamily="@font/poppinsbold_700"
+                                android:text="@string/completedate"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -524,11 +491,10 @@
                                 android:id="@+id/tv_Completed_Date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text="DD-MM-YYYY"
                                 android:paddingLeft="@dimen/_5sdp"
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -558,10 +524,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text="Yield(Q)"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
 
@@ -581,10 +546,9 @@
                                 android:id="@+id/tv_Yield_Q"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:text=""
                                 android:textColor="@color/greentext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -610,11 +574,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:gravity="center"
-                                android:text="Controls"
+                                android:text="@string/control"
                                 android:textColor="@color/greytext"
-                                android:textFontWeight="600"
                                 android:textSize="@dimen/_10sdp" />
                         </RelativeLayout>
                         <View
@@ -659,7 +622,6 @@
                             <androidx.cardview.widget.CardView
                                 android:layout_width="@dimen/_15sdp"
                                 android:layout_height="@dimen/_35sdp"
-
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:layout_marginRight="@dimen/_5sdp"
                                 android:layout_weight="1"
@@ -689,8 +651,8 @@
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:layout_marginRight="@dimen/_5sdp"
                                 android:layout_weight="1"
+                                app:cardElevation="5dp"
                                 android:visibility="visible"
-                                android:elevation="5dp"
                                 app:cardBackgroundColor="@color/lightgrayclr"
                                 app:cardCornerRadius="@dimen/_10sdp">
                                 <LinearLayout
@@ -712,10 +674,9 @@
                                 android:id="@+id/done"
                                 android:layout_width="@dimen/_15sdp"
                                 android:layout_height="@dimen/_35sdp"
-
+                                app:cardElevation="5dp"
                                 android:layout_marginLeft="@dimen/_8sdp"
                                 android:layout_weight="1"
-                                android:elevation="5dp"
                                 app:cardBackgroundColor="@color/lightgrayclr"
                                 app:cardCornerRadius="@dimen/_10sdp"
                                 android:background="@drawable/header_background">
@@ -744,7 +705,6 @@
                         android:background="@color/lytgrey" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </LinearLayout>
 

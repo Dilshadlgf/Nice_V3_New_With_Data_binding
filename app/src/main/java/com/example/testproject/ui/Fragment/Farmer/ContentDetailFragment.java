@@ -15,10 +15,9 @@ import androidx.databinding.ViewDataBinding;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.testproject.R;
-import com.example.testproject.database.Dao.FarmerDao;
-import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentQueryTabsBinding;
-import com.example.testproject.ui.Views.ViewPagerAdapter;
+import com.example.testproject.ui.views.ViewPagerAdapter;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -32,9 +31,7 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
     private String queryModule="common";
     private boolean isFarmerLogin;
     private FragmentQueryTabsBinding binding;
-    private FarmerDao farmerDao;
-    private RoleDao roleDao;
-
+    private UserDao userDao;
 
     public static ContentDetailFragment newInstance(Bundle args) {
         ContentDetailFragment fragment = new ContentDetailFragment();
@@ -171,20 +168,8 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_add_query1) {
-//            if (loginDao.getLoginResponse().getRole().equalsIgnoreCase("farmer")) {
-//
-//                try {
-//                    String contentId = getArguments().getString("contentId","");
-//                    Bundle bundle=new Bundle();
-//                    bundle.putString("contentId",contentId);
-//
-//                    CustomFragmentManager.replaceFragment(getFragmentManager(),AddFarmerqurie_Fragment.newInstance(bundle), true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
 
             }
         }
 
-   // }
 }

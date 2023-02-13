@@ -12,7 +12,10 @@
         tools:layout="@layout/activity_content" >
         <action
             android:id="@+id/action_contentFragment_to_queryFragment"
-            app:destination="@id/queryFragment"/>
+            app:destination="@id/queryFragment"
+            app:popUpTo="@id/dashboardfragment"
+            app:popUpToInclusive="false"/>
+
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -31,6 +34,7 @@
         <action
             android:id="@+id/action_profileFragment_to_queryTabFragment"
             app:destination="@id/queryTabFragment" />
+
 
     </fragment>
     <fragment
@@ -52,10 +56,12 @@
         tools:layout="@layout/activity_dsaboard" >
         <action
             android:id="@+id/action_dashboard_to_contentFragment"
-            app:destination="@id/contentFragment" />
+            app:destination="@id/contentFragment"
+            />
         <action
             android:id="@+id/action_dashboard_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            />
         <action
             android:id="@+id/action_dashboard_to_queryTabFragment"
             app:destination="@id/queryTabFragment" />
@@ -65,6 +71,9 @@
         <action
             android:id="@+id/action_dashboardfragment_to_weatherFragment"
             app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_dashboardfragment_to_allQueryFragmnet"
+            app:destination="@id/allQueryFragmnet" />
     </fragment>
     <fragment
         android:id="@+id/queryTabFragment"
@@ -99,7 +108,9 @@
     <fragment
         android:id="@+id/addFarmerqurie_Fragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.AddFarmerqurie_Fragment"
-        android:label="AddFarmerqurie_Fragment" />
+        android:label="AddFarmerqurie_Fragment" >
+
+    </fragment>
     <fragment
         android:id="@+id/farmerCrops_Fragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.FarmerCrops_Fragment"
@@ -135,6 +146,12 @@
     <fragment
         android:id="@+id/addFeedbackFragment"
         android:name="com.example.testproject.ui.Fragment.Farmer.AddFeedbackFragment"
-        android:label="AddFeedbackFragment" />
+        android:label="AddFeedbackFragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/allQueryFragmnet"
+        android:name="com.example.testproject.ui.Fragment.Farmer.AllQueryFragmnet"
+        android:label="AllQueryFragmnet" />
 
 </navigation>

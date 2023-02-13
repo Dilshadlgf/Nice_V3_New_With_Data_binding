@@ -7,7 +7,7 @@
         <import type="com.example.testproject.Util.CommonUtils"/>
         <variable
             name="mydata"
-            type="com.example.testproject.model.WeatherStateModel" />
+            type="com.example.testproject.model.WeatherModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
