@@ -3,21 +3,17 @@ package com.example.testproject.Adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,17 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.Util.AppConstants;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.model.CropModel;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class FarmerCrops_Done_Win_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>   {
 

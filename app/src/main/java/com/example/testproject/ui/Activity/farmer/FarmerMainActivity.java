@@ -12,7 +12,7 @@ import android.view.View;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.Util.AppConstants;
+import com.example.testproject.util.AppConstants;
 import com.example.testproject.database.AppDatabase;
 
 import com.example.testproject.database.Dao.UserDao;

@@ -34,7 +34,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.Fragment.Farmer.ContentFragment"
+            android:name=".ui.fragment.Farmer.ContentFragment"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />

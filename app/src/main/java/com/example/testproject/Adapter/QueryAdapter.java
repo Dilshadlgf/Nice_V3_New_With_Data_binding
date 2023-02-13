@@ -12,7 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testproject.R;
-import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.util.CommonUtils;
 import com.example.testproject.databinding.FarmerquerylistBinding;
 import com.example.testproject.model.QueryModel;
 

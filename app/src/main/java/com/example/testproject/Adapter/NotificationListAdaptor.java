@@ -1,16 +1,11 @@
 package com.example.testproject.Adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,14 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.util.CommonUtils;
 import com.example.testproject.databinding.NotiListItemBinding;
 import com.example.testproject.model.NotificationDataModel;
-import com.example.testproject.ui.Fragment.Farmer.QueryDetailPrintFragment;
-import com.google.common.base.Throwables;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationListAdaptor extends RecyclerView.Adapter<NotificationListAdaptor.ViewHolder> {

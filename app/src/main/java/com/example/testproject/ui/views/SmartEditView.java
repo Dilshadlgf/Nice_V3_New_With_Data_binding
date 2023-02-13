@@ -1,5 +1,6 @@
 package com.example.testproject.ui.views;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -27,77 +28,77 @@ public class SmartEditView extends LinearLayout {
     }
     public void setUpEditor() {
         Editor editor=findViewById(R.id.ed_content);
-        findViewById(R.id.action_h1).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_h1).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.H1);
             }
         });
 
-        findViewById(R.id.action_h2).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_h2).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.H2);
             }
         });
 
-        findViewById(R.id.action_h3).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_h3).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.H3);
             }
         });
 
-        findViewById(R.id.action_bold).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_bold).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.BOLD);
             }
         });
 
-        findViewById(R.id.action_Italic).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_Italic).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.ITALIC);
             }
         });
 
-        findViewById(R.id.action_indent).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_indent).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.INDENT);
             }
         });
 
-        findViewById(R.id.action_blockquote).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_blockquote).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.BLOCKQUOTE);
             }
         });
 
-        findViewById(R.id.action_outdent).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_outdent).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.updateTextStyle(EditorTextStyle.OUTDENT);
             }
         });
 
-        findViewById(R.id.action_bulleted).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_bulleted).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.insertList(false);
             }
         });
 
-        findViewById(R.id.action_unordered_numbered).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_unordered_numbered).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.insertList(true);
             }
         });
 
-        findViewById(R.id.action_hr).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_hr).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.insertDivider();
@@ -105,7 +106,7 @@ public class SmartEditView extends LinearLayout {
         });
 
 
-        findViewById(R.id.action_color).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_color).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 //                new ColorPickerPopup.Builder(EditorTestActivity.this)
@@ -116,7 +117,7 @@ public class SmartEditView extends LinearLayout {
 //                        .showIndicator(true)
 //                        .showValue(true)
 //                        .build()
-//                        .show(findViewById(android.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
+//                        .show(findViewById(android.com.github.irshulx.R.id.content), new ColorPickerPopup.ColorPickerObserver() {
 //                            @Override
 //                            public void onColorPicked(int color) {
 //                                Toast.makeText(EditorTestActivity.this, "picked" + colorHex(color), Toast.LENGTH_LONG).show();
@@ -133,14 +134,14 @@ public class SmartEditView extends LinearLayout {
             }
         });
 
-//        findViewById(R.id.action_insert_image).setOnClickListener(new View.OnClickListener() {
+//        findViewById(com.github.irshulx.R.id.action_insert_image).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 ////                editor.openImagePicker();
 //            }
 //        });
 
-        findViewById(R.id.action_insert_link).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_insert_link).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.insertLink();
@@ -148,7 +149,7 @@ public class SmartEditView extends LinearLayout {
         });
 
 
-        findViewById(R.id.action_erase).setOnClickListener(new OnClickListener() {
+        findViewById(com.github.irshulx.R.id.action_erase).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.clearAllContents();
@@ -160,9 +161,9 @@ public class SmartEditView extends LinearLayout {
         Map<Integer, String> contentTypeface = getContentface();
         editor.setHeadingTypeface(headingTypeface);
         editor.setContentTypeface(contentTypeface);
-        editor.setDividerLayout(R.layout.tmpl_divider_layout);
-        editor.setEditorImageLayout(R.layout.tmpl_image_view);
-        editor.setListItemLayout(R.layout.tmpl_list_item);
+        editor.setDividerLayout(com.github.irshulx.R.layout.tmpl_divider_layout);
+        editor.setEditorImageLayout(com.github.irshulx.R.layout.tmpl_image_view);
+        editor.setListItemLayout(com.github.irshulx.R.layout.tmpl_list_item);
         //editor.setNormalTextSize(10);
         // editor.setEditorTextColor("#FF3333");
         //editor.StartEditor();
@@ -221,7 +222,7 @@ public class SmartEditView extends LinearLayout {
         //editor.render("<p>Hello man, whats up!</p>");
         //String text = "<p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful and send to me and my husband is in a Apple has to offer a variety is not a.</p><p data-tag=\"input\" style=\"color:#000000;\">I have to go with you will be highly grateful if we can get the latest</p><blockquote data-tag=\"input\" style=\"color:#000000;\">I have to do the negotiation and a half years old story and I am looking forward in a few days.</blockquote><p data-tag=\"input\" style=\"color:#000000;\">I have to do the needful at your to the product and the other to a new job is going well and that the same old stuff and a half day city is the stream and a good idea to get onboard the stream.</p>";
         editor.render(text);
-//        findViewById(R.id.btnRender).setOnClickListener(new View.OnClickListener() {
+//        findViewById(com.github.irshulx.R.id.btnRender).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                /*

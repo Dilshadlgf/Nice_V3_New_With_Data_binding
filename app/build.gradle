@@ -43,6 +43,55 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    flavorDimensions "nice"
+    productFlavors {
+        Manage {
+            applicationId "com.nicessm"
+            dimension "nice"
+            versionCode 1
+            versionName "1.0"
+
+        }
+
+        JNKV {
+            applicationId "com.logikoofjnkvnice"
+            dimension "nice"
+            versionCode 8
+            versionName "2.0.5"
+            buildConfigField "String", "BASE_URL", '"https://jnkv.nicessm.org/api/"'
+        }
+
+        MPKV {
+            applicationId "com.logikoofmpkvnice"
+            dimension "nice"
+            versionCode 9
+            versionName "2.0.3"
+            targetSdkVersion 31
+            buildConfigField "String", "BASE_URL", '"https://mpkv.nicessm.org/api/"'
+        }
+    }
+    sourceSets {
+        Manage {
+            res {
+                srcDirs 'src/Manage/res'
+            }
+            assets.srcDirs = ['src/Manage/assets', 'src/Manage/assets/fonts']
+        }
+        JNKV {
+            res {
+                srcDirs 'src/Jnkv/res'
+            }
+            assets.srcDirs = ['src/Jnkv/assets', 'src/Jnkv/assets/fonts']
+        }
+        MPKV {
+            res {
+                srcDirs 'src/Mpkv/res'
+            }
+            assets.srcDirs = ['src/Mpkv/assets', 'src/Mpkv/assets/fonts']
+        }
+        main { assets.srcDirs = ['src/main/assets', 'src/main/assets/', 'src/main/assets/fonts'] }
+    }
 }
 
 dependencies {
@@ -59,6 +108,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
@@ -83,10 +133,26 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
     implementation 'joda-time:joda-time:2.11.1'
 
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
 
     //pdf
 //    implementation 'es.voghdev.pdfviewpager:library:1.1.2'
 
+
+    // yt player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    //rich editor
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.5'
+    implementation 'com.github.irshulx:laser-native-editor:3.0.3'
+
+    //pdf
+    implementation 'es.voghdev.pdfviewpager:library:1.1.2'
+
+    //audio recorder
+    implementation 'com.github.adrielcafe:AndroidAudioRecorder:0.3.0'
 }

@@ -6,15 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.testproject.Util.AppConstants;
-import com.example.testproject.database.AppDatabase;
+import com.example.testproject.util.AppConstants;
 import com.example.testproject.databinding.ActivityMainBinding;
 import com.example.testproject.model.RootOneModel;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.ui.Activity.farmer.FarmerLoginActivity;
-import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.Activity.user.UserLoginActivity;
 import com.example.testproject.ui.base.BaseActivity;
 

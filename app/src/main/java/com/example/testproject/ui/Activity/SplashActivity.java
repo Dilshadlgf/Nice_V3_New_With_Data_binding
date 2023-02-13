@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
-import com.example.testproject.Util.JsonMyUtils;
+import com.example.testproject.util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.DefailtConfigDao;
 import com.example.testproject.database.Dao.UserDao;

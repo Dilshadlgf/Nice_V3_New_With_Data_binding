@@ -8,11 +8,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.example.testproject.Util.RealPathUtil;
-import com.example.testproject.Util.SharedPreferenceHelper;
+import com.example.testproject.util.RealPathUtil;
+import com.example.testproject.util.SharedPreferenceHelper;
 
 import com.example.testproject.model.RootOneModel;
-import com.example.testproject.Util.AppConstants;
+import com.example.testproject.util.AppConstants;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

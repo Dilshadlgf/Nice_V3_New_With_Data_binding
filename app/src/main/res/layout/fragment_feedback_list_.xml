@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-     tools:context=".ui.Fragment.Farmer.FeedbackList_Fragment">
+     tools:context=".ui.fragment.Farmer.FeedbackList_Fragment">
     <androidx.core.widget.NestedScrollView
         android:id="@+id/idNestedSV"
         android:layout_width="match_parent"

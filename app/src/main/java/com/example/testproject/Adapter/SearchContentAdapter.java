@@ -12,7 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.util.CommonUtils;
 import com.example.testproject.databinding.SearchContentItemListRowBinding;
 import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;

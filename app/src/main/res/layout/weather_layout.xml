@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <data>
-        <import type="com.example.testproject.Util.CommonUtils"/>
+        <import type="com.example.testproject.util.CommonUtils"/>
         <variable
             name="mydata"
             type="com.example.testproject.model.WeatherModel" />

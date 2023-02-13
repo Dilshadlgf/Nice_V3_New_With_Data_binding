@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/contentFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.ContentFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentFragment"
         android:label="activity_content"
         tools:layout="@layout/activity_content" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.ProfileFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/queryFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.ContentTabFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentTabFragment"
         android:label="QueryFragment" >
         <action
             android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardfragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.DashboardFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.DashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/activity_dsaboard" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/queryTabFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.QueryTabFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.QueryTabFragment"
         android:label="QueryTabFragment" >
         <action
             android:id="@+id/action_queryTabFragment_to_addFarmerqurie_Fragment"
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/notificationListFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.NotificationListFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.NotificationListFragment"
         android:label="NotificationListFragment" >
         <action
             android:id="@+id/action_notificationListFragment_to_queryDetailPrintFragment"
@@ -99,21 +99,21 @@
     </fragment>
     <fragment
         android:id="@+id/queryDetailPrintFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.QueryDetailPrintFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.QueryDetailPrintFragment"
         android:label="QueryDetailPrintFragment" />
     <fragment
         android:id="@+id/contentDetailFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.ContentDetailFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentDetailFragment"
         android:label="ContentDetailFragment" />
     <fragment
         android:id="@+id/addFarmerqurie_Fragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AddFarmerqurie_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddFarmerqurie_Fragment"
         android:label="AddFarmerqurie_Fragment" >
 
     </fragment>
     <fragment
         android:id="@+id/farmerCrops_Fragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.FarmerCrops_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.FarmerCrops_Fragment"
         android:label="FarmerCrops_Fragment" >
         <action
             android:id="@+id/action_farmerCrops_Fragment_to_addCrops_Update_Fragment"
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCrops_Update_Fragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AddCrops_Update_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddCrops_Update_Fragment"
         android:label="Add Crop" >
         <action
             android:id="@+id/action_addCrops_Update_Fragment_to_farmerCrops_Fragment"
@@ -129,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/farmerLiveStock_Fragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.FarmerLiveStock_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.FarmerLiveStock_Fragment"
         android:label="FarmerLiveStock_Fragment" >
         <action
             android:id="@+id/action_farmerLiveStock_Fragment_to_addLiveStock_UpdateFragment"
@@ -137,21 +137,21 @@
     </fragment>
     <fragment
         android:id="@+id/addLiveStock_UpdateFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AddLiveStock_UpdateFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddLiveStock_UpdateFragment"
         android:label="AddLiveStock_UpdateFragment" />
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.WeatherFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.WeatherFragment"
         android:label="WeatherFragment" />
     <fragment
         android:id="@+id/addFeedbackFragment"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AddFeedbackFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddFeedbackFragment"
         android:label="AddFeedbackFragment" >
 
     </fragment>
     <fragment
         android:id="@+id/allQueryFragmnet"
-        android:name="com.example.testproject.ui.Fragment.Farmer.AllQueryFragmnet"
+        android:name="com.example.testproject.ui.fragment.Farmer.AllQueryFragmnet"
         android:label="AllQueryFragmnet" />
 
 </navigation>
