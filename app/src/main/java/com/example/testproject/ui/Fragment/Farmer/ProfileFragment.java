@@ -11,37 +11,31 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.example.testproject.Adapter.SearchContentAdapter;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentProfileBinding;
-import com.example.testproject.model.FarmerDataModel;
-import com.example.testproject.model.Root.RootModelOne;
+import com.example.testproject.model.UserModel;
 import com.example.testproject.model.RootOneModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
-    private RootOneModel rootOneModel;
-    private SearchContentAdapter adapter;
     private ApiResponseInterface mInterFace;
-    private Call<RootOneModel> call;
     private ApiManager mApiManager;
     NavController navController ;
     private FragmentProfileBinding binding;
-    private FarmerDao farmerDao;
+    private UserDao userDao;
     private ImageView editIcon;
     @Override
     protected void init() {
@@ -51,7 +45,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
 
         binding = (FragmentProfileBinding) viewDataBinding;
-        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
+        userDao= AppDatabase.getInstance((getContext())).userdao();
         navController= NavHostFragment.findNavController(this);
         makeEditBox(false);
         setUpNetWork();
@@ -73,7 +67,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         dataAdapter0.setDropDownViewResource(R.layout.spinner_item);
         // attaching data adapter to spinner
         binding.tvGender.setAdapter(dataAdapter0);
-        mApiManager.getProfile(farmerDao.getFarmer().getId());
+        mApiManager.getProfile(userDao.getUserResponse().id);
     }
     private void makeEditBox(boolean isEnable) {
 
@@ -135,76 +129,78 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
             public void isSuccess(Object response, int ServiceCode) {
                 if (ServiceCode== AppConstants.PROFILE_REQUEST) {
                     RootOneModel rootOneModel = (RootOneModel) response;
-                    FarmerDataModel d2 = rootOneModel.getResponse().getData().getData();
-                    binding.setMydata(d2);
-//                    if (d2.getGender().equalsIgnoreCase("male"))
-//                    {
-//                        binding.tvGender.setSelection(1);
-//                    }else if(d2.getGender().equalsIgnoreCase("female")){
-//                        binding.tvGender.setSelection(2);
-//                    }
-                    if (getActivity()!=null){
-                        editIcon.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                makeEditBox(true);
-                                binding.btnSave.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                    if (rootOneModel.getResponse().getData().data!=null) {
+                        UserModel userModel = (UserModel) JsonMyUtils.getPojoFromJsonObj(UserModel.class, rootOneModel.getResponse().getData().data.getAsJsonObject());
+                        binding.setMydata(userModel);
+                        binding.tvCrop.setText(String.valueOf(userModel.cropCount));
+                        binding.tvTotalLand.setText(String.valueOf(userModel.totalLand));
+                        binding.tvLivestock.setText(String.valueOf(userModel.liveStockCount));
+                        binding.tvCultivatedArea.setText(String.valueOf(userModel.cultivatedArea));
+                        binding.tvVacantArea.setText(String.valueOf(userModel.vacantArea));
 
-                                        savedata(view);
-                                    }
+                        if (getActivity() != null) {
+                            editIcon.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    makeEditBox(true);
+                                    binding.btnSave.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
 
-                                    private void savedata(View view) {
-
-                                        try {
-                                            JsonObject profileobject = new JsonObject();
-                                            profileobject.addProperty("id",farmerDao.getFarmer().getId());
-
-                                            if (TextUtils.isEmpty(binding.tvprofilename.getText().toString().trim())) {
-                                                profileobject.addProperty("name", d2.getName());
-                                            } else {
-                                                profileobject.addProperty("name", binding.tvprofilename.getText().toString());
-                                            }
-                                            if (TextUtils.isEmpty(binding.tvFatherHusbandName.getText().toString().trim())) {
-                                                profileobject.addProperty("fatherName", d2.getFatherName().toString());
-                                            } else {
-                                                profileobject.addProperty("fatherName", binding.tvFatherHusbandName.getText().toString());
-                                            }
-                                            if (binding.tvGender.getSelectedItemPosition() == 0) {
-                                                profileobject.addProperty("gender", d2.getGender().toString());
-                                            } else {
-                                                profileobject.addProperty("gender", binding.tvGender.getSelectedItem().toString());
-                                            }
-                                            if (TextUtils.isEmpty(binding.tvMobileNumber.getText().toString().trim())) {
-                                                profileobject.addProperty("mobileNumber", d2.getMobileNumber().toString());
-                                            } else {
-                                                profileobject.addProperty("mobileNumber", binding.tvMobileNumber.getText().toString());
-                                            }
-                                            if (TextUtils.isEmpty(binding.tvEmail.getText().toString().trim())) {
-                                                profileobject.addProperty("email", d2.getEmail().toString());
-                                            } else {
-                                                profileobject.addProperty("email", binding.tvEmail.getText().toString());
-                                            }
-                                            if (TextUtils.isEmpty(binding.tvDateOfBirth.getText().toString().trim())) {
-                                                profileobject.addProperty("dateOfBirth", d2.getDateOfBirth().toString());
-                                            } else {
-                                                String d = CommonUtils.getServerFormatDate(binding.tvDateOfBirth.getText().toString(), "dd-MM-yyyy");
-                                                profileobject.addProperty("dateOfBirth", d);
-                                            }
-
-                                            mApiManager.editprofileUser(profileobject);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                            savedata(view);
                                         }
-                                    }
-                                });
-                            }
-                        });
+
+                                        private void savedata(View view) {
+
+                                            try {
+                                                JsonObject profileobject = new JsonObject();
+                                                profileobject.addProperty("id", userDao.getUserResponse().id);
+
+                                                if (TextUtils.isEmpty(binding.tvprofilename.getText().toString().trim())) {
+                                                    profileobject.addProperty("name", userModel.name);
+                                                } else {
+                                                    profileobject.addProperty("name", binding.tvprofilename.getText().toString());
+                                                }
+                                                if (TextUtils.isEmpty(binding.tvFatherHusbandName.getText().toString().trim())) {
+                                                    profileobject.addProperty("fatherName", userModel.fatherName.toString());
+                                                } else {
+                                                    profileobject.addProperty("fatherName", binding.tvFatherHusbandName.getText().toString());
+                                                }
+                                                if (binding.tvGender.getSelectedItemPosition() == 0) {
+                                                    profileobject.addProperty("gender", userModel.gender.toString());
+                                                } else {
+                                                    profileobject.addProperty("gender", binding.tvGender.getSelectedItem().toString());
+                                                }
+                                                if (TextUtils.isEmpty(binding.tvMobileNumber.getText().toString().trim())) {
+                                                    profileobject.addProperty("mobileNumber", userModel.mobileNumber.toString());
+                                                } else {
+                                                    profileobject.addProperty("mobileNumber", binding.tvMobileNumber.getText().toString());
+                                                }
+                                                if (TextUtils.isEmpty(binding.tvEmail.getText().toString().trim())) {
+                                                    profileobject.addProperty("email", userModel.email.toString());
+                                                } else {
+                                                    profileobject.addProperty("email", binding.tvEmail.getText().toString());
+                                                }
+                                                if (TextUtils.isEmpty(binding.tvDateOfBirth.getText().toString().trim())) {
+                                                    profileobject.addProperty("dateOfBirth", userModel.dateOfBirth.toString());
+                                                } else {
+                                                    String d = CommonUtils.getServerFormatDate(binding.tvDateOfBirth.getText().toString(), "dd-MM-yyyy");
+                                                    profileobject.addProperty("dateOfBirth", d);
+                                                }
+
+                                                mApiManager.editprofileUser(profileobject);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     }
                 }else if (ServiceCode==AppConstants.EDIT_PROFILE_USER)
                 {
-                    RootModelOne rootOneModel=(RootModelOne)response;
+                    RootOneModel rootOneModel=(RootOneModel)response;
                     navController.navigate(R.id.action_profileFragment_self);
 //                    makeEditBox(false);
                 }
@@ -248,6 +244,12 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     e.printStackTrace();
                 }
         }
+    }
 
+    @Override
+    public void onBackCustom() {
+        ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.dashboard));
+        ((FarmerMainActivity) getActivity()).hideIcon();
+        navController.navigate(R.id.dashboardfragment);
     }
 }

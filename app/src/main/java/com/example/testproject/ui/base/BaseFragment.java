@@ -11,19 +11,23 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.testproject.R;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
+import com.example.testproject.ui.Activity.user.UserFragmentActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,6 +85,31 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() instanceof FarmerMainActivity){
+            ConstraintLayout constraintLayout =((FarmerMainActivity) getActivity()).findViewById(R.id.top_bar);
+            ImageView imageView =constraintLayout.findViewById(R.id.back_btn);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackCustom();
+                }
+            });
+        }else {
+            ConstraintLayout constraintLayout =((UserFragmentActivity) getActivity()).findViewById(R.id.top_bar);
+            ImageView imageView =constraintLayout.findViewById(R.id.back_btn);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackCustom();
+                }
+            });
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
@@ -92,6 +121,8 @@ public class BaseFragment extends Fragment implements BaseFragmentInterface {
 
             setUpUi(view, viewBinding);
         }
+
+
 
 //        if (!isGooglePlayServicesAvailable()) {
 //

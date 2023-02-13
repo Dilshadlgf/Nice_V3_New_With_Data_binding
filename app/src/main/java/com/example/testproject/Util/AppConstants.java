@@ -19,16 +19,16 @@ public class AppConstants {
     public static final int FarmerVarietyList=66;
     public static final int WeatherAlert_LIST_REQUEST=67;
     public static final int ADD_FEEDBACK_REQUEST=68;
-    public static final int CropCalenderRequest=69;
+    public static final int SEARCHCONTENTPOSTERCONTENT=69;
     public static final int UpdateCrop=70;
-    public static final int UpdateCropCalender=71;
+    public static final int SEARCHCONTENtMixContent=71;
     public static final int NotificationListReq=72;
     public static final int SendFbToken=73;
-    public static final int DeleteFbToken=74;
-    public static final int LoginModule=75;
-    public static final int FarmerModule=76;
-    public static final int UserModule=77;
-    public static final int NotificationReq=78;
+    public static final int FILTER=74;
+    public static final int SEARCHCONTENTVOICECONTENT=75;
+    public static final int VIDEO_CONTENT=76;
+    public static final int SEARCHCONTENTDOCUMENTCONTENT=77;
+    public static final int UNIQUENESS=78;
     public static final int CommodityFilterReq=79;
     public static final int DeleteLiveStock=80;
     public static final int QUERIES_LIST_REQUEST=81;
@@ -39,9 +39,10 @@ public class AppConstants {
     public static final int ACTIVE_KNOWLEDGE_REQUEST=86;
     public static final int ADD_QUERY_REQUEST=87;
     public static final int UpdateQuery=88;
-    public static final int CROPListREquest=89;
-    public static final int farmercropRequest=90;
-    public static final int CROPvarietyRequest=91;
+    public static final int DELETE=89;
+    public static final int APPROVED=91;
+    public static final int REJECTED=101;
+    public static final int ASSIGN=90;
     public static final int UpdatreLivesstock=92;
     public static final int VarietyListReq=93;
     public static final int StageListReq=94;
@@ -51,11 +52,25 @@ public class AppConstants {
     public static final int UniqueNumber=98;
     public static final int StateWeather=99;
     public static final int WeatherData=100;
+    public static final int SUBDOMAIN=101;
+    public static final int DISTREQ=102;
+    public static final int TOPICREQ=103;
+    public static final int SUBTOPICREQ=104;
+    public static final int BLOCKREQ=105;
+    public static final int GRAMREQ=106;
+    public static final int VILLAGEREQ=107;
+    public static final int SUBMITREQ=108;
+    public static final int DASHBOADCOUNT=109;
+    public static final int FileUpload=110;
 
 
     final public static int DIALOG_LOGIN_BACK_ID = 10001;
 
 
+    final public static int METHOD_GET = 501;
+    final public static int METHOD_PUT = 502;
+    final public static int METHOD_POST = 503;
+    final public static int METHOD_DELETE = 504;
 
 
 

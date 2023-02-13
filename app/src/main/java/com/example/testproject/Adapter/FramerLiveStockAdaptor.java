@@ -9,19 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testproject.databinding.FarmerquerylistBinding;
 import com.example.testproject.databinding.LivestockItemBinding;
-import com.example.testproject.model.livestock.LiveStockDataModel;
-import com.example.testproject.model.query.QueryResponseDataNumModel;
+import com.example.testproject.model.LivestockModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FramerLiveStockAdaptor extends RecyclerView.Adapter<FramerLiveStockAdaptor.MyVHolder> {
     private FarmerquerylistBinding binding;
-    private List<LiveStockDataModel> data;
+    private List<LivestockModel> data;
     private Context context;
 
 
-    public FramerLiveStockAdaptor(List<LiveStockDataModel> data, Context context) {
+    public FramerLiveStockAdaptor(List<LivestockModel> data, Context context) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -29,7 +28,7 @@ public class FramerLiveStockAdaptor extends RecyclerView.Adapter<FramerLiveStock
         this.context = context;
     }
 
-    public void addNewList(List<LiveStockDataModel> data) {
+    public void addNewList(List<LivestockModel> data) {
         this.data.addAll(data);
         notifyDataSetChanged();
     }
@@ -48,7 +47,7 @@ public class FramerLiveStockAdaptor extends RecyclerView.Adapter<FramerLiveStock
 
     @Override
     public void onBindViewHolder(@NonNull FramerLiveStockAdaptor.MyVHolder holder, int position) {
-        LiveStockDataModel queryResponseDataNumModel = data.get(position);
+        LivestockModel queryResponseDataNumModel = data.get(position);
         //  holder.binding.setMydata(queryResponseDataNumModel);
         holder.binding.setMydata(queryResponseDataNumModel);
 

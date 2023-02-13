@@ -55,7 +55,7 @@
     <string name="printer_connecting">को जोड़ रहा</string>
     <string name="can_not_establish_connection">कनेक्शन स्थापित नहीं कर सकता</string>
     <string name="launguage_selection">भाषा चयन</string>
-    <string name="date">दिनांक</string>
+    <string name="date"> दिनांक:- </string>
     <string name="add_query_button_caption">जोड़ना</string>
     <string name="enter_query">क्वेरी दर्ज करें</string>
     <string name="add_query_caption">सवाल*</string>

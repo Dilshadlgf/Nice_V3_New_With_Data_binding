@@ -21,14 +21,14 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
-import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.CrpLivestocklistFragmentBinding;
 import com.example.testproject.interfaces.ListItemClickListener;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
@@ -59,22 +59,11 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
     private HashMap<Integer, String> spinnervarietytMap;
     private HashMap<Integer, String> spinnerstagesMap;
     private HashMap<Integer, String> spinnercropMap;
-    ArrayList<String> staticvarietylist;
-    ArrayList<String> staticvarietyidlist;
-    LivestocksArrayModel livestockmodel;
-    String selectedareaUnit, selectedirrigation, varietyid;
-    SharedPreferences pref;
-    BottomNavigationView btmview;
     SharedPreferences pres;
-    List<LivestocksArrayModel> modelListCatVise=new ArrayList<>();
-    List<LivestocksArrayModel> modelListLiveStockName=new ArrayList<>();
     private int selectedIndex;
-    private FarmerDao farmerdao;
-    private RoleDao roleDao;
+    private UserDao userDao;
     NavController navController ;
-
-
-
+    private List<LivestockModel> livestockModels;
 
 
     public static FarmerLiveStock_Fragment newInstance(Bundle args) {
@@ -95,7 +84,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         ((FarmerMainActivity) getActivity()).setTittle("Farmer Live Stock");
         ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         setupNetwork();
-        farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
+        userDao = AppDatabase.getInstance(getContext()).userdao();
 
         pres = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
 //
@@ -106,7 +95,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
             JsonArray statusArr=new JsonArray();
             statusArr.add("Active");
             JsonArray fid=new JsonArray();
-            fid.add(farmerdao.getFarmer().getId());
+            fid.add(userDao.getUserResponse().id);
             JsonArray lstock=new JsonArray();
             lstock.add("Livestock");
             mainObj.add("status",statusArr);
@@ -129,30 +118,35 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
+                RootOneModel rootOneModel= (RootOneModel) response;
                 if (ServiceCode == AppConstants.CommodityFilterReq) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    modelListLiveStockName=rootOneResModel.getResponse().getDataModel2().getLiveStockCategory();
-                    if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
-                        makeTopLiveStockCard();
-                        callLiveStockApi(modelListLiveStockName.get(0).getId());
-                    }else {
-                        binding.farmerRecycler.setVisibility(View.GONE);
-                        binding.txtEmpty.setVisibility(View.VISIBLE);
+                    if (rootOneModel.getResponse().getData().liveStockCategory!=null){
+                        livestockModels = JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().liveStockCategory.getAsJsonArray(),LivestockModel.class);
+                        if(livestockModels!=null && livestockModels.size()>0){
+                            makeTopLiveStockCard();
+                            callLiveStockApi(livestockModels.get(0).id);
+                        }else {
+                            binding.farmerRecycler.setVisibility(View.GONE);
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
+
                 }else  if(ServiceCode==AppConstants.LiveSTOCKREQUEST){
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    List<LivestocksArrayModel> mList=rootOneResModel.getResponse().getDataModel2().getFarmerLiveStock();
-                    if(mList!=null && mList.size()>0) {
-                        FarmerLivastockAdapter adapter = new FarmerLivastockAdapter(getActivity(), mList, FarmerLiveStock_Fragment.this);
-                        binding.farmerRecycler.setHasFixedSize(true);
-                        binding.farmerRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        binding.farmerRecycler.setAdapter(adapter);
-                        binding.farmerRecycler.setVisibility(View.VISIBLE);
-                        binding.txtEmpty.setVisibility(View.GONE);
-                    }else {
-                        binding.farmerRecycler.setVisibility(View.GONE);
-                        binding.txtEmpty.setVisibility(View.VISIBLE);
+                    if (rootOneModel.getResponse().getData().farmerLiveStock!=null){
+                        List<LivestockModel> livestockModels =JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().farmerLiveStock.getAsJsonArray(),LivestockModel.class);
+                        if(livestockModels!=null && livestockModels.size()>0) {
+                            FarmerLivastockAdapter adapter = new FarmerLivastockAdapter(getActivity(), livestockModels, FarmerLiveStock_Fragment.this);
+                            binding.farmerRecycler.setHasFixedSize(true);
+                            binding.farmerRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            binding.farmerRecycler.setAdapter(adapter);
+                            binding.farmerRecycler.setVisibility(View.VISIBLE);
+                            binding.txtEmpty.setVisibility(View.GONE);
+                        }else {
+                            binding.farmerRecycler.setVisibility(View.GONE);
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
+
                 }
             }
         };
@@ -163,7 +157,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         JsonArray statusArr=new JsonArray();
         statusArr.add("Active");
         JsonArray fid=new JsonArray();
-        fid.add(farmerdao.getFarmer().getId());
+        fid.add(userDao.getUserResponse().id);
         JsonArray lstock=new JsonArray();
         lstock.add(catId);
         mainObj.add("status", statusArr);
@@ -171,27 +165,12 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         mainObj.add("category", lstock);
         mApiManager.LiveStockRequest(mainObj);
     }
-    private void makeNewRecyclerAdaptor(String catid){
-//        modelListCatVise.clear();
-//
-//        for (int i = 0; i <modelList.size() ; i++) {
-//            if(modelList.get(i).getRef().getLiveStock().getCategory().equals(catid)){
-//                modelListCatVise.add(modelList.get(i));
-//            }
-//        }
-//        if(modelListCatVise.size()==0){
-//            binding.farmerRecycler.setVisibility(View.GONE);
-//            binding.txtEmpty.setVisibility(View.VISIBLE);
-//        }else {
-//            adapter.setnewlist(modelListCatVise);
-//        }
-    }
     private void makeTopLiveStockCard(){
         binding.bottomlayout.removeAllViews();
-        for (int i = 0; i < modelListLiveStockName.size(); i++) {
+        for (int i = 0; i < livestockModels.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
-            ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.get().load(BuildConfig.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.livestock).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            ((TextView)v.findViewById(R.id.tv_name)).setText(livestockModels.get(i).name);
+            Picasso.get().load(BuildConfig.BASE_URL+livestockModels.get(i).icon).placeholder(R.drawable.livestock).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
@@ -215,7 +194,7 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
         }
     }
     private void btnHandler(int index){
-        String c=modelListLiveStockName.get(index).getId();
+        String c=livestockModels.get(index).id;
         callLiveStockApi(c);
         for (int i = 0; i < binding.bottomlayout.getChildCount(); i++) {
             if(i==index){
@@ -239,12 +218,17 @@ public class FarmerLiveStock_Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onItemClick(int position, String id) {
-        if(position<modelListLiveStockName.size()) {
+        if(position<livestockModels.size()) {
             btnHandler(position);
         }else{
             btnHandler(selectedIndex);
         }
 
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.profileFragment);
     }
 }
 

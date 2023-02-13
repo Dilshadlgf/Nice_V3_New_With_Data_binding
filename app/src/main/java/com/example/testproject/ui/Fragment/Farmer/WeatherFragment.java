@@ -9,6 +9,8 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +32,14 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentWeatherBinding;
-import com.example.testproject.model.DataModelTwo;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.WeatherStateModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.model.UserModel;
+import com.example.testproject.model.WeatherModel;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -53,7 +56,7 @@ import java.util.Locale;
  */
 public class WeatherFragment extends BaseFragment {
    private FragmentWeatherBinding binding;
-   private FarmerDao farmerDao;
+   private UserDao userDao;
    private ApiResponseInterface mInterFace;
    private ApiManager mApiManager;
    private int pageNo = 1, maxPage = 1;
@@ -61,7 +64,8 @@ public class WeatherFragment extends BaseFragment {
    private WeatherAdapter adaptor;
    private HashMap<String, String> stateHash = new HashMap<>();
    private String fDate, tDate, stateId, dialogtdate, dialogfdate;
-   private List<WeatherStateModel>list;
+   private List<WeatherModel>list;
+   private NavController navController;
    @Override
    protected void init() {
       layoutId = R.layout.fragment_weather;
@@ -73,11 +77,12 @@ public class WeatherFragment extends BaseFragment {
       binding = (FragmentWeatherBinding) viewDataBinding;
       ((FarmerMainActivity) getActivity()).setTittle("Weather Data");
       ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
-      farmerDao = AppDatabase.getInstance(getContext()).farmerDao();
+      userDao = AppDatabase.getInstance(getContext()).userdao();
+      navController= NavHostFragment.findNavController(this);
       setUpNetWork();
       fDate = CommonUtils.getCurrentDateForServer();
       tDate = CommonUtils.getFutuerAndBackDates(7, false, "yyyy-MM-dd'T'HH:mm:ss'Z'");
-      stateId = farmerDao.getFarmer().getStateid();
+      stateId = userDao.getUserResponse().state;
 
       binding.weatherRcv.setLayoutManager(new LinearLayoutManager(getActivity()));
       binding.weatherRcv.setItemAnimator(new DefaultItemAnimator());
@@ -228,28 +233,34 @@ public class WeatherFragment extends BaseFragment {
             if (ServiceCode == AppConstants.WeatherData) {
                loadmore = true;
 
-               RootOneResModel rootOneResModel = (RootOneResModel) response;
-               maxPage = rootOneResModel.getResponse().getDataModel2().getPagination1().getTotalPage();
-               list = rootOneResModel.getResponse().getDataModel2().getStateWeatherModels();
-               if (list != null && list.size() > 0) {
-                  if (adaptor == null) {
-                     adaptor = new WeatherAdapter(getActivity(), list);
-                     binding.weatherRcv.setAdapter(adaptor);
-                  } else {
-                     adaptor.addToList(list);
-                  }
+               RootOneModel rootOneModel = (RootOneModel) response;
+               if (rootOneModel.getResponse().getData().getStateWeatherModels()!=null){
+                  list= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().getStateWeatherModels().getAsJsonArray(),WeatherModel.class);
+                  maxPage = rootOneModel.getResponse().getData().getPagination().getTotalPage();
+                  if (list != null && list.size() > 0) {
+                     if (adaptor == null) {
+                        adaptor = new WeatherAdapter(getActivity(), list);
+                        binding.weatherRcv.setAdapter(adaptor);
+                     } else {
+                        adaptor.addToList(list);
+                     }
+               }
+
                }
 
             } else if (ServiceCode == AppConstants.StateWeather) {
-               RootOneResModel rootOneResModel = (RootOneResModel) response;
-               List<DataModelTwo> list = ((RootOneResModel) response).getResponse().getDataModel2().getData();
-               List<String> nameList = new ArrayList<>();
-               nameList.add("---Select State---");
-               for (int i = 0; i < list.size(); i++) {
-                  stateHash.put(list.get(i).getName(), list.get(i).getId());
-                  nameList.add(list.get(i).getName());
+               RootOneModel rootOneModel = (RootOneModel) response;
+               if (rootOneModel.getResponse().getData().data!=null){
+                  List<UserModel>userModel= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),UserModel.class);
+                  List<String> nameList = new ArrayList<>();
+                  nameList.add("---Select State---");
+                  for (int i = 0; i < userModel.size(); i++) {
+                     stateHash.put(userModel.get(i).name, list.get(i).id);
+                     nameList.add(userModel.get(i).name);
+                  }
+                  showCustomDialog(nameList);
+
                }
-               showCustomDialog(nameList);
 
             }
          }
@@ -259,15 +270,9 @@ public class WeatherFragment extends BaseFragment {
    }
 
    @Override
-   public void onPause() {
-      super.onPause();
-      adaptor=null;
-      assert list!=null;
-      list.clear();
-   }
-
-   @Override
-   public void onResume() {
-      super.onResume();
+   public void onBackCustom() {
+      ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.dashboard));
+      ((FarmerMainActivity) getActivity()).hideIcon();
+      navController.navigate(R.id.dashboardfragment);
    }
 }

@@ -8,20 +8,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
-import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.AddlivestocUpdatefragmentBinding;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
-import com.example.testproject.model.stagemodel;
-import com.example.testproject.model.varietymodel;
+import com.example.testproject.model.AddressModel;
+import com.example.testproject.model.CommodityModel;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,16 +39,11 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
     private AddlivestocUpdatefragmentBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    private FarmerDao farmerdao;
-    private RoleDao roleDao;
-
-    //    private LoginDao loginDao;
-//    private FarmerListDao farmerDao;
+    private UserDao userDao;
     String farmerid;
     public Spinner splivestock,spvariety,spstages,spvarietycrop,spseason,spareaunit,
             spirrigation,spcrop;
-
-
+    private NavController navController;
     private String cntComodityId="",cntLiveStockName,cntState;
     private boolean isFirstSpSet;
     private List<String> comodityIDList=new ArrayList<>();
@@ -66,32 +62,11 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (AddlivestocUpdatefragmentBinding) viewDataBinding;
-//        ((FragmentActivity) getActivity()).enableNavigationViews(false);
-//        ((FragmentActivity) getActivity()).mBack.setVisibility(View.VISIBLE);
-        //((FragmentActivity) getActivity()).setScreenTitle("Add LiveStocks");
-     //   ((FragmentActivity)getActivity()).setScreenTitle(getString(R.string.addlivestock));
-        roleDao = AppDatabase.getInstance(getContext()).roleDao();
-        farmerdao = AppDatabase.getInstance(getContext()).farmerDao();
-
-        farmerid=farmerdao.getFarmer().getId();
-        binding.quantity.setText(String.valueOf(farmerdao.getFarmer().getLiveStockCount()));
-
-
+        userDao = AppDatabase.getInstance(getContext()).userdao();
+        navController=NavHostFragment.findNavController(this);
+        farmerid=userDao.getUserResponse().id;
+        binding.quantity.setText(String.valueOf(userDao.getUserResponse().liveStockCount));
         setupNetwork();
-
-//
-//        ((FragmentActivity) getActivity()).mBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackCustom();
-//            }
-//        });
-//        ((FragmentActivity) getActivity()).enableBottomNavigation(true);
-
-
-
-
-
         JsonObject mainObj=new JsonObject();
         JsonArray statusArr=new JsonArray();
         statusArr.add("Active");
@@ -99,8 +74,6 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
         JsonArray lives=new JsonArray();
         lives.add("Livestock");
         mainObj.add("classification",lives);
-
-
         mApiManager.getLiveStockList(mainObj);
 
         binding.splivestocks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -151,14 +124,14 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
         if(apiType==1){
             List<String> list = new ArrayList<String>();
 
-            List<LivestocksArrayModel> modelList= (List<LivestocksArrayModel>) obj;
+            List<LivestockModel> modelList= (List<LivestockModel>) obj;
             comodityIDList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list.add("---Select LiveStock---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    if (modelList.get(i).getCommonName() != null) {
-                        list.add(modelList.get(i).getCommonName());
-                        comodityIDList.add(modelList.get(i).getId());
+                    if (modelList.get(i).commonName != null) {
+                        list.add(modelList.get(i).commonName);
+                        comodityIDList.add(modelList.get(i).id);
                     }
                 }
             }else{
@@ -173,13 +146,13 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
         }else if(apiType==2){
             List<String> list2 = new ArrayList<String>();
 
-            List<varietymodel> modelList= (List<varietymodel>) obj;
+            List<CommodityModel> modelList= (List<CommodityModel>) obj;
             varietiresIdList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list2.add("---Select Varieties---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    list2.add(modelList.get(i).getName());
-                    varietiresIdList.add(modelList.get(i).getId());
+                    list2.add(modelList.get(i).name);
+                    varietiresIdList.add(modelList.get(i).id);
                 }
             }else{
                 list2.add("---Empty---");
@@ -194,14 +167,14 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
         }else if(apiType==3){
             List<String> list2 = new ArrayList<String>();
 
-            List<stagemodel> modelList= (List<stagemodel>) obj;
+            List<CommodityModel> modelList= (List<CommodityModel>) obj;
             stageIdList.add("");//for 0 position
             if(modelList!=null && modelList.size()>0) {
                 list2.add("---Select Stage---");
                 for (int i = 0; i < modelList.size(); i++) {
-                    if (modelList.get(i).getName() != null) {
-                        list2.add(modelList.get(i).getName());
-                        stageIdList.add(modelList.get(i).getId());
+                    if (modelList.get(i).name != null) {
+                        list2.add(modelList.get(i).name);
+                        stageIdList.add(modelList.get(i).id);
                     }
                 }
             }else {
@@ -251,21 +224,30 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
             }
             @Override
             public void isSuccess(Object response, int ServiceCode) {
+                RootOneModel rootOneModel= (RootOneModel) response;
 
                  if (ServiceCode == AppConstants.LiveSTOCKREQUEST) {
-                     RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    fillData(rootOneResModel.getResponse().getDataModel2().getCommodity(),1);
-                     cntComodityId=rootOneResModel.getResponse().getDataModel2().getCommodity().get(0).getId();
-                     callVarietyApi();
-                     callStageApi();
+                     if (rootOneModel.getResponse().getData().commodity!=null){
+                         List<LivestockModel> livestockModel=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().commodity.getAsJsonArray(),LivestockModel.class);
+                         fillData(livestockModel,1);
+                         cntComodityId=livestockModel.get(0).id;
+                         callVarietyApi();
+                         callStageApi();
+                     }
+
                  }else if (ServiceCode == AppConstants.VarietyListReq) {
-                     RootOneResModel rootOneResModel= (RootOneResModel) response;
-                     fillData(rootOneResModel.getResponse().getDataModel2().getVariety(),2);
+                     if (rootOneModel.getResponse().getData().variety!=null){
+                         List<CommodityModel> commodityModels=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().variety.getAsJsonArray(),CommodityModel.class);
+                         fillData(commodityModels,2);
+
+                     }
                  }else if (ServiceCode == AppConstants.StageListReq) {
-                     RootOneResModel rootOneResModel= (RootOneResModel) response;
-                     fillData(rootOneResModel.getResponse().getDataModel2().getStage(),3);
+                     if (rootOneModel.getResponse().getData().stage!=null){
+                         List<CommodityModel> commodityModels=JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().variety.getAsJsonArray(),CommodityModel.class);
+                         fillData(commodityModels,3);
+
+                     }
                  }else if (ServiceCode == AppConstants.UpdatreLivesstock) {
-                     SingleObjRootOneResModel oneResModel= (SingleObjRootOneResModel) response;
                      showDialog(getActivity(), binding.splivestocks.getSelectedItem().toString()+getString(R.string.livestock_added_success), false, true, 0);
                  }
 
@@ -294,8 +276,10 @@ public class AddLiveStock_UpdateFragment extends BaseFragment implements View.On
         }
     }
 
-
-
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.farmerLiveStock_Fragment);
+    }
 }
 
 

@@ -87,4 +87,7 @@ public class SharedPreferenceHelper {
 
         return value;
     }
+    public static SharedPreferences getLoginSp(Context context){
+        return context.getSharedPreferences("loginpref", Context.MODE_PRIVATE);
+    }
 }

@@ -1,152 +1,67 @@
 package com.example.testproject.model;
 
-import com.example.testproject.model.livestock.RefLiveStockModel;
+import com.example.testproject.Util.JsonMyUtils;
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class DataModel {
+    public JsonElement data;
+    public JsonElement farmer;
+    public String duplicate;
+    public String otp;
+    public JsonElement user;
+    public JsonElement contentDissiminateUserAndFarmer;
+    public JsonElement uri;
 
-    @SerializedName("productconfig")
-    private Productconfig productconfig;
+    public JsonElement  commodity;
+    public JsonElement productconfig;
+    public JsonElement  variety;
+    @SerializedName("stage")
+    public JsonElement stage;
 
-    @SerializedName("otp")
-    private String otp;
+    @SerializedName("category")
+    public JsonElement liveStockCategory;
 
-
-    @SerializedName("content")
-    private List<ContentModel> content;
-
-    @SerializedName("pagination")
-    private Pagination pagination;
-
-    @SerializedName("data")
-    private FarmerDataModel data;
-
-    @SerializedName("farmer")
-    private FarmerDataModel farmer;
-
+    @SerializedName("farmerCrop")
+    public JsonElement farmerCrop;
 
     @SerializedName("farmerLiveStock")
-    private LivestocksArrayModel farmerLiveStock;
+    public JsonElement farmerLiveStock;
 
-    @SerializedName("duplicate")
-    private String duplicate;
+    @SerializedName("stateweatherdata")
+    private JsonElement stateWeatherModels;
 
-    private String status;
-
-    private String query;
-
-    private CreatedOn createdOn;
-
-    private String solution;
-
-    private RefLiveStockModel ref;
-
-    public String getQuery() {
-        return query;
+    public JsonElement getStateWeatherModels() {
+        return stateWeatherModels;
     }
 
-    public void setQuery(String query) {
-        this.query = query;
+    public void setStateWeatherModels(JsonElement stateWeatherModels) {
+        this.stateWeatherModels = stateWeatherModels;
     }
 
-    public CreatedOn getCreatedOn() {
-        return createdOn;
+    @SerializedName("content")
+    public JsonElement content;
+
+    @SerializedName("notificationlog")
+    private List<NotificationDataModel> notificationlog;
+
+    public List<NotificationDataModel> getNotificationlog() {
+        return notificationlog;
     }
 
-    public void setCreatedOn(CreatedOn createdOn) {
-        this.createdOn = createdOn;
+    public void setNotificationlog(List<NotificationDataModel> notificationlog) {
+        this.notificationlog = notificationlog;
     }
 
-    public String getSolution() {
-        return solution;
-    }
+    private PaginationModel pagination;
 
-    public void setSolution(String solution) {
-        this.solution = solution;
-    }
-
-    public RefLiveStockModel getRef() {
-        return ref;
-    }
-
-    public void setRef(RefLiveStockModel ref) {
-        this.ref = ref;
-    }
-
-    public FarmerDataModel getFarmer() {
-        return farmer;
-    }
-
-    public void setFarmer(FarmerDataModel farmer) {
-        this.farmer = farmer;
-    }
-
-    public LivestocksArrayModel getFarmerLiveStock() {
-        return farmerLiveStock;
-    }
-
-    public void setFarmerLiveStock(LivestocksArrayModel farmerLiveStock) {
-        this.farmerLiveStock = farmerLiveStock;
-    }
-
-    public String getDuplicate() {
-        return duplicate;
-    }
-
-    public void setDuplicate(String duplicate) {
-        this.duplicate = duplicate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<ContentModel> getContent() {
-        return content;
-    }
-
-
-    public void setContent(List<ContentModel> content) {
-        this.content = content;
-    }
-
-    public Pagination getPagination() {
+    public PaginationModel getPagination() {
         return pagination;
     }
 
-    public void setPagination(Pagination pagination) {
+    public void setPagination(PaginationModel pagination) {
         this.pagination = pagination;
-    }
-
-    public String getOtp() {
-        return otp;
-    }
-
-    public void setOtp(String otp) {
-        this.otp = otp;
-    }
-
-    public Productconfig getProductconfig() {
-        return productconfig;
-    }
-
-    public FarmerDataModel getData() {
-        return data;
-    }
-
-    public void setData(FarmerDataModel data) {
-        this.data = data;
-    }
-
-    public void setProductconfig(Productconfig productconfig) {
-        this.productconfig = productconfig;
-
-
     }
 }

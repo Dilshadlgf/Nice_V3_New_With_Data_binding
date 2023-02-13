@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
@@ -21,15 +22,17 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentCropDone1Binding;
 import com.example.testproject.interfaces.ListItemClickListener;
 import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.interfaces.ResolutionClickListener;
-import com.example.testproject.model.CropDataModel;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.RootOneResModel;
+
+import com.example.testproject.model.CropModel;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,9 +41,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CropDONEFragment#newInstance} factory method to
- * create an instance of this fragment.
+     Created by suraj singh rajput on 30-01-2023
  */
 public class CropDONEFragment extends BaseFragment implements View.OnClickListener, ListItemClickListener {
     private static final String TAG = "DoneFragment";
@@ -58,20 +59,11 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
     SharedPreferences userrolesh;
     SharedPreferences pref;
     String farmerrole,user_role;
-    private List<CropDataModel> croplist;
-    private String crop;
-    private String inter_Crop;
-    private String variety;
-    private String seasion;
-    private String area;
-    private String irrigation;
-    private String startdate;
-    private String completeddate;
-    private String yield;
-    List<LivestocksArrayModel> modelListLiveStockName;
+    private List<CropModel> cropModels;
+    List<LivestockModel> modelListLiveStockName;
     private int selectedCatindex;
-    private FarmerDao farmerDao;
-
+    private UserDao userDao;
+    private NavController navController;
     public static CropDONEFragment newInstance(Bundle args) {
         CropDONEFragment fragment = new CropDONEFragment();
         fragment.setArguments(args);
@@ -86,8 +78,8 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentCropDone1Binding) viewDataBinding;
-        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
-
+        userDao= AppDatabase.getInstance((getContext())).userdao();
+        navController= NavHostFragment.findNavController(this);
         userrolesh = getActivity().getSharedPreferences("userrole", 0);
         pref = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
         if (pref != null) {
@@ -127,21 +119,26 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
             public void isSuccess(Object response, int ServiceCode) {
 
                 if (ServiceCode == AppConstants.CommodityFilterReq) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    modelListLiveStockName=rootOneResModel.getResponse().getDataModel2().getLiveStockCategory();
-                    if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
-                        makeTopLiveStockCard();
-                        callDONEApi(modelListLiveStockName.get(0).getId());
-                    }else {
-                        binding.doneRecycler.setVisibility(View.GONE);
-                        binding.txtEmpty.setVisibility(View.VISIBLE);
+                    RootOneModel rootOneModel= (RootOneModel) response;
+                    if (rootOneModel.getResponse().getData().data!=null){
+                        modelListLiveStockName= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),LivestockModel.class);
+                        if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
+                            makeTopLiveStockCard();
+                            callDONEApi(modelListLiveStockName.get(0).id);
+                        }else {
+                            binding.doneRecycler.setVisibility(View.GONE);
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
-                }else  if(ServiceCode==AppConstants.FARMER_DETAILS_REQUEST) {
-                    RootOneResModel rootOneResModel = (RootOneResModel) response;
 
-                    List<CropDataModel> cropDataModels = rootOneResModel.getResponse().getDataModel2().getFarmerCrop();
-                    if(cropDataModels!=null && cropDataModels.size()>0) {
-                        binding.doneRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropDataModels, CropDONEFragment.this, getContext(), false));
+                }else  if(ServiceCode==AppConstants.FARMER_DETAILS_REQUEST) {
+                    RootOneModel rootOneModel = (RootOneModel) response;
+                    if (rootOneModel.getResponse().getData().data!=null){
+                        cropModels= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().data.getAsJsonArray(),CropModel.class);
+
+                    }
+                    if(cropModels!=null && cropModels.size()>0) {
+                        binding.doneRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropModels, CropDONEFragment.this, getContext(), false));
                         binding.doneRecycler.setVisibility(View.VISIBLE);
                         binding.txtEmpty.setVisibility(View.GONE);
                     }else {
@@ -166,7 +163,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         object.add("status", array);
 //        object.add("category", cat);
 //        object.addProperty("farmer",loginDao.getLoginResponse().getId());
-        object.addProperty("farmer",farmerDao.getFarmer().getId());
+        object.addProperty("farmer",userDao.getUserResponse().id);
         mApiManager.farmerCropDetaile(object);
     }
 
@@ -174,8 +171,8 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         binding.catLayout.removeAllViews();
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
-            ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.get().load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).name);
+            Picasso.get().load(ApiClient.BASE_URL+modelListLiveStockName.get(i).icon).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
@@ -199,7 +196,7 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         }
     }
     private void catBtnClick(int index){
-        String c=modelListLiveStockName.get(index).getId();
+        String c=modelListLiveStockName.get(index).id;
         callDONEApi(c);
         for (int i = 0; i < binding.catLayout.getChildCount(); i++) {
             if(i==index){
@@ -217,5 +214,10 @@ public class CropDONEFragment extends BaseFragment implements View.OnClickListen
         }else{
             catBtnClick(selectedCatindex);
         }
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.profileFragment);
     }
 }

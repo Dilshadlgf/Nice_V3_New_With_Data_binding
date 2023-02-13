@@ -8,6 +8,19 @@
     <style name="HeaderBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
 
     </style>
+    <style name="NOTitle" parent="Theme.AppCompat.NoActionBar">
+
+    </style>
+
+    <style name="AppThemeTransParent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@color/dark_green</item>
+        <item name="android:textColorSecondary">@color/dark_green</item>
+        <item name="actionMenuTextColor">@color/dark_green</item>
+    </style>
+
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>

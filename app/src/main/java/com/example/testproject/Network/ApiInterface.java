@@ -1,14 +1,10 @@
 package com.example.testproject.Network;
 
-import com.example.testproject.model.Root.RootModelOne;
 import com.example.testproject.model.RootOneModel;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
-import com.example.testproject.model.livestock.RootLiveStockResponse;
-import com.example.testproject.model.query.RootQueryModel;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -16,11 +12,13 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ApiInterface {
 
@@ -33,122 +31,170 @@ public interface ApiInterface {
    @POST("farmer/auth/otplogin/validateotp")
     Call<RootOneModel> mobileNoValidate(@Body JsonObject jsonObject);
 
+    @POST("user/auth?platform=mobile")
+    Call<RootOneModel> userLogin(@Body JsonObject request);
+
     @GET("common/uniquenesscheck?from=farmer&key=mobileNumber")
-    Call<SingleObjRootOneResModel> mobnovalidRequest(@Query("value") String mobile);
+    Call<RootOneModel> mobnovalidRequest(@Query("value") String mobile);
+
+    @POST("{path}")
+    Call<JsonObject> commonOnePathApi(@Path("path")String path, @Body JsonObject request);
+
+    @PUT("{path}")
+    Call<JsonObject> commonOnePathApiPut(@Path("path")String path, @Body JsonObject request);
+
+    @GET("{path}")
+    Call<JsonObject> commonOnePathApiGet(@Path("path")String path, @QueryMap Map<String, String> options);
+
+    @Multipart
+    @POST("common/docupload/{path}")
+    Call<JsonObject> singlefileRequest(@Part MultipartBody.Part file,@Path("path") String path);
 
 
     @POST("farmer/registration/generateotp")
-    Call<SingleObjRootOneResModel> registrationWithOtp(@Body JsonObject request);
+    Call<RootOneModel> registrationWithOtp(@Path("path") String path,@Body JsonObject request);
 
     @POST("farmer/registration/validateotp")
-    Call<SingleObjRootOneResModel> registrationValidateOtp(@Body JsonObject request);
+    Call<RootOneModel> registrationValidateOtp(@Path("path") String path,@Body JsonObject request);
 
+    @POST("content/filter")
+    Call<RootOneModel> getSearchContentsListpostercontent(@Body JsonObject request,@Query("pageno") String pageno);
+
+    @GET("{path}/{path2}/{path3}")
+    Call<JsonObject> commonApiWithThreePathGet(@Path("path")String path1, @Path("path2")String path2,@Path("path3")String path3, @QueryMap Map<String, String> options);
+
+    @PUT("{path}/{path2}/{path3}?pageno=no")
+    Call<JsonObject> commonApiWithThreePathPut(@Path("path")String path1, @Path("path2")String path2,@Path("path3")String path3,@Body JsonObject jsonObject, @QueryMap Map<String, String> options);
+
+    @DELETE("{path}/{path2}/{path3}")
+    Call<JsonObject> commonApiWithThreePathDelete(@Path("path")String path1, @Path("path2")String path2,@Path("path3")String path3, @QueryMap Map<String, String> options);
+
+    @POST("{path}/{path2}/{path3}?pageno=no")
+    Call<JsonObject> commonApiWithThreePathPost(@Path("path")String path1, @Path("path2")String path2,@Path("path3")String path3,@Body JsonObject jsonObject);
+
+    @PUT("{path}/{path2}")
+    Call<JsonObject> commonApiWithTwoPathPut(@Path("path")String path1, @Path("path2")String path2, @Body JsonObject request, @Query("pageno") String pageno);
+
+    @POST("dashboard/query/count")
+    Call<JsonObject> getQueryCount(@Body JsonObject request);
+
+    @POST("dashboard/content/{path}/count")
+    Call<JsonObject> getContentCount(@Path("path")String path, @Body JsonObject request);
 
     @GET("common/uniqueness")
-    Call<SingleObjRootOneResModel> checkMobUniqueness(@Query("from") String from ,@Query("key") String key,@Query("value") String value);
+    Call<RootOneModel> checkMobUniqueness(@Query("from") String from ,@Query("key") String key,@Query("value") String value);
+
+    @GET("{path}/{path2}")
+    Call<JsonObject> commonApiWithTwoPathGet(@Path("path")String path1, @Path("path2")String path2, @QueryMap Map<String, String> options);
+
+    @GET("user/checkuniqckness/username")
+    Call<JsonObject> checkUserUniqueness(@Query("userName") String username );
+
+    @POST("{path}/{path2}")
+    Call<JsonObject> commonApiWithTwoPath(@Path("path")String path1, @Path("path2")String path2, @Body JsonObject request, @Query("pageno") String pageno);
 
     @POST("farmer")
-    Call<SingleObjRootOneResModel> farmeregistration(@Body JsonObject request);
+    Call<RootOneModel> farmeregistration(@Body JsonObject request);
 
 
     @POST("{path}/filter?pageno=no")
-    Call<RootOneResModel> geoFilter(@Path("path") String path,@Body JsonObject weatherJSONRequest);
+    Call<RootOneModel> geoFilter(@Path("path") String path,@Body JsonObject weatherJSONRequest);
 
     @POST("content/filter")
     Call<RootOneModel> searchContentList( @Body JsonObject request,@Query("pageno") String pageno);
 
     @POST("feedback")
-    Call<SingleObjRootOneResModel> addFeedbackRequest(@Body JsonObject feedbackJSONRequest);
+    Call<RootOneModel> addFeedbackRequest(@Body JsonObject feedbackJSONRequest);
 
     @POST("farmerLiveStock/filter?pageno=no")
-    Call<RootOneResModel> LiveStockrequest( @Body JsonObject request);
+    Call<RootOneModel> LiveStockrequest( @Body JsonObject request);
 
     @POST("commodity/filter?pageno=no")
-    Call<RootOneResModel> getLiveStockList( @Body JsonObject request);
+    Call<RootOneModel> getLiveStockList( @Body JsonObject request);
 
     @PUT("farmerLiveStock")
-    Call<SingleObjRootOneResModel> updateLivestock(@Body JsonObject request);
+    Call<RootOneModel> updateLivestock(@Body JsonObject request);
 
 
  @POST("commodityvariety/filter?pageno=no")
- Call<RootOneResModel> varietyList( @Body JsonObject request);
+ Call<RootOneModel> varietyList( @Body JsonObject request);
 
 
  @DELETE("farmerLiveStock/status/delete")
- Call<RootLiveStockResponse> deleteLiveStock(@Query("id") String token);
+ Call<RootOneModel> deleteLiveStock(@Query("id") String token);
 
 
 
  @POST("commoditystage/filter?pageno=no")
- Call<RootOneResModel> stageList( @Body JsonObject request);
+ Call<RootOneModel> stageList( @Body JsonObject request);
 
 
 
  @GET("content")
-    Call<RootOneResModel>  searchContentsListDetailRequest( @Query("id") String id);
+    Call<RootOneModel>  searchContentsListDetailRequest( @Query("id") String id);
 
 
     @GET("farmer")
     Call<RootOneModel> getProfile( @Query("id") String id);
 
     @POST("apptoken/login")
-    Call<SingleObjRootOneResModel> sendFbToken(@Body JsonObject request);
+    Call<RootOneModel> sendFbToken(@Body JsonObject request);
 
     @DELETE("apptoken/logout")
-    Call<SingleObjRootOneResModel> deleteFbToken(@Query("id") String id);
+    Call<RootOneModel> deleteFbToken(@Query("id") String id);
 
     @POST("commoditycategory/filter?pageno=no")
-   Call<RootOneResModel> commodityCategoryFilter( @Body JsonObject request);
+   Call<RootOneModel> commodityCategoryFilter( @Body JsonObject request);
 
     @POST("farmerLiveStock")
-    Call<SingleObjRootOneResModel> addLivestock(@Body JsonObject request);
+    Call<RootOneModel> addLivestock(@Body JsonObject request);
 
 
     @POST("farmerCrop/filter")
-    Call<RootOneResModel> farmerCropDetaile(@Body JsonObject request);
+    Call<RootOneModel> farmerCropDetaile(@Body JsonObject request);
 
     @POST("commodityvariety/filter")
-    Call<RootOneResModel> getVarietyList(@Body JsonObject id);
+    Call<RootOneModel> getVarietyList(@Body JsonObject id);
 
  @POST("cropseason/filter")
- Call<RootOneResModel> getFamerSeasonList(@Body JsonObject id);
+ Call<RootOneModel> getFamerSeasonList(@Body JsonObject id);
 
     @POST("farmerCrop")
-    Call<RootModelOne> addFarmerCrop(@Body JsonObject request);
+    Call<RootOneModel> addFarmerCrop(@Body JsonObject request);
 
     @POST("commodity/filter")
-    Call<RootOneResModel> getFarmerCroplist(@Body JsonObject id);
+    Call<RootOneModel> getFarmerCroplist(@Body JsonObject id);
 
     @PUT("farmer")
-    Call<RootModelOne> editprofileUser(@Body JsonObject request);
+    Call<RootOneModel> editprofileUser(@Body JsonObject request);
 
     @POST("query/filter")
-    Call<RootQueryModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);
+    Call<RootOneModel> queriesListRequest(@Body JsonObject request, @Query("pageno") String pageno);
 
     @POST("feedback/filter")
-    Call<RootOneResModel> feedbacklistRequest(@Body JsonObject request,@Query("pageno") String mobile);
+    Call<RootOneModel> feedbacklistRequest(@Body JsonObject request,@Query("pageno") String mobile);
 
 
     @POST("notificationLog/filter")
-    Call<RootOneResModel> getNotificationList( @Body JsonObject request,@Query("pageno") String pageno);
+    Call<RootOneModel> getNotificationList( @Body JsonObject request,@Query("pageno") String pageno);
 
     @GET("query")
     Call<RootOneModel> getSingleQuery(@Query("id") String id);
 
     @POST("common/docsupload/{path}")
-    Call<RootQueryModel> uploadQueryImage(@Path("path") String path, @Part List<MultipartBody.Part> file);
+    Call<RootOneModel> uploadQueryImage(@Path("path") String path, @Part List<MultipartBody.Part> file);
 
     @PUT("query")
     Call<RootOneModel> updateQueryRequest(@Body JsonObject weatherJSONRequest);
 
     @POST("query")
-    Call<RootQueryModel> sendAddQueryRequest(@Body JsonObject weatherJSONRequest);
+    Call<RootOneModel> sendAddQueryRequest(@Body JsonObject weatherJSONRequest);
 
     @POST("state/filter?pageno=no")
-    Call<RootOneResModel> stateWeather( @Body JsonObject request);
+    Call<RootOneModel> stateWeather( @Body JsonObject request);
 
     @POST("stateWeatherData/filter")
-    Call<RootOneResModel> getWeatherData( @Body JsonObject request,@Query("pageno") String pageno);
+    Call<RootOneModel> getWeatherData( @Body JsonObject request,@Query("pageno") String pageno);
     @GET("stateWeatherData/currentdate")
-    Call<SingleObjRootOneResModel> getCurrentWeatherData( @Query("id") String token);
+    Call<RootOneModel> getCurrentWeatherData( @Query("id") String token);
 }

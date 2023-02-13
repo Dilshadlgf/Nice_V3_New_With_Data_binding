@@ -1,12 +1,16 @@
 package com.example.testproject.ui.Fragment.Farmer;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.ViewDataBinding;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -23,9 +27,10 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.databinding.FragmentBlank1Binding;
-import com.example.testproject.model.SearchContentResponseDataModel;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
+import com.example.testproject.model.ContentModel;
+import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -42,17 +47,15 @@ import com.google.android.exoplayer2.util.Util;
 public class SearchContentDetailsFragment extends BaseFragment {
 
     private FragmentBlank1Binding binding;
-    private SearchContentResponseDataModel responseDataModel;
-
+    private ContentModel responseDataModel;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private String mediaUrl="";
     private MediaController mediaControls;
     private SimpleExoPlayer absPlayerInternal;
-//    private RemotePDFViewPager remotePDFViewPager;
-
-    public static QueryFragment newInstance(Bundle args) {
-        QueryFragment fragment = new QueryFragment();
+    private NavController navController;
+    public static SearchContentDetailsFragment newInstance(Bundle args) {
+        SearchContentDetailsFragment fragment = new SearchContentDetailsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,42 +68,41 @@ public class SearchContentDetailsFragment extends BaseFragment {
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding= (FragmentBlank1Binding) viewDataBinding;
-
-        if (getArguments() != null) {
-            String contentId = getArguments().getString("contentId");
-            String d=getArguments().getString("model");
-            if(d!=null)
-                responseDataModel= (SearchContentResponseDataModel) CommonUtils.jsonToPojo(getArguments().getString("model"), SearchContentResponseDataModel.class);
-
-            if (responseDataModel == null) {
+        navController= NavHostFragment.findNavController(this);
+        setupNetwork();
+        if (getArguments()!=null){
+            String modelJson = getArguments().getString("model","");
+            responseDataModel = (ContentModel) CommonUtils.jsonToPojo(modelJson,ContentModel.class);
+            if (responseDataModel==null){
+                String contentId =getArguments().getString("contentId","");
                 mApiManager.searchContentsListDetailRequest(contentId);
-            } else {
-                fillData();
 
+            }else {
+                fillData();
             }
         }
+
     }
 
-
     private void fillData(){
-        if(responseDataModel.getType().equals("U")){
+        if(responseDataModel.type.equals("U")){
             binding.btnViewImg.setText(getString(R.string.viewInYoutube));
             binding.btnViewImg.setVisibility(View.VISIBLE);
             binding.lyoutContent.setVisibility(View.VISIBLE);
-            binding.tvContent.setText(responseDataModel.getContentTitle());
-        }else if(responseDataModel.getType().equals("D")){
+            binding.tvContent.setText(responseDataModel.content);
+        }else if(responseDataModel.type.equals("D")){
             binding.btnViewImg.setText("View Doc");
             binding.btnViewImg.setVisibility(View.VISIBLE);
             binding.lyoutContent.setVisibility(View.VISIBLE);
             binding.tvContent.setVisibility(View.VISIBLE);
-            binding.tvContent.setText(responseDataModel.getContentTitle());
-        }else if(responseDataModel.getType().equals("P")){
+            binding.tvContent.setText(responseDataModel.content);
+        }else if(responseDataModel.type.equals("P")){
             binding.btnViewImg.setText("View Poster");
             binding.btnViewImg.setVisibility(View.VISIBLE);
             binding.lyoutContent.setVisibility(View.VISIBLE);
             binding.tvContent.setVisibility(View.VISIBLE);
-            binding.tvContent.setText(responseDataModel.getContentTitle());
-        }else if(responseDataModel.getType().equals("V")){
+            binding.tvContent.setText(responseDataModel.content);
+        }else if(responseDataModel.type.equals("V")){
             binding.btnViewImg.setVisibility(View.VISIBLE);
             binding.lyoutContent.setVisibility(View.VISIBLE);
             binding.tvContent.setVisibility(View.VISIBLE);
@@ -108,7 +110,7 @@ public class SearchContentDetailsFragment extends BaseFragment {
         }else {
             binding.tvContent.setVisibility(View.VISIBLE);
             binding.btnViewImg.setVisibility(View.GONE);
-            binding.tvContent.setText(responseDataModel.getContent());
+            binding.tvContent.setText(responseDataModel.content);
         }
         binding.btnViewImg.setVisibility(View.GONE);
 
@@ -133,19 +135,19 @@ public class SearchContentDetailsFragment extends BaseFragment {
 //            }
 //        });
 
-        if (responseDataModel.getType().equals("U")) {
+        if (responseDataModel.type.equals("U")) {
 //            binding.progressBar.setVisibility(View.VISIBLE);
-            String urls = responseDataModel.getContent();
+            String urls = responseDataModel.content;
             binding.btnViewImg.setVisibility(View.GONE);
             binding.tvContent.setVisibility(View.VISIBLE);
-            binding.tvContent.setText(responseDataModel.getContentTitle());
+            binding.tvContent.setText(responseDataModel.contentTitle);
             binding.webView1.setVisibility(View.GONE);
             if(urls==null ||urls.isEmpty()){
                 Toast.makeText(getActivity(),"no media link",Toast.LENGTH_SHORT).show();
                 return;
             }
 //             urls = "https://download.samplelib.com/mp4/sample-5s.mp4";
-            if (responseDataModel.getLinkType().equals("Utube")) {
+            if (responseDataModel.linkType.equals("Utube")) {
                 binding.btnViewImg.setVisibility(View.VISIBLE);
                 final String vidUrl=urls;
                 binding.btnViewImg.setOnClickListener(new View.OnClickListener() {
@@ -159,8 +161,8 @@ public class SearchContentDetailsFragment extends BaseFragment {
 //
 //                binding.videoView.setVisibility(View.GONE);
 //                binding.webView1.setVisibility(View.GONE);
-            }else if(responseDataModel.getLinkType().equals("Internal")){
-                urls= BuildConfig.BASE_URL+responseDataModel.getContent();
+            }else if(responseDataModel.linkType.equals("Internal")){
+                urls= BuildConfig.BASE_URL+responseDataModel.content;
 
                 binding.textVideoNotOpen.setVisibility(View.VISIBLE);
                 binding.videNotOpenClick.setVisibility(View.VISIBLE);
@@ -195,7 +197,7 @@ public class SearchContentDetailsFragment extends BaseFragment {
 
                 exoVideoPlayer(urls,true);
             }
-        }else if(responseDataModel.getType().equals("D") || responseDataModel.getType().equals("P")){
+        }else if(responseDataModel.type.equals("D") || responseDataModel.type.equals("P")){
             WebSettings ws = binding.webView1.getSettings();
             ws.setJavaScriptEnabled(true);
             ws.setBuiltInZoomControls(true);
@@ -225,51 +227,20 @@ public class SearchContentDetailsFragment extends BaseFragment {
 
             });
             String url="";
-            if(responseDataModel.getType().equals("D")){
+            if(responseDataModel.type.equals("D")){
 
                 binding.textVideoNotOpen.setText(getString(R.string.dob_required));
-                if(responseDataModel.getDocument()==null|| responseDataModel.getDocument().isEmpty()){
+                if(responseDataModel.document==null|| responseDataModel.document.isEmpty()){
                     Toast.makeText(getActivity(), "Error:Doc missing", Toast.LENGTH_SHORT).show();
                     binding.progressBar.setVisibility(View.GONE);
                     binding.tvContent.setVisibility(View.VISIBLE);
-                    binding.tvContent.setText(responseDataModel.getContentTitle());
+                    binding.tvContent.setText(responseDataModel.contentTitle);
                     return;
                 }
 
-                url= ApiClient.BASE_URL+responseDataModel.getDocument().replaceFirst("/","");
+                url= ApiClient.BASE_URL+responseDataModel.document.replaceFirst("/","");
                 final String loadUrl=url;
-//                url= "<html><body><br><iframe width=\"100%\" height="+getResources().getDimension(R.dimen._510sdp)+" src="+url+" frameborder=\"0\" allowfullscreen></iframe></body></html>";
 
-//                remotePDFViewPager =
-//                        new RemotePDFViewPager(getActivity(), url, new DownloadFile.Listener() {
-//                            @Override
-//                            public void onSuccess(String url, String destinationPath) {
-//                                if(url==null){
-//                                    return;
-//                                }
-//                                PDFPagerAdapter    adapter = new PDFPagerAdapter(getActivity(), FileUtil.extractFileNameFromURL(url));
-//                                remotePDFViewPager.setAdapter(adapter);
-//
-//                                binding.pdfViewPager2.setVisibility(View.VISIBLE);
-//                                binding.pdfViewPager2.removeAllViewsInLayout();
-//                                binding.pdfViewPager2.addView(remotePDFViewPager,
-//                                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//                                binding.webView1.setVisibility(View.GONE);
-//                                binding.progressBar.setVisibility(View.GONE);
-//                                binding.textVideoNotOpen.setVisibility(View.VISIBLE);
-//                                binding.videNotOpenClick.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Exception e) {
-//                                Log.d("","");
-//                            }
-//
-//                            @Override
-//                            public void onProgressUpdate(int progress, int total) {
-//
-//                            }
-//                        });
                 binding.videNotOpenClick.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -280,11 +251,11 @@ public class SearchContentDetailsFragment extends BaseFragment {
 
 
             }else {
-                url=responseDataModel.getContent();
+                url=responseDataModel.content;
                 if(url==null|| url.isEmpty()){
                     Toast.makeText(getActivity(), "no poster", Toast.LENGTH_SHORT).show();
                     binding.tvContent.setVisibility(View.VISIBLE);
-                    binding.tvContent.setText(responseDataModel.getContentTitle());
+                    binding.tvContent.setText(responseDataModel.contentTitle);
                     binding.progressBar.setVisibility(View.GONE);
                     return;
                 }
@@ -297,23 +268,23 @@ public class SearchContentDetailsFragment extends BaseFragment {
             }
 
 //
-        }else if(responseDataModel.getType().equals("V")){
-            if(responseDataModel.getLinkType().equals("Text") ) {
+        }else if(responseDataModel.type.equals("V")){
+            if(responseDataModel.linkType.equals("Text") ) {
                 binding.tvContent.setVisibility(View.VISIBLE);
-                binding.tvContent.setText(responseDataModel.getContent());
-            }else if( responseDataModel.getContent()==null || responseDataModel.getContent().isEmpty()){
+                binding.tvContent.setText(responseDataModel.content);
+            }else if( responseDataModel.content==null || responseDataModel.content.isEmpty()){
                 binding.tvContent.setVisibility(View.VISIBLE);
                 binding.tvContent.setText("content missing");
             }else {
-                if (responseDataModel.getLinkType().equals("Internal")){
-                    mediaUrl= BuildConfig.BASE_URL+responseDataModel.getContent();
+                if (responseDataModel.linkType.equals("Internal")){
+                    mediaUrl= BuildConfig.BASE_URL+responseDataModel.content;
                 }else{
-                    mediaUrl=responseDataModel.getContent();
+                    mediaUrl=responseDataModel.content;
                 }
                 binding.tvContent.setVisibility(View.VISIBLE);
                 binding.pvMainAudio.setVisibility(View.VISIBLE);
                 exoVideoPlayer(mediaUrl,false);
-                binding.tvContent.setText(responseDataModel.getContentTitle());
+                binding.tvContent.setText(responseDataModel.contentTitle);
 
             }
         }
@@ -390,9 +361,12 @@ public class SearchContentDetailsFragment extends BaseFragment {
             public void isSuccess(Object response, int ServiceCode) {
                 try {
                     if (ServiceCode == AppConstants.SEARCH_CONTENT_LIST_Detail_REQUEST) {
-                        SingleObjRootOneResModel rootOneResModel= (SingleObjRootOneResModel) response;
-                        responseDataModel =rootOneResModel.getResponse().getData().getContent();
-                        fillData();
+                        RootOneModel rootOneModel= (RootOneModel) response;
+                        if (rootOneModel.getResponse().getData().content!=null){
+                            responseDataModel= (ContentModel) JsonMyUtils.getPojoFromJsonObj(ContentModel.class,rootOneModel.getResponse().getData().content.getAsJsonObject());
+                            fillData();
+
+                        }
 
                     }
                 } catch (Exception e) {
@@ -402,5 +376,10 @@ public class SearchContentDetailsFragment extends BaseFragment {
             }
         };
         mApiManager = new ApiManager(getContext(), mInterFace);
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.contentFragment);
     }
 }

@@ -14,16 +14,13 @@ import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentAddFeedbackBinding;
 import com.example.testproject.model.ContentModel;
-import com.example.testproject.model.GeneralResponseModel;
-import com.example.testproject.model.SingleObjectModel.SingleObjRootOneResModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonObject;
-
-import java.util.List;
 
 /**
      Created by suraj singh rajput on 25-01-2023
@@ -32,15 +29,14 @@ public class AddFeedbackFragment extends BaseFragment {
     private FragmentAddFeedbackBinding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    private FarmerDao farmerDao;
+    private UserDao userDao;
     private int rateTimeliness=0;
     private int rateCompleteness=0;
     private int rateRelevance=0;
     private int rateUnderstandable=0;
     private String errorMessage="";
-    private GeneralResponseModel generalResponseModel;
     NavController navController ;
-
+    private String modelJson;
     public static AddFeedbackFragment newInstance(Bundle args) {
         AddFeedbackFragment fragment = new AddFeedbackFragment();
         fragment.setArguments(args);
@@ -57,7 +53,8 @@ public class AddFeedbackFragment extends BaseFragment {
         ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.newfeedback));
         ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         navController= NavHostFragment.findNavController(this);
-        farmerDao= AppDatabase.getInstance(getContext()).farmerDao();
+        modelJson = getArguments().getString("model","");
+        userDao= AppDatabase.getInstance(getContext()).userdao();
         addListenerOnRatingBar();
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +67,14 @@ public class AddFeedbackFragment extends BaseFragment {
 
     private void callFeedbackApi() {
         if(isValidRequest()) {
-                String modelJson = getArguments().getString("model","");
+
                 ContentModel contentmodel = (ContentModel) CommonUtils.jsonToPojo(modelJson,ContentModel.class);
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("content", contentmodel.getId());
+                jsonObject.addProperty("content", contentmodel.id);
                 jsonObject.addProperty("type", "Quantitative");
-                jsonObject.addProperty("village", farmerDao.getFarmer().getVillage());
-                jsonObject.addProperty("farmerId", farmerDao.getFarmer().getId());
-                jsonObject.addProperty("createdBy", farmerDao.getFarmer().getId());
+                jsonObject.addProperty("village", userDao.getUserResponse().village);
+                jsonObject.addProperty("farmerId", userDao.getUserResponse().id);
+                jsonObject.addProperty("createdBy", userDao.getUserResponse().id);
 
                 jsonObject.addProperty("feedbackType", "Farmer");
                 jsonObject.addProperty("feedback", binding.etFeedback.getText().toString());
@@ -146,7 +143,7 @@ public class AddFeedbackFragment extends BaseFragment {
     {
         if(TextUtils.isEmpty(binding.etFeedback.getText().toString()))
         {
-            errorMessage="Enter Feedback";
+            errorMessage=getString(R.string.enterfeedback);
             return false;
         }
         else
@@ -167,8 +164,7 @@ public class AddFeedbackFragment extends BaseFragment {
                 if(ServiceCode == AppConstants.ADD_QUERY_REQUEST)
                     try {
                         {
-
-                            generalResponseModel = (GeneralResponseModel) response;
+                            RootOneModel rootOneModel=(RootOneModel)response;
                             showDialog(getActivity(), getString(R.string.feedbacksaved), false, true, 0);
 
                         }
@@ -179,7 +175,7 @@ public class AddFeedbackFragment extends BaseFragment {
                     try {
                         {
 
-                            SingleObjRootOneResModel rootOneResModel = (SingleObjRootOneResModel) response;
+                            RootOneModel RootOneModel = (RootOneModel) response;
                             showDialog(getActivity(), getString(R.string.feedbacksaved), false, true, 0);
                             resetViews();
 
@@ -195,7 +191,17 @@ public class AddFeedbackFragment extends BaseFragment {
 
     @Override
     public void okDialogClick(int id) {
+        if (id==0){
+            onBackCustom();
+        }
+    }
 
-//        navController.navigate(R.id.action_contentFragment_to_queryFragment);
+    @Override
+    public void onBackCustom() {
+        Bundle bundle= new Bundle();
+        bundle.putString("model",modelJson);
+        bundle.putString("type","3");
+        navController.navigate(R.id.queryFragment,bundle);
+
     }
 }

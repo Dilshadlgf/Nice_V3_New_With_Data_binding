@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/niceppbg"
+        tools:context=".ui.fragment.userModule.CreatePosterFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_90sdp"
+            android:background="@color/dark_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsregular_400"
+                    android:text="@string/advisory"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsbold_700"
+                    android:text="@string/services"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_13sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout12">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_farmer"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/ic_baseline_lens_24"
+                        android:backgroundTint="@color/redcolor" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_toRightOf="@+id/iv_farmer"
+                        android:background="@drawable/ract_green"
+                        android:backgroundTint="@color/light_green"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:text="@string/farmars"
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:id="@+id/txt_framer_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/ic_baseline_refresh_24"
+                            android:drawableTint="@color/white"
+                            android:fontFamily="@font/poppinsregular_400"
+
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_user"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/ic_baseline_lens_24"
+                        android:backgroundTint="@color/lightyellow" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_toRightOf="@+id/iv_user"
+                        android:background="@drawable/ract_green"
+                        android:backgroundTint="@color/light_green"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:text="@string/users"
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:id="@+id/txt_user_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:drawableRight="@drawable/ic_baseline_refresh_24"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:drawableTint="@color/white"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="@dimen/_15sdp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="-15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_50sdp"
+                    android:elevation="@dimen/_6sdp"
+                    android:background="@color/white"
+                    >
+
+                    <View
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_5sdp"
+                        android:layout_gravity="center"
+                        android:background="@color/dark_green" />
+                    <include
+                        android:id="@+id/box_subdomian"
+                        layout="@layout/custom_spinner" />
+                    <include
+                        android:id="@+id/box_topic"
+                        layout="@layout/custom_spinner" />
+                    <include
+                        android:id="@+id/box_subtopic"
+                        layout="@layout/custom_spinner" />
+                    <include
+                        android:id="@+id/box_district"
+                        layout="@layout/custom_spinner" />
+
+                    <include
+                        android:id="@+id/box_block"
+                        layout="@layout/custom_spinner" />
+
+                    <include
+                        android:id="@+id/box_gram_panchayat"
+                        layout="@layout/custom_spinner" />
+
+                    <include
+                        android:id="@+id/box_vilage"
+                        layout="@layout/custom_spinner" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/content_tittle"
+                        android:textColor="@color/dark_green"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:fontFamily="@font/poppinsregular_400"
+                        android:textFontWeight="700"/>
+                    <EditText
+                        android:id="@+id/ed_content_tittle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:background="@drawable/ract_green"
+                        android:backgroundTint="@color/graycolor"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout13"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <CheckBox
+                                android:id="@+id/checkBox_text"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center"
+                                android:checked="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinslight_300"
+                                android:text="Youtube link"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout15"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout14"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout15"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout15">
+
+                            <CheckBox
+                                android:id="@+id/checkBox_record"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinslight_300"
+                                android:text="External Link"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout13"
+                            tools:ignore="MissingConstraints">
+
+                            <CheckBox
+                                android:id="@+id/checkBox_fileUpload"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinslight_300"
+                                android:text="File Upload"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:id="@+id/lay_textInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:backgroundTint="@color/light_green"
+                        android:orientation="vertical"
+                        android:background="@drawable/ract_green">
+                        <EditText
+                            android:id="@+id/ed_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Enter Youtube video url here"
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:textFontWeight="500"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lay_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:visibility="gone"
+                        android:backgroundTint="@color/light_green"
+                        android:orientation="vertical"
+                        android:background="@drawable/ract_green">
+                        <EditText
+                            android:id="@+id/ed_external_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Enter external video url here"
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/light_green"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:textFontWeight="500"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/lay_file"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:visibility="gone"
+                        android:backgroundTint="@color/light_green"
+                        android:orientation="vertical"
+                        android:background="@drawable/ract_green">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Choose file to upload"
+                            android:layout_gravity="center"
+                            android:drawableRight="@drawable/ic_baseline_file_download_24"
+                            android:background="@null"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppinsregular_400"
+                            android:textFontWeight="500"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_file_path"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        android:background="@drawable/ract_green"
+                        />
+                    <Button
+                        android:id="@+id/btnsave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingLeft="@dimen/_30sdp"
+                        android:paddingRight="@dimen/_30sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_10sdp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/ract_green_dark"
+                        android:backgroundTint="@color/dark_green"
+                        android:fontFamily="@font/poppinsbold_700"
+                        android:text="@string/submit"
+                        android:layout_marginBottom="@dimen/_50sdp"
+                        android:textColor="@color/white"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

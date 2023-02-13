@@ -8,38 +8,35 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testproject.R;
-import com.example.testproject.Util.CommonUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.databinding.CustmAddFeedbackforQueryBinding;
-import com.example.testproject.databinding.FarmerquerylistBinding;
-import com.example.testproject.model.DataModelTwo;
-import com.example.testproject.model.query.QueryResponseDataNumModel;
+import com.example.testproject.model.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapter.myviewholder> {
     private CustmAddFeedbackforQueryBinding binding;
-    private List<DataModelTwo> data;
+    private List<UserModel> data;
     private Context context;
     private String farmerName="";
 
 
-    public FeedbackListAdapter(List<DataModelTwo> data, Context context) {
+    public FeedbackListAdapter(List<UserModel> data, Context context) {
         if (this.data == null) {
             this.data = new ArrayList<>();
-            farmerName= AppDatabase.getInstance(context).farmerDao().getFarmer().getName();
-
+            farmerName= AppDatabase.getInstance(context).userdao().getUserResponse().name;
         }
         this.data.addAll(data);
         this.context = context;
     }
 
-    public void addNewList(List<DataModelTwo> data) {
+    public void addNewList(List<UserModel> data) {
         this.data.addAll(data);
         notifyDataSetChanged();
     }
+
+
     public void clearMyList(){
         data.clear();
     }
@@ -55,17 +52,18 @@ public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapte
     @Override
     public void onBindViewHolder(@NonNull FeedbackListAdapter.myviewholder holder, int position) {
 //        DataModelTwo queryResponseDataNumModel = data.get(position);
-        DataModelTwo dataModelTwo=data.get(position);
+        UserModel dataModelTwo=data.get(position);
         holder.binding.setMydata(dataModelTwo);
         holder.binding.txtName.setText(farmerName);
-        holder.binding.textView8.setText("Date -"+CommonUtils.getOnlyDateFormat(dataModelTwo.getCreatedOn().getOn()));
-        holder.binding.txtRating.setRating(Float.parseFloat(dataModelTwo.getRating()));
+        holder.binding.txtRating.setRating(Float.parseFloat(dataModelTwo.rating));
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
+
+
     class myviewholder extends RecyclerView.ViewHolder {
 
         CustmAddFeedbackforQueryBinding binding;

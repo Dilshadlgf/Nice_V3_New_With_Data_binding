@@ -22,7 +22,6 @@
             android:id="@+id/back_btn"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:onClick="onBack"
             android:visibility="gone"
             android:layout_marginLeft="@dimen/_15sdp"
             android:background="@drawable/ic_baseline_arrow_circle_left_24"

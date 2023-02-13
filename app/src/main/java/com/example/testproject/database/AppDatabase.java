@@ -8,25 +8,23 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.testproject.BuildConfig;
-import com.example.testproject.database.Dao.FarmerDao;
-import com.example.testproject.database.Dao.RoleDao;
+import com.example.testproject.database.Dao.DefailtConfigDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.database.Dao.WeatherDetailsDao;
 import com.example.testproject.database.convertor.FarmerListConverter;
-import com.example.testproject.database.convertor.RoleConvertor;
-import com.example.testproject.database.convertor.StateModelConvertor;
-import com.example.testproject.database.convertor.WeatherDetailsConverter;
-import com.example.testproject.model.FarmerDataModel;
-import com.example.testproject.model.RoleModel;
-import com.example.testproject.model.WeatherStateModel;
+import com.example.testproject.model.NotificationDataModel;
+import com.example.testproject.model.ProductconfigModel;
+import com.example.testproject.model.UserModel;
+import com.example.testproject.model.WeatherModel;
 
-@Database(entities = {FarmerDataModel.class, RoleModel.class, WeatherStateModel.class}, version = 1)
-@TypeConverters({FarmerListConverter.class, RoleConvertor.class, StateModelConvertor.class, WeatherDetailsConverter.class})
+@Database(entities = {UserModel.class, WeatherModel.class, ProductconfigModel.class}, version = 1)
+@TypeConverters({FarmerListConverter.class})
 
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase appDatabase;
-    public abstract FarmerDao farmerDao();
-    public abstract RoleDao roleDao();
     public abstract WeatherDetailsDao weatherDetailsResponseModel();
+    public abstract UserDao userdao();
+    public abstract DefailtConfigDao defailtConfigDao();
 
 
     public static AppDatabase getInstance(Context context){

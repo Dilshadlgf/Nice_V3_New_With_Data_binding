@@ -295,7 +295,7 @@
                             android:id="@+id/btn_submit"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_35sdp"
-                            android:background="@drawable/ract_greendark3"
+                            android:background="@drawable/ract_darkgreen2"
                             android:fontFamily="@font/aldrich"
                             android:gravity="center"
                             android:text="Send"

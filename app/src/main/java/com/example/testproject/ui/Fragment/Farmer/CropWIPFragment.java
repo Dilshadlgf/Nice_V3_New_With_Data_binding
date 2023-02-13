@@ -3,7 +3,8 @@ package com.example.testproject.ui.Fragment.Farmer;
 import android.os.Bundle;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.View;
@@ -18,13 +19,14 @@ import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
+import com.example.testproject.Util.JsonMyUtils;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.FragmentCropWip1Binding;
 import com.example.testproject.interfaces.ListItemClickListener;
-import com.example.testproject.model.CropDataModel;
-import com.example.testproject.model.LivestocksArrayModel;
-import com.example.testproject.model.RootOneResModel;
+import com.example.testproject.model.CropModel;
+import com.example.testproject.model.LivestockModel;
+import com.example.testproject.model.RootOneModel;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -33,9 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CropWIPFragment#newInstance} factory method to
- * create an instance of this fragment.
+     Created by suraj singh rajput on 30-01-2023
  */
 public class CropWIPFragment extends BaseFragment implements View.OnClickListener, ListItemClickListener {
     private static final String TAG = "WIPFragment";
@@ -44,10 +44,10 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     private FragmentCropWip1Binding binding;
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
-    List<LivestocksArrayModel> modelListLiveStockName;
+    List<LivestockModel> modelListLiveStockName;
     private int selectedCatindex;
-    private FarmerDao farmerDao;
-
+    private UserDao userDao;
+    private NavController navController;
 
     public static CropWIPFragment newInstance(Bundle args) {
         CropWIPFragment fragment = new CropWIPFragment();
@@ -63,12 +63,12 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void setUpUi(View view, ViewDataBinding viewDataBinding) {
         binding = (FragmentCropWip1Binding) viewDataBinding;
-
+        navController= NavHostFragment.findNavController(this);
         setupNetwork();
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.wipRecycler.setLayoutManager(linearLayoutManager);
 //
-        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
+        userDao= AppDatabase.getInstance((getContext())).userdao();
 
         JsonObject mainObj=new JsonObject();
         JsonArray statusArr=new JsonArray();
@@ -90,7 +90,7 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
 
         object.add("status", array);
 //        object.add("category", cat);
-        object.addProperty("farmer",farmerDao.getFarmer().getId());
+        object.addProperty("farmer",userDao.getUserResponse().id);
        // object.addProperty("farmer","628cc9e2a1e0bfbb4b7e3e8b");
         mApiManager.farmerCropDetaile(object);
     }
@@ -108,27 +108,32 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
 
             @Override
             public void isSuccess(Object response, int ServiceCode) {
+                RootOneModel rootOneModel= (RootOneModel) response;
                 if (ServiceCode == AppConstants.CommodityFilterReq) {
-                    RootOneResModel rootOneResModel= (RootOneResModel) response;
-                    modelListLiveStockName=rootOneResModel.getResponse().getDataModel2().getLiveStockCategory();
-                    if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
-                        makeTopLiveStockCard();
-                        callWIPApi(modelListLiveStockName.get(0).getId());
-                    }else {
-                        binding.wipRecycler.setVisibility(View.GONE);
-                        binding.txtEmpty.setVisibility(View.VISIBLE);
+                    if (rootOneModel.getResponse().getData().liveStockCategory!=null){
+                        modelListLiveStockName= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().liveStockCategory.getAsJsonArray(),LivestockModel.class);
+                        if(modelListLiveStockName!=null && modelListLiveStockName.size()>0){
+                            makeTopLiveStockCard();
+                            callWIPApi(modelListLiveStockName.get(0).id);
+                        }else {
+                            binding.wipRecycler.setVisibility(View.GONE);
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
+
                 }else  if(ServiceCode==AppConstants.FARMER_DETAILS_REQUEST) {
-                    RootOneResModel rootOneResModel = (RootOneResModel) response;
-                    List<CropDataModel> cropDataModels = rootOneResModel.getResponse().getDataModel2().getFarmerCrop();
-                    if(cropDataModels!=null && cropDataModels.size()>0) {
-                        binding.wipRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropDataModels, CropWIPFragment.this, getContext(), true));
-                        binding.wipRecycler.setVisibility(View.VISIBLE);
-                        binding.txtEmpty.setVisibility(View.GONE);
-                    }else {
-                        binding.wipRecycler.setVisibility(View.GONE);
-                        binding.txtEmpty.setVisibility(View.VISIBLE);
+                    if (rootOneModel.getResponse().getData().farmerCrop!=null){
+                        List<CropModel> cropModels =JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().farmerCrop.getAsJsonArray(),CropModel.class);
+                        if(cropModels!=null && cropModels.size()>0) {
+                            binding.wipRecycler.setAdapter(new FarmerCrops_Done_Win_Adapter(cropModels, CropWIPFragment.this, getContext(), true));
+                            binding.wipRecycler.setVisibility(View.VISIBLE);
+                            binding.txtEmpty.setVisibility(View.GONE);
+                        }else {
+                            binding.wipRecycler.setVisibility(View.GONE);
+                            binding.txtEmpty.setVisibility(View.VISIBLE);
+                        }
                     }
+
                 }
 
             }
@@ -139,8 +144,8 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
         binding.catLayout.removeAllViews();
         for (int i = 0; i < modelListLiveStockName.size(); i++) {
             View v=getActivity().getLayoutInflater().inflate(R.layout.live_stock_card,null);
-            ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).getName());
-            Picasso.get().load(ApiClient.BASE_URL+modelListLiveStockName.get(i).getIcon()).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
+            ((TextView)v.findViewById(R.id.tv_name)).setText(modelListLiveStockName.get(i).name);
+            Picasso.get().load(ApiClient.BASE_URL+modelListLiveStockName.get(i).icon).placeholder(R.drawable.vegetablecrop).into(((ImageView)v.findViewById(R.id.iv_icon)));
             v.setTag(i);
             LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams((int)getResources().getDimension(com.intuit.sdp.R.dimen._120sdp), (int)getResources().getDimension(com.intuit.sdp.R.dimen._50sdp));
             layoutParams.leftMargin=3;
@@ -163,7 +168,7 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
         }
     }
     private void catBtnClick(int index){
-        String c=modelListLiveStockName.get(index).getId();
+        String c=modelListLiveStockName.get(index).id;
         callWIPApi(c);
         for (int i = 0; i < binding.catLayout.getChildCount(); i++) {
             if(i==index){
@@ -181,5 +186,10 @@ public class CropWIPFragment extends BaseFragment implements View.OnClickListene
         }else{
             catBtnClick(selectedCatindex);
         }
+    }
+
+    @Override
+    public void onBackCustom() {
+        navController.navigate(R.id.profileFragment);
     }
 }

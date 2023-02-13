@@ -5,7 +5,7 @@
         <data>
             <variable
                 name="mydata"
-                type="com.example.testproject.model.QueryRef" />
+                type="com.example.testproject.model.RefModel" />
         </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

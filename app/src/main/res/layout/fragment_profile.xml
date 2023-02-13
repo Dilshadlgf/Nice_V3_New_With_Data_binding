@@ -5,19 +5,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="com.example.testproject.Util.CommonUtils"/>
         <variable
             name="mydata"
-            type="com.example.testproject.model.FarmerDataModel" />
+            type="com.example.testproject.model.UserModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/niceappbg"
-        android:layout_marginLeft="@dimen/_9sdp"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:layout_marginRight="@dimen/_9sdp"
-        android:layout_marginBottom="@dimen/_2sdp">
+        android:layout_marginTop="@dimen/_10sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +24,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/profile_lyout"
@@ -35,18 +34,22 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:orientation="vertical"
                     android:visibility="visible">
-                    <LinearLayout
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/bottomlayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:layout_height="wrap_content">
 
                         <RelativeLayout
                             android:id="@+id/cardcrop"
                             android:layout_width="@dimen/_70sdp"
                             android:layout_height="@dimen/_70sdp"
-                            android:background="@drawable/activecom">
+                            android:background="@drawable/activecom"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/livestoklyout"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <ImageView
                                 android:id="@+id/ivcom"
@@ -72,7 +75,12 @@
                             android:layout_width="@dimen/_70sdp"
                             android:layout_height="@dimen/_70sdp"
                             android:background="@drawable/deactivecom"
-                            android:gravity="center">
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="@+id/cardcrop"
+                            app:layout_constraintEnd_toStartOf="@+id/querieslayout"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/cardcrop"
+                            app:layout_constraintTop_toTopOf="@+id/cardcrop">
 
                             <ImageView
 
@@ -100,7 +108,12 @@
                             android:layout_height="@dimen/_70sdp"
 
                             android:background="@drawable/deactivecom"
-                            android:gravity="center">
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="@+id/livestoklyout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/livestoklyout"
+                            app:layout_constraintTop_toTopOf="@+id/livestoklyout">
 
                             <ImageView
 
@@ -123,7 +136,7 @@
                         </RelativeLayout>
 
 
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -133,47 +146,42 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_130sdp"
-                            android:background="#80CBC4"
-                            android:gravity="center">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/profile_image"
-                                android:layout_width="@dimen/_90sdp"
-                                android:layout_height="@dimen/_90sdp"
-                                android:src="@drawable/userprofile"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp"
-                                tools:ignore="MissingClass" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:id="@+id/lay_nam"
+                            >
 
                             <TextView
                                 android:id="@+id/tvprofilename"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsbold_700"
                                 android:gravity="center"
                                 android:text="@{mydata.name}"
                                 android:textColor="@color/black"
-                                android:textFontWeight="600"
-                                android:textSize="@dimen/_20sdp" />
+                                android:textSize="@dimen/_16sdp" />
 
                             <TextView
                                 android:id="@+id/tvcity"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tvprofilename"
-                                android:fontFamily="@font/aldrich"
+                                android:fontFamily="@font/poppinsregular_400"
+                                android:layout_marginTop="-9dp"
                                 android:gravity="center"
                                 android:text="Maharashtra"
                                 android:textColor="@color/black"
-                                android:textFontWeight="500"
-                                android:textSize="@dimen/_15sdp" />
+                                android:textSize="@dimen/_12sdp" />
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profile_image"
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_45sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginLeft="@dimen/_30sdp"
+                                android:src="@drawable/userprofile"
+                                app:civ_border_color="@color/black"
+                                app:civ_border_width="2dp"
+                                tools:ignore="MissingClass" />
                         </RelativeLayout>
 
                         <View
@@ -200,11 +208,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Name:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/name"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -217,15 +225,14 @@
                                         android:id="@+id/tv_first_name"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left"
                                         android:hint="Enter Name"
                                         android:paddingLeft="@dimen/_5sdp"
                                         android:text="@{mydata.name}"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -248,11 +255,11 @@
                                 <TextView
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Father/Husband Name:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/father_husband_name"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_12sdp" />
 
                                 <LinearLayout
@@ -265,15 +272,14 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left|center_vertical"
                                         android:hint="Father/Husband name"
                                         android:paddingLeft="@dimen/_5sdp"
                                         android:text="@{mydata.fatherName}"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -296,11 +302,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Gender:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/gender"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -330,6 +336,8 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="@{mydata.gender}"
+                                            android:fontFamily="@font/poppinsbold_700"
+                                            android:textSize="@dimen/_11sdp"
                                             android:textColor="@color/black" />
 
                                         <ImageView
@@ -362,11 +370,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Date Of Birth:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/date_of_birth"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -381,15 +389,14 @@
                                         android:layout_gravity="center_vertical"
                                         android:background="@null"
                                         android:cursorVisible="true"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left"
                                         android:hint="Enter DOB"
                                         android:paddingLeft="@dimen/_5sdp"
-                                        android:text="@{mydata.dateOfBirth}"
+                                        android:text="@{CommonUtils.getOnlyDateFormat(mydata.dateOfBirth)}"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -412,11 +419,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Mobile:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/mobileno"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -431,7 +438,7 @@
                                         android:layout_gravity="left"
                                         android:background="@null"
                                         android:cursorVisible="true"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left"
                                         android:hint="Enter Mobile No."
                                         android:inputType="number"
@@ -439,8 +446,7 @@
                                         android:text="@{mydata.mobileNumber}"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -463,11 +469,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
-                                    android:text="Email:"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:layout_marginRight="@dimen/_5sdp"
+                                    android:text="@string/email"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -482,16 +488,15 @@
                                         android:layout_gravity="left"
                                         android:background="@null"
                                         android:cursorVisible="true"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left"
                                         android:hint="Enter Email Id"
                                         android:inputType="textEmailAddress"
                                         android:paddingLeft="@dimen/_5sdp"
-                                        android:text="@{mydata.email}"
+                                        android:text="@{CommonUtils.addNAifValueEmptyORNull(mydata.email)}"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -515,11 +520,11 @@
                                     android:layout_width="@dimen/_100sdp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:fontFamily="@font/aldrich"
+                                    android:fontFamily="@font/poppinsregular_400"
                                     android:gravity="left"
+                                    android:layout_marginRight="@dimen/_5sdp"
                                     android:text="@string/address"
-                                    android:textColor="@color/black"
-                                    android:textFontWeight="500"
+                                    android:textColor="@color/black_trans"
                                     android:textSize="@dimen/_13sdp" />
 
                                 <LinearLayout
@@ -534,15 +539,14 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="left"
                                         android:cursorVisible="true"
-                                        android:fontFamily="@font/aldrich"
+                                        android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="left"
                                         android:hint="@string/address1"
                                         android:text="@{mydata.village}"
                                         android:paddingLeft="@dimen/_5sdp"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/color_hint"
-                                        android:textFontWeight="500"
-                                        android:textSize="@dimen/_13sdp"
+                                        android:textSize="@dimen/_11sdp"
                                         tools:ignore="TouchTargetSizeCheck" />
 
                                     <View
@@ -558,6 +562,8 @@
                                 android:id="@+id/layout_row1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
                                 android:layout_marginTop="@dimen/_30sdp"
                                 android:background="#2C3136">
 
@@ -605,7 +611,7 @@
                                                 android:layout_toRightOf="@id/iv2user"
                                                 android:fontFamily="@font/aldrich"
                                                 android:gravity="center"
-                                                android:text="@{mydata.liveStockCount}"
+                                                android:text=""
                                                 android:textColor="@color/white"
                                                 android:textFontWeight="500"
                                                 android:textSize="@dimen/_13sdp" />
@@ -654,7 +660,7 @@
                                                 android:layout_toRightOf="@id/iv3cup"
                                                 android:fontFamily="@font/aldrich"
                                                 android:gravity="center_vertical"
-                                                android:text="@{mydata.cropCount}"
+                                                android:text=""
                                                 android:textColor="@color/white"
                                                 android:textFontWeight="500"
                                                 android:textSize="@dimen/_13sdp" />
@@ -689,7 +695,7 @@
                                             android:layout_marginLeft="@dimen/_5sdp"
                                             android:fontFamily="@font/aldrich"
                                             android:gravity="center"
-                                            android:text="@{mydata.cultivatedArea}"
+                                            android:text=""
                                             android:textColor="@color/white"
                                             android:textFontWeight="500"
                                             android:textSize="@dimen/_13sdp" />
@@ -701,8 +707,7 @@
                                 android:id="@+id/layout_row2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:layout_margin="@dimen/_5sdp"
                                 android:background="#2C3136">
 
                                 <LinearLayout
@@ -749,7 +754,7 @@
                                                 android:layout_toRightOf="@id/iv1user"
                                                 android:fontFamily="@font/aldrich"
                                                 android:gravity="center"
-                                                android:text="@{mydata.totalLand}"
+                                                android:text=""
                                                 android:textColor="@color/white"
                                                 android:textFontWeight="500"
                                                 android:textSize="@dimen/_13sdp" />
@@ -798,7 +803,7 @@
                                                 android:layout_toRightOf="@id/iv1cup"
                                                 android:fontFamily="@font/aldrich"
                                                 android:gravity="center_vertical"
-                                                android:text="@{mydata.vacantArea}"
+                                                android:text=""
                                                 android:textColor="@color/white"
                                                 android:textFontWeight="500"
                                                 android:textSize="@dimen/_13sdp" />

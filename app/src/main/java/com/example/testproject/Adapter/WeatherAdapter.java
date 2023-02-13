@@ -10,15 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testproject.databinding.WeatherLayoutBinding;
-import com.example.testproject.model.WeatherStateModel;
+import com.example.testproject.model.WeatherModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.myviewholder> {
-    private List<WeatherStateModel> listdata;
+    private List<WeatherModel> listdata;
     private Context context;
-    public WeatherAdapter(Context content, List<WeatherStateModel> listdata) {
+    public WeatherAdapter(Context content, List<WeatherModel> listdata) {
         this.context =content;
         if(this.listdata==null){
             this.listdata=new ArrayList<>();
@@ -27,7 +27,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.myviewho
         this.listdata.addAll(listdata);
     }
     @SuppressLint("NotifyDataSetChanged")
-    public void addToList(List<WeatherStateModel> modelList) {
+    public void addToList(List<WeatherModel> modelList) {
 //        listdata.clear();
         listdata.addAll(modelList);
         notifyDataSetChanged();
@@ -44,9 +44,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.myviewho
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        WeatherStateModel weatherStateModel = listdata.get(position);
+        WeatherModel weatherStateModel = listdata.get(position);
         holder.binding.setMydata(weatherStateModel);
-        holder.binding.tvhumidity.setText(""+listdata.get(position).getWeatherData().getHumidity()+"%");
+        holder.binding.tvhumidity.setText(""+listdata.get(position).weatherData.humidity+"%");
     }
 
     @Override

@@ -11,6 +11,8 @@
     <string name="documents">Documents</string>
     <string name="update_successful">Update Successful</string>
     <string name="update">Update</string>
+    <string name="farmar_name">Farmer Name</string>
+    <string name="advisory">JNKVV Advisory</string>
 
     <string name="des_sir_msg_asset_file" translatable="false">DES_Sir_Message.pdf</string>
     <string name="vc_sir_msg_asset_file" translatable="false">VC_Sir_Message.pdf</string>
@@ -84,7 +86,7 @@
     <string name="getting_all_bluetooth_devices">Getting all available Bluetooth Devices</string>
     <string name="printer_connecting">Connecting to</string>
     <string name="can_not_establish_connection">Cannot establish connection</string>
-    <string name="date">Date</string>
+    <string name="date">Date :- </string>
     <string name="enter_query_title">Enter Title</string>
     <string name="title_add_query">Title*</string>
     <string name="finish">Finish</string>
@@ -96,6 +98,8 @@
     <string name="gender">Gender</string>
     <string name="email">Email</string>
     <string name="address">Address :</string>
+    <string name="agri_expert_login">Agri Expert Login</string>
+
 
     <string name="registration_success">Registration Successful</string>
     <string name="query_added_success">Query Successfully Added</string>
@@ -373,8 +377,8 @@
     <string name="dissemination">Dissemination</string>
     <string name="send_now">Send Now</string>
     <string name="send_later">Send Later</string>
-    <string name="farmer">Farmer</string>
-    <string name ="users">Users</string>
+    <string name="farmer">Farmers</string>
+    <string name="users">Users</string>
     <string name="please_select_an_option_for_login">PLEASE SELECT AN OPTION\nFOR LOGIN</string>
     <string name="services">Services</string>
     <string name="content_tittle">Content Title</string>

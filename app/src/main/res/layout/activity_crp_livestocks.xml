@@ -6,25 +6,22 @@
     <data>
         <variable
             name="mydata"
-            type="com.example.testproject.model.LivestocksArrayModel" />
+            type="com.example.testproject.model.LivestockModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/ract_white"
+        android:backgroundTint="#fafef5"
+        android:elevation="@dimen/_6sdp"
         tools:ignore="MissingClass">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:cardBackgroundColor="#fafef5"
-            app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="10dp"
-            tools:ignore="MissingConstraints">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp">
 
                 <LinearLayout
                     android:id="@+id/laytop"
@@ -129,19 +126,19 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/aldrich"
-                                    android:text="Common Name"
-                                    android:textColor="#9c9a9a"
+                                    android:fontFamily="@font/poppinsregular_400"
+                                    android:text="@string/commonname"
+                                    android:textColor="@color/graycolor"
                                     android:textSize="@dimen/_10sdp"
-                                    android:textFontWeight="300"/>
+                                    />
 
                                 <TextView
                                     android:id="@+id/no_of_livestoks"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppinslight_300"
+                                    android:fontFamily="@font/poppinsbold_700"
                                     android:text="@{mydata.ref.liveStock.commonName}"
-                                    android:textColor="#ffc700"
+                                    android:textColor="@color/lightyellow"
                                     android:textSize="@dimen/_7sdp"/>
                                 <EditText
                                     android:id="@+id/ed_no_of_livestoks"
@@ -196,19 +193,19 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/aldrich"
-                                    android:text="Stage"
-                                    android:textColor="#9c9a9a"
+                                    android:fontFamily="@font/poppinsregular_400"
+                                    android:text="@string/stage"
+                                    android:textColor="@color/graycolor"
                                     android:textSize="@dimen/_10sdp"
-                                    android:textFontWeight="300" />
+                                     />
 
                                 <TextView
                                     android:id="@+id/stage"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppinslight_300"
+                                    android:fontFamily="@font/poppinsbold_700"
                                     android:text="@{mydata.ref.stage.name}"
-                                    android:textColor="#ffc700"
+                                    android:textColor="@color/lightyellow"
                                     android:textSize="@dimen/_7sdp"
                                     />
                                 <EditText
@@ -275,19 +272,19 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/aldrich"
-                                    android:text="Variety"
-                                    android:textColor="#9c9a9a"
+                                    android:fontFamily="@font/poppinsregular_400"
+                                    android:text="@string/variety"
+                                    android:textColor="@color/graycolor"
                                     android:textSize="@dimen/_10sdp"
-                                    android:textFontWeight="300"/>
+                                    />
 
                                 <TextView
                                     android:id="@+id/variety"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppinslight_300"
-                                    android:text="@{mydata.ref.veriety.name}"
-                                    android:textColor="#ffc700"
+                                    android:fontFamily="@font/poppinsbold_700"
+                                    android:text="@{mydata.ref.variety.name}"
+                                    android:textColor="@color/lightyellow"
                                     android:textSize="@dimen/_7sdp" />
                                 <EditText
                                     android:id="@+id/ed_variety"
@@ -341,10 +338,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/aldrich"
-                                    android:text="Quantity"
-                                    android:textColor="#9c9a9a"
-                                    android:textFontWeight="300"
+                                    android:fontFamily="@font/poppinsregular_400"
+                                    android:text="@string/quantity"
+                                    android:textColor="@color/graycolor"
                                     android:textSize="@dimen/_10sdp" />
 
 
@@ -362,8 +358,7 @@
                                         android:fontFamily="@font/poppinsbold_700"
                                         android:gravity="center"
                                         android:text="@{mydata.quantity}"
-                                        android:textColor="#2d5f2e"
-                                        android:textFontWeight="300"
+                                        android:textColor="@color/dark_green"
                                         android:textSize="@dimen/_9sdp" />
                                     <EditText
                                         android:id="@+id/ed_quantity"
@@ -417,8 +412,6 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
 
 
     </RelativeLayout>

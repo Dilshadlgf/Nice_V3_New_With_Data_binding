@@ -17,11 +17,11 @@ import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
 import com.example.testproject.Util.AppConstants;
 import com.example.testproject.database.AppDatabase;
-import com.example.testproject.database.Dao.FarmerDao;
+import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.databinding.NotificationListFragmentBinding;
 import com.example.testproject.model.NotificationDataModel;
-import com.example.testproject.model.RootOneResModel;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
+import com.example.testproject.model.RootOneModel;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.base.BaseFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -35,8 +35,6 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
 
 
     private NotificationListFragmentBinding binding;
-
-
     private ApiManager mApiManager;
     private ApiResponseInterface mInterFace;
     private boolean isFarmerLogin;
@@ -45,7 +43,7 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
     private NotificationListAdaptor adaptor;
     private List<NotificationDataModel> mainList;
     private NavController navController;
-    private FarmerDao farmerDao;
+    private UserDao userDao;
 
     public static NotificationListFragment newInstance(Bundle args) {
 
@@ -65,10 +63,10 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
         binding = (NotificationListFragmentBinding) viewDataBinding;
         setupNetwork();
         navController= NavHostFragment.findNavController(this);
-        farmerDao= AppDatabase.getInstance((getContext())).farmerDao();
+        userDao= AppDatabase.getInstance((getContext())).userdao();
         ((FarmerMainActivity) getActivity()).showHideEditIcon(false);
         ((FarmerMainActivity) getActivity()).setTittle("Notification");
-
+        loadData(pageNo);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -99,7 +97,7 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
             JsonArray statsArr=new JsonArray();
             statsArr.add("Active");
             JsonArray idArr=new JsonArray();
-            idArr.add(farmerDao.getFarmer().getId());
+            idArr.add(userDao.getUserResponse().id);
 
 //          idArr.add(loginDao.getLoginResponse().getId());
             main.add("status",statsArr);
@@ -121,9 +119,9 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
                         if(mainList==null){
                             mainList=new ArrayList<>();
                         }
-                        RootOneResModel rootOneResModel=(RootOneResModel) response;
-                       maxPage=rootOneResModel.getResponse().getDataModel2().getPagination1().getTotalPage();
-                        List<NotificationDataModel> list=rootOneResModel.getResponse().getDataModel2().getNotificationlog();
+                        RootOneModel rootOneModel=(RootOneModel) response;
+                       maxPage=rootOneModel.getResponse().getData().getPagination().getTotalPage();
+                        List<NotificationDataModel> list=rootOneModel.getResponse().getData().getNotificationlog();
                         mainList.addAll(list);
                         if(adaptor==null) {
                             adaptor = new NotificationListAdaptor(getActivity(), mainList,navController);
@@ -157,6 +155,13 @@ public class NotificationListFragment extends BaseFragment implements View.OnCli
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onBackCustom() {
+        ((FarmerMainActivity) getActivity()).setTittle(getString(R.string.dashboard));
+        ((FarmerMainActivity) getActivity()).hideIcon();
+        navController.navigate(R.id.dashboardfragment);
     }
 }
 

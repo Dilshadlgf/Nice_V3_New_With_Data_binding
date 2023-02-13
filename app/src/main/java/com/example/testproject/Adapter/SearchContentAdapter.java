@@ -1,18 +1,15 @@
 package com.example.testproject.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Filter;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testproject.Util.CommonUtils;
@@ -20,10 +17,6 @@ import com.example.testproject.databinding.SearchContentItemListRowBinding;
 import com.example.testproject.interfaces.QueryListClickListner;
 import com.example.testproject.model.ContentModel;
 import com.example.testproject.R;
-import com.example.testproject.ui.Activity.FarmerLoginActivity;
-import com.example.testproject.ui.Activity.FarmerMainActivity;
-import com.example.testproject.ui.Activity.MainSplashActivity;
-import com.example.testproject.ui.Fragment.Farmer.ContentInfoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +27,8 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
     private Context context;
     NavController navController ;
     private QueryListClickListner queryListClickListner;
+    private List<ContentModel> mFilteredList;
+    private List<ContentModel> mArrayList;
 
     private SearchContentItemListRowBinding binding;
 
@@ -45,6 +40,9 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
         this.queryListClickListner=queryListClickListner;
         this.data.addAll(data);
         this.context = context;
+        mFilteredList = data;
+        mArrayList=data;
+
     }
     public void addNewList(List<ContentModel> data){
         this.data.addAll(data);
@@ -78,6 +76,44 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
     @Override
     public int getItemCount() {
         return data.size();
+    }
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    mFilteredList = mArrayList;
+                } else {
+
+                    List<ContentModel> filteredList = new ArrayList<>();
+
+                    for (ContentModel saleListULBDocDataModel : mArrayList) {
+
+                        if (saleListULBDocDataModel.content.toLowerCase().contains(charString)) {
+
+                            filteredList.add(saleListULBDocDataModel);
+                        }
+                    }
+
+                    mFilteredList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mFilteredList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mFilteredList = (List<ContentModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class myviewholder extends RecyclerView.ViewHolder {
