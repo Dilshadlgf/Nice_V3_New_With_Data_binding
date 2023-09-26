@@ -44,4 +44,24 @@
         android:id="@+id/createDocumentFragment"
         android:name="com.example.testproject.ui.fragment.user.CreateDocumentFragment"
         android:label="CreateDocumentFragment" />
+    <fragment
+        android:id="@+id/viewSingleContentFragment"
+        android:name="com.example.testproject.ui.fragment.user.ViewSingleContentFragment"
+        android:label="ViewSingleContentFragment" />
+    <fragment
+        android:id="@+id/viewSingleQueryFragment"
+        android:name="com.example.testproject.ui.fragment.user.ViewSingleQueryFragment"
+        android:label="ViewSingleQueryFragment" />
+    <fragment
+        android:id="@+id/userQueryTabFragment"
+        android:name="com.example.testproject.ui.fragment.user.UserQueryTabFragment"
+        android:label="UserQueryTabFragment" />
+    <fragment
+        android:id="@+id/userQueryResolveFragment"
+        android:name="com.example.testproject.ui.fragment.user.UserQueryResolveFragment"
+        android:label="UserQueryResolveFragment" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.testproject.ui.fragment.user.UserProfileFragment"
+        android:label="UserProfileFragment" />
 </navigation>

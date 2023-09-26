@@ -31,9 +31,9 @@ public class ApiClient {
 
             OkHttpClient  client = new OkHttpClient.Builder().addNetworkInterceptor(interceptor)
                    // .cookieJar(new JavaNetCookieJar(cookieHandler))
-                    .connectTimeout(10, TimeUnit.SECONDS)
-                    .writeTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
+                    .connectTimeout(180, TimeUnit.SECONDS)
+                    .writeTimeout(180, TimeUnit.SECONDS)
+                    .readTimeout(180, TimeUnit.SECONDS)
                     .build();
 
             retrofit = new Retrofit.Builder()

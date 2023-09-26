@@ -66,6 +66,13 @@ public class CommonUtils {
         }
         return str;
     }
+    public  static boolean isEditTextEmpty(EditText editText) {
+        if(editText.getText().toString().isEmpty()){
+            Toast.makeText(editText.getContext(),"No a valid input",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
     public static void makeToast(Context context,String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
@@ -417,6 +424,15 @@ public class CommonUtils {
 
 
         return formattedTime;
+    }
+    public static String getOnlyTimeFormat(String time) {
+        // Parse the input date string
+        DateTimeFormatter parser = ISODateTimeFormat.dateTime();
+        DateTime dateTime = parser.parseDateTime(time);
+
+        // Format the DateTime object to HH:mm:ss
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm:ss");
+        return formatter.print(dateTime);
     }
     public static String getOnlyDateFormat(String time) {
         if(time==null || time.isEmpty()){

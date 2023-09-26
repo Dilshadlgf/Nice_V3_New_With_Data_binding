@@ -2,9 +2,13 @@ package com.example.testproject.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 import androidx.core.content.FileProvider;
@@ -91,6 +95,23 @@ public class ImageUtil {
         long thumb = viewHolder.getLayoutPosition()*1000;
         RequestOptions options = new RequestOptions().frame(thumb);
         Glide.with(context).load(url).apply(options).into(view);
+    }
+    public static Bitmap screenshot2(WebView webView) {
+        webView.measure(View.MeasureSpec.makeMeasureSpec(
+                        View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        webView.layout(0, 0, webView.getMeasuredWidth(), webView.getMeasuredHeight());
+        webView.setDrawingCacheEnabled(true);
+        webView.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(webView.getMeasuredWidth(),
+                webView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        int iHeight = bitmap.getHeight();
+        canvas.drawBitmap(bitmap, 0, iHeight, paint);
+        webView.draw(canvas);
+        return bitmap;
     }
 
 

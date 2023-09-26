@@ -207,58 +207,58 @@ public class ContentFragment extends BaseFragment {
             @Override
             public void isSuccess(Object response, int ServiceCode) {
 
-                if(ServiceCode== AppConstants.CONTENT_SMS_REQUEST)
-                    if(positionChanged){
-                        positionChanged=false;
-                        if(adapter!=null)
-                        adapter.clearMyList();
+                if(ServiceCode== AppConstants.CONTENT_SMS_REQUEST) {
+                    if (positionChanged) {
+                        positionChanged = false;
+                        if (adapter != null)
+                            adapter.clearMyList();
                     }
-                    rootOneModel=(RootOneModel) response;
-                if (rootOneModel.getResponse().getData().content!=null){
-                    contentModels= JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().content.getAsJsonArray(),ContentModel.class);
+                    rootOneModel = (RootOneModel) response;
+                    if (rootOneModel.getResponse().getData().content != null) {
+                        contentModels = JsonMyUtils.getPojoFromJsonArr(rootOneModel.getResponse().getData().content.getAsJsonArray(), ContentModel.class);
 
-                maxLimit=rootOneModel.getResponse().getData().getPagination().getTotalPage();
-                if(adapter==null) {
-                    adapter = new SearchContentAdapter(contentModels, getActivity(), new QueryListClickListner() {
+                        maxLimit = rootOneModel.getResponse().getData().getPagination().getTotalPage();
+                        if (adapter == null) {
+                            adapter = new SearchContentAdapter(contentModels, getActivity(), new QueryListClickListner() {
+                                @Override
+                                public void onRowClick(int position) {
+                                    total = 1;
+                                    totalV = 1;
+                                    totalD = 1;
+                                    totalU = 1;
+                                    totalP = 1;
+                                    adapter = null;
+                                }
+                            });
+                            binding.searchContentRecycler.setAdapter(adapter);
+                        }else {
+                            adapter.addNewList(contentModels);
+                        }
+                    }
+                    binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
-                        public void onRowClick(int position) {
-                            total = 1;
-                            totalV = 1;
-                            totalD = 1;
-                            totalU = 1;
-                            totalP = 1;
-                            adapter = null;
+                        public boolean onQueryTextSubmit(String query) {
+                            for (int f = 0; f < unsolvelist.size(); f++)
+                                if (unsolvelist.get(f).content.contains(query)) {
+                                    adapter.getFilter().filter(query);
+                                    return false;
+                                } else {
+                                    Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
+                                }
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            if (adapter != null)
+//
+                                adapter.getFilter().filter(newText);
+//
+
+                            return true;
                         }
                     });
-                    binding.searchContentRecycler.setAdapter(adapter);
-                }
-                 }else{
-                    adapter.addNewList(contentModels);
-                }
-                binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        for (int f = 0; f < unsolvelist.size(); f++)
-                            if (unsolvelist.get(f).content.contains(query)) {
-                                adapter.getFilter().filter(query);
-                                return false;
-                            } else {
-                                Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
-                            }
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        if (adapter != null)
-//
-                            adapter.getFilter().filter(newText);
-//
-
-                        return true;
-                    }
-                });
-
+                };
 
             }
         };

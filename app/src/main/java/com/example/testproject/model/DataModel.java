@@ -13,6 +13,7 @@ public class DataModel {
     public JsonElement user;
     public JsonElement contentDissiminateUserAndFarmer;
     public JsonElement uri;
+    public JsonElement FileURIs;
 
     public JsonElement  commodity;
     public JsonElement productconfig;

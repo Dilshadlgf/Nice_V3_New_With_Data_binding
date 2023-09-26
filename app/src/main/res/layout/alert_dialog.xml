@@ -49,6 +49,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:background="@drawable/ract_green"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
     </LinearLayout>
 </LinearLayout>

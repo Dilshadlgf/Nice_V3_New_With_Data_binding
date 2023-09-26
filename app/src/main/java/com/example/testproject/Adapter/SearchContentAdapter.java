@@ -50,6 +50,7 @@ public class SearchContentAdapter extends RecyclerView.Adapter<SearchContentAdap
     }
     public void clearMyList(){
         data.clear();
+        notifyDataSetChanged();
     }
 
     @NonNull

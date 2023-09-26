@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.testproject"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -32,7 +32,7 @@ android {
             def serverUrl = "jnkv.nicessm.org"
             manifestPlaceholders = [dpurls: serverUrl]
             versionNameSuffix ".dev"
-            buildConfigField "String", "BASE_URL",  '"https://'+serverUrl+'/api/"'
+//            buildConfigField "String", "BASE_URL",  '"https://'+serverUrl+'/api/"'
             manifestPlaceholders = [appLabel: "@string/app_name_dev"]
         }
     }
@@ -51,7 +51,14 @@ android {
             dimension "nice"
             versionCode 1
             versionName "1.0"
-
+            buildConfigField "String", "BASE_URL", '"http://phulebaliraja.org/api/"'
+        }
+        Feeds {
+            applicationId "com.nicessm"
+            dimension "nice"
+            versionCode 1
+            versionName "1.0"
+            buildConfigField "String", "BASE_URL", '"http://phulebaliraja.org/api/"'
         }
 
         JNKV {
@@ -68,10 +75,17 @@ android {
             versionCode 9
             versionName "2.0.3"
             targetSdkVersion 31
-            buildConfigField "String", "BASE_URL", '"https://mpkv.nicessm.org/api/"'
+//            buildConfigField "String", "BASE_URL", '"https://mpkv.nicessm.org/api/"'
+            buildConfigField "String", "BASE_URL", '"http://phulebaliraja.org/api/"'
         }
     }
     sourceSets {
+        Feeds {
+            res {
+                srcDirs 'src/Feeds/res'
+            }
+            assets.srcDirs = ['src/Feeds/assets', 'src/Feeds/assets/fonts']
+        }
         Manage {
             res {
                 srcDirs 'src/Manage/res'

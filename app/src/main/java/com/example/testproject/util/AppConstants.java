@@ -63,6 +63,13 @@ public class AppConstants {
     public static final int DASHBOADCOUNT=109;
     public static final int FileUpload=110;
 
+    public static final int UserModule=111;
+
+    public static final int SEARCH_POSTER_LIST_Detail_REQUEST=112;
+    public static final int ACL=113;
+
+
+
 
     final public static int DIALOG_LOGIN_BACK_ID = 10001;
 

@@ -402,4 +402,15 @@
     <string name="Topic">Topic</string>
     <string name="Sub_Topic">Sub Topic</string>
     <string name="Classification">Classification</string>
+
+    <string name="assign_to_user">Assign to user</string>
+    <string name="operation_successful">Operation Successful</string>
+    <string name="do_you_want_to_delete_this_query">Do you want to delete this query?</string>
+
+    <string name="choose_image">Choose Image</string>
+    <string name="resolve">Resolve</string>
+
+    <string name="server_not_responding01">01: Server Not Responding </string>
+    <string name="server_not_responding02">02: Server Not Responding </string>
+
 </resources>

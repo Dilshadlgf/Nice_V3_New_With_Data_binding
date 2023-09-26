@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.example.testproject.R;
 import com.example.testproject.util.RealPathUtil;
 import com.example.testproject.util.SharedPreferenceHelper;
 
@@ -216,6 +217,144 @@ public class ApiManager {
                 }
             }
         });
+    }
+    public void submitQuerySolution(JsonObject jsonObject,int reqCode) {
+        showDialog("Loading...");
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<JsonObject> call = apiService.querySolution( jsonObject);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                closeDialog();
+
+
+                if (response.body() != null) {
+                    closeDialog();
+
+                    mApiResponseInterface.isSuccess(response.body(), reqCode);
+
+                } else {
+                    mApiResponseInterface.isError("Error from Server");
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                closeDialog();
+                if (t instanceof IOException) {
+                    mApiResponseInterface.isError(mContext.getString(R.string.server_not_responding01));
+                } else {
+                    mApiResponseInterface.isError(mContext.getString(R.string.server_not_responding02));
+                }
+            }
+        });
+    }
+    public void uploadFilesRequest(Context mContext, List<Uri> arrayList,String path, int resCode) {
+        showDialog("Uploading Images");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MultipartBody.Builder builder = new MultipartBody.Builder();
+                builder.setType(MultipartBody.FORM);
+                boolean hasAnyFile=false;
+                // Multiple Images
+
+                for (int i = 0; i < arrayList.size(); i++) {
+
+                    if(arrayList.get(i).getPath().equals("") ){
+                        continue;
+                    }
+                    hasAnyFile=true;
+                    String realPath= RealPathUtil.getRealPath(mContext,arrayList.get(i));
+                    if(realPath==null){
+                        realPath= RealPathUtil.copyFileToInternalStorage(mContext,arrayList.get(i),"mytempfile");
+
+                    }
+                    if(realPath==null){
+                        continue;
+                    }
+                    File biodataFile = new File(realPath);
+                    byte[] fillArr=null;
+                    if(RealPathUtil.isImageFile(biodataFile.getPath()) || RealPathUtil.getExtension(realPath).equalsIgnoreCase("jpg") || RealPathUtil.getExtension(realPath).equalsIgnoreCase("png")) {
+                        Bitmap bitmap = null;
+                        try {
+//                            bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), arrayList.get(i));
+                            bitmap=RealPathUtil.compressImage(realPath);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        if (bitmap == null) {
+                            bitmap = BitmapFactory.decodeFile(biodataFile.getAbsolutePath());
+                        }
+                        if(bitmap==null){
+                            closeDialog();
+                            mApiResponseInterface.isError("Something went wrong. Check attachment");
+                            return;
+                        }
+                        bitmap.compress(Bitmap.CompressFormat.WEBP, 50, bos);
+                        fillArr=bos.toByteArray();
+                    }
+
+                    try {
+                        fillArr= RealPathUtil.fullyReadFileToBytes(biodataFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    RequestBody compressbody = RequestBody.create(MediaType.parse("multipart/form-data"), fillArr);
+                    builder.addFormDataPart("uploadfiles", biodataFile.getName(), compressbody);
+                }
+
+
+                if(!hasAnyFile){
+                    closeDialog();
+                    mApiResponseInterface.isError("Something went wrong. Check attachment");
+                    return;
+                }
+
+                List<MultipartBody.Part> requestBody = builder.build().parts();
+
+
+                ApiInterface apiService =
+                        ApiClient.getClient().create(ApiInterface.class);
+                Call<JsonObject> call = apiService.multiimageRequest(requestBody,path);
+                call.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                        closeDialog();
+                        if (response.body() != null) {
+                            mApiResponseInterface.isSuccess(response.body(), resCode);
+                        } else {
+                            mApiResponseInterface.isError("Failed");
+
+                        }
+
+
+                    }
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        closeDialog();
+                        if(t instanceof IOException)
+                        {
+                            mApiResponseInterface.isError(mContext.getString(R.string.server_not_responding01));
+                        }
+                        else
+                        {
+                            mApiResponseInterface.isError("Please Contact to Administrator");
+                        }
+
+                    }
+                });
+            }
+        }).start();
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++
     public void getweatherStateData(String token) {

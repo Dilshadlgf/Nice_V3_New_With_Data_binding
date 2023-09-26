@@ -1,24 +1,37 @@
 package com.example.testproject.ui.Activity.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.example.testproject.BuildConfig;
 import com.example.testproject.Network.ApiManager;
 import com.example.testproject.Network.ApiResponseInterface;
 import com.example.testproject.R;
+import com.example.testproject.database.Dao.UserACLDao;
+import com.example.testproject.databinding.LanguageLayoutBinding;
+import com.example.testproject.model.Useracl;
+import com.example.testproject.ui.fragment.user.UserDashboardFragment;
 import com.example.testproject.util.AppConstants;
+import com.example.testproject.util.JsonMyUtils;
+import com.example.testproject.util.LocaleHelper;
 import com.example.testproject.util.ViewUtils;
 import com.example.testproject.database.AppDatabase;
 import com.example.testproject.database.Dao.UserDao;
@@ -29,6 +42,7 @@ import com.example.testproject.ui.Activity.MainSplashActivity;
 import com.example.testproject.ui.views.GooeyMenu;
 import com.example.testproject.ui.base.BaseActivity;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.JsonObject;
 
 public class UserFragmentActivity extends BaseActivity implements GooeyMenu.GooeyMenuInterface {
 
@@ -40,6 +54,7 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
     private String sel_lang;
     private GooeyMenu mGooeyMenu;
     public MenuItem shareItem;
+    private  UserACLDao userACLDao;
 
     //common res
     private ApiManager mApiManager;
@@ -48,11 +63,22 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
     @Override
     protected void init() {
         layoutId= R.layout.activity_user_fragment;
+//        if (BuildConfig.FLAVOR.equals("Feeds")) {
+
+//        }else {
+//            LocaleHelper.setLocale(getBaseContext(), LocaleHelper.getLanguage(getBaseContext()));
+//        }
+        sel_lang= LocaleHelper.getLanguage(getBaseContext());
+        if(sel_lang==null){
+            sel_lang=LocaleHelper.ENGLISH_LANGUAGE;
+            LocaleHelper.setLocale(getBaseContext(), LocaleHelper.ENGLISH_LANGUAGE);
+        }
     }
 
     @Override
     protected void setUpUi(Bundle savedInstanceState, ViewDataBinding viewDataBinding) {
         super.setUpUi(savedInstanceState, viewDataBinding);
+        userACLDao=AppDatabase.getInstance(UserFragmentActivity.this).getUseraclDao();
         binding = (ActivityUserFragmentBinding) viewDataBinding;
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         userDao = AppDatabase.getInstance(this).userdao();
@@ -87,7 +113,44 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
 
         binding.fab.setOnMenuListener(this);
         closeFabButton();
+        if(userACLDao.getALLUseracl().size()==0){
+            mApiManager.commonApiWithTwoPathGet("useracl","username","id",userDao.getUserResponse().id,AppConstants.ACL);
+        }
 
+        if (BuildConfig.FLAVOR.equals("Feeds")) {
+            LanguageLayoutBinding headerLayoutBinding=LanguageLayoutBinding.inflate(LayoutInflater.from(this));
+            binding.navView.addHeaderView(headerLayoutBinding.getRoot());
+            LangClickListener langClickListener=new LangClickListener();
+            headerLayoutBinding.ivenglish.setOnClickListener(langClickListener);
+            headerLayoutBinding.ivhindi.setOnClickListener(langClickListener);
+            headerLayoutBinding.ivmarathi.setOnClickListener(langClickListener);
+            headerLayoutBinding.ivtamil.setOnClickListener(langClickListener);
+
+            setlangButton(headerLayoutBinding);
+        }
+
+    }
+    private void setlangButton(LanguageLayoutBinding headerLayoutBinding){
+        if(sel_lang.equals(headerLayoutBinding.ivenglish.getTag().toString())){
+            headerLayoutBinding.ivenglish.setBackgroundResource(R.drawable.englishimg);
+            headerLayoutBinding.ivhindi.setBackgroundResource(R.drawable.deselecthindi);
+        }else if(sel_lang.equals(headerLayoutBinding.ivhindi.getTag().toString())){
+            headerLayoutBinding.ivenglish.setBackgroundResource(R.drawable.deselecteng);
+            headerLayoutBinding.ivhindi.setBackgroundResource(R.drawable.selecthindi);
+        }else if(sel_lang.equals(headerLayoutBinding.ivmarathi.getTag().toString())){
+            headerLayoutBinding.ivmarathi.setBackgroundResource(R.drawable.ract_darkgreen2);
+        }else if(sel_lang.equals(headerLayoutBinding.ivtamil.getTag().toString())){
+            headerLayoutBinding.ivtamil.setBackgroundResource(R.drawable.ract_darkgreen2);
+        }
+    }
+    class LangClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            LocaleHelper.setLocale(getBaseContext(),v.getTag().toString());
+//            CommonUtils.setLocalLanguage(getBaseContext(),v.getTag().toString());
+            recreate();
+        }
     }
     private void logout(){
         mApiManager.sendOrDeleteFbToken(null,userDao.getUserResponse().id,false);
@@ -110,8 +173,19 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
 
             @Override
             public void isSuccess(Object response, int serviceCode) {
-                if (serviceCode == AppConstants.LOGIN_REQUEST) {
-                    RootOneModel rootModel = (RootOneModel) response;
+                if(serviceCode == AppConstants.ACL){
+
+                        JsonObject jObj= (JsonObject) response;
+                        JsonObject dataObj=JsonMyUtils.getDataFromJsonObject(jObj);
+                        Useracl useracl = (Useracl) JsonMyUtils.getPojoFromJsonObj(Useracl.class,dataObj.getAsJsonObject("useracl"));
+                        assert useracl != null;
+
+                        if(userACLDao.getUseracl()!=null || userACLDao.getALLUseracl().size()>0) {
+                            userACLDao.deleteALl();
+                            userACLDao.insert(useracl);
+                        }else {
+                            userACLDao.insert(useracl);
+                        }
 
                 }
 
@@ -124,6 +198,8 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
     public void okDialogClick(int Id) {
         if (Id==AppConstants.DIALOG_LOGIN_BACK_ID){
             logout();
+        }else if(Id==2){
+            finish();
         }
 
     }
@@ -177,6 +253,26 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
             }
         },100);
     }
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getCurrentVisibleFragment();
+        if (currentFragment != null) {
+            if (currentFragment instanceof UserDashboardFragment) {
+
+                showDialog(UserFragmentActivity.this,"Are you sure you want to exit?",true,true, 2);
+            } else {
+                NavController navController = NavHostFragment.findNavController(currentFragment);
+                navController.popBackStack();
+            }
+        }
+    }
+
+    private Fragment getCurrentVisibleFragment() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.layout_container);
+        FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
+        Fragment fragment = fragmentManager.getPrimaryNavigationFragment();
+        return fragment instanceof Fragment ? (Fragment) fragment : null;
+    }
     public void setTittle(String tittle){
         binding.topBar.txtTittle.setText(tittle);
     }
@@ -197,5 +293,7 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
         binding.topBar.backBtn.setVisibility(View.GONE);
         binding.topBar.toggleBtn.setVisibility(View.VISIBLE);
     }
+
+
 
 }

@@ -9,6 +9,7 @@ import com.example.testproject.model.ProjectModel;
 import com.example.testproject.model.RefModel;
 import com.example.testproject.model.TemperatureModel;
 import com.example.testproject.model.UserModel;
+import com.example.testproject.model.Useracl;
 import com.example.testproject.model.WeatherModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,6 +70,18 @@ public class FarmerListConverter {
     }
     @TypeConverter
     public static String fromRef(RefModel list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+    @TypeConverter
+    public static Useracl.ContentAndQueryAccess fromCandQObject(String value) {
+        Type listType = new TypeToken<Useracl.ContentAndQueryAccess>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+    @TypeConverter
+    public static String fromRef(Useracl.ContentAndQueryAccess list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

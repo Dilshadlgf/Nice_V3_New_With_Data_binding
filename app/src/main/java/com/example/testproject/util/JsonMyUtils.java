@@ -2,9 +2,16 @@ package com.example.testproject.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class JsonMyUtils {
@@ -28,7 +35,8 @@ public class JsonMyUtils {
         return new Gson().fromJson(jsonArray.toString(), typeOfT);}
 
     public static <T> Object getPojoFromJsonObj (T className,JsonObject jsonObject){
-        return new Gson().fromJson(jsonObject.toString(), (Type) className);}
+        return new Gson().fromJson(jsonObject.toString(), (Type) className);
+    }
 
     public static String getUrlFromSingleFileUpload (JsonObject jsonObject){
         if(jsonObject.has("response") && jsonObject.getAsJsonObject("response")!=null){
@@ -45,5 +53,16 @@ public class JsonMyUtils {
         }
         return false;
     }
+    public static <T> T getPojofromJson(Class<T> neededClass,String jsonString) {
+        Gson gson=new Gson();
+        JsonElement jsonElement=gson.fromJson(jsonString, JsonElement.class);
+        if(jsonElement.isJsonArray()){
+            Type typeOfT = TypeToken.getParameterized(List.class, neededClass).getType();
+            return gson.fromJson(jsonString, typeOfT);
+        }else {
+          return  gson.fromJson(jsonString, neededClass);
+        }
+    }
+
 
 }

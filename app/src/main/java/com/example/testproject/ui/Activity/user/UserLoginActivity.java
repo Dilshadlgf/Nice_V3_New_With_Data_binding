@@ -129,15 +129,15 @@ public class UserLoginActivity extends BaseActivity {
                     if(jsonObject!=null ){
                         String sm=jsonObject.toString();
                         UserModel model= (UserModel) CommonUtils.getPojoFromStr(UserModel.class,sm);
-                        UserModel loginModel=new UserModel();
-                        loginModel.id=model.id;
-                        loginModel.name=model.name;
-                        loginModel.userName=model.userName;
-                        loginModel.stateId=model.stateCode;
-                        loginModel.role=model.role;
-                        loginModel.isUser=true;
-                        loginModel.token=getPreferences(Context.MODE_PRIVATE).getString("fbToken","");
-                        userDao.insert(loginModel);
+//                        UserModel loginModel=new UserModel();
+//                        loginModel.id=model.id;
+//                        loginModel.name=model.name;
+//                        loginModel.userName=model.userName;
+//                        loginModel.stateId=model.stateCode;
+//                        loginModel.role=model.role;
+                        model.isUser=true;
+                        model.token=getPreferences(Context.MODE_PRIVATE).getString("fbToken","");
+                        userDao.insert(model);
                         sendToken();
                         goToNewActivity();
                     }

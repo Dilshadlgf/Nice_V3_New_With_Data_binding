@@ -94,8 +94,10 @@ public class UserDashboardFragment extends BaseFragment {
                 if(position==0){
                     navController.navigate(R.id.userContentTabFragment);
                 }else  if(position==1){
+                    navController.navigate(R.id.userQueryTabFragment);
 //                    CustomFragmentManager.replaceFragment(getFragmentManager(),new UserQueryTabFragment(),true);
                 }else  if(position==2){
+                    navController.navigate(R.id.userProfileFragment);
 //                    CustomFragmentManager.replaceFragment(getFragmentManager(),new UserProfileFragment(),true);
                 }
             }

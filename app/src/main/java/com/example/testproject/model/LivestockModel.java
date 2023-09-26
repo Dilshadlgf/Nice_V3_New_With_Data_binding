@@ -43,4 +43,14 @@ public class LivestockModel {
     public String category;
     public String function;
 
+    public ProjectModel state;
+    public ProjectModel district;
+    public ProjectModel block;
+    public ProjectModel gramPanchayat;
+    public ProjectModel village;
+    public UserModel assignedTo;
+    public UserModel resolvedBy;
+    public UserModel createdByFarmer;
+    public UserModel createdByUser;
+
 }

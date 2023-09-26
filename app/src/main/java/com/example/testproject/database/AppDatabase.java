@@ -9,15 +9,17 @@ import androidx.room.TypeConverters;
 
 import com.example.testproject.BuildConfig;
 import com.example.testproject.database.Dao.DefailtConfigDao;
+import com.example.testproject.database.Dao.UserACLDao;
 import com.example.testproject.database.Dao.UserDao;
 import com.example.testproject.database.Dao.WeatherDetailsDao;
 import com.example.testproject.database.convertor.FarmerListConverter;
 import com.example.testproject.model.NotificationDataModel;
 import com.example.testproject.model.ProductconfigModel;
 import com.example.testproject.model.UserModel;
+import com.example.testproject.model.Useracl;
 import com.example.testproject.model.WeatherModel;
 
-@Database(entities = {UserModel.class, WeatherModel.class, ProductconfigModel.class}, version = 1)
+@Database(entities = {UserModel.class, WeatherModel.class, ProductconfigModel.class, Useracl.class}, version = 1)
 @TypeConverters({FarmerListConverter.class})
 
 public abstract class AppDatabase extends RoomDatabase {
@@ -25,6 +27,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract WeatherDetailsDao weatherDetailsResponseModel();
     public abstract UserDao userdao();
     public abstract DefailtConfigDao defailtConfigDao();
+
+    public abstract UserACLDao getUseraclDao();
 
 
     public static AppDatabase getInstance(Context context){

@@ -96,7 +96,8 @@ public interface ApiInterface {
     @POST("farmer")
     Call<RootOneModel> farmeregistration(@Body JsonObject request);
 
-
+    @PUT("query/resolveuser")
+    Call<JsonObject> querySolution(@Body JsonObject request);
     @POST("{path}/filter?pageno=no")
     Call<RootOneModel> geoFilter(@Path("path") String path,@Body JsonObject weatherJSONRequest);
 
@@ -184,6 +185,9 @@ public interface ApiInterface {
     @POST("common/docsupload/{path}")
     Call<RootOneModel> uploadQueryImage(@Path("path") String path, @Part List<MultipartBody.Part> file);
 
+    @Multipart
+    @POST("common/docsupload/{path}")
+    Call<JsonObject> multiimageRequest(@Part List<MultipartBody.Part> file,@Path("path") String path);
     @PUT("query")
     Call<RootOneModel> updateQueryRequest(@Body JsonObject weatherJSONRequest);
 
