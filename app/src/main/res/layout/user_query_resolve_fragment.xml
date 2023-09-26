@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/text_solution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Solution"
+        android:textColor="@color/u_primary_dark"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/lay_input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        app:layout_constraintTop_toBottomOf="@id/text_solution"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/off_white"
+        app:cardCornerRadius="45dp"
+        app:cardElevation="3dp"
+        >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+            <EditText
+                android:id="@+id/ed_solutions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_130sdp"
+                android:fontFamily="@font/poppinsregular_400"
+                android:scrollbars = "vertical"
+                android:hint="@string/enter_text_here"
+                android:padding="@dimen/_8sdp"
+                android:textColor="@color/black"
+                android:textFontWeight="300"
+                android:textSize="@dimen/_12sdp" />
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_chooseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_image"
+        android:textColor="@color/u_primary_dark"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/lay_input"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <ImageView
+        android:id="@+id/btn_upload"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/ract_whitegrey"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/upload_document"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="@+id/text_chooseImage" />
+
+    <HorizontalScrollView
+        android:id="@+id/lay_hscroll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload">
+        <LinearLayout
+            android:id="@+id/lay_imageHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera"
+                android:tag="holder"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera"
+                android:tag="holder"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera"
+                android:tag="holder"
+                />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+
+
+    <Button
+        android:id="@+id/btn_resolve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resolve"
+        android:background="@drawable/ract_green_user"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColor="@color/white"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintTop_toBottomOf="@id/lay_hscroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/btn_cancel"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold"
+        />
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias=".5"
+        android:background="@drawable/ract_green_user"
+        android:text="@string/cancel"
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@id/btn_resolve"
+        app:layout_constraintStart_toStartOf="@id/btn_resolve"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

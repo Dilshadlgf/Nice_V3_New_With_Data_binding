@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "70002125919",
+    "firebase_url": "https://nice-f870c.firebaseio.com",
+    "project_id": "nice-f870c",
+    "storage_bucket": "nice-f870c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70002125919:android:5e531e832ce33f716c7fea",
+        "android_client_info": {
+          "package_name": "com.nicessm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70002125919-97mjhpr16chfrioh7f50q1cljq7iq0p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicessm",
+            "certificate_hash": "3983078c3b7ab4f0afdf0b6e63573a2152bc4c73"
+          }
+        },
+        {
+          "client_id": "70002125919-rasqleo7rtdv7pup0s9gqhr7oee4v3te.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAVYLTrCKr1E3V27-cYQUWqfVhjIkW7rA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70002125919-rasqleo7rtdv7pup0s9gqhr7oee4v3te.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
