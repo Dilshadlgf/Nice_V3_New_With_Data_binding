@@ -106,7 +106,7 @@
         app:tabPaddingEnd="@dimen/_10sdp"
         app:tabPaddingStart="@dimen/_10sdp"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/dark_green"
+        app:tabTextColor="@color/white"
 
         />
 

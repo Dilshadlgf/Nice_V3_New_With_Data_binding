@@ -43,6 +43,7 @@
             android:layout_marginBottom="@dimen/_30sdp"
             android:backgroundTint="@color/lightyellow"
             android:contentDescription="TODO"
+            app:tint="@color/white"
             android:src="@drawable/ic_baseline_density_medium_24"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

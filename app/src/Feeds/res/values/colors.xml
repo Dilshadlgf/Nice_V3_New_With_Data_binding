@@ -6,6 +6,7 @@
 
     <color name="txt_color">#60730A</color>
     <color name="greentext">#F9C908</color>
+    <color name="lyt_yellow">#FFF069</color>
 
 
 
@@ -28,7 +29,7 @@
     <color name="Transparent">#00000000</color>
     <color name="light_green">@color/colorPrimary</color>
     <color name="redcolor">#b3003b</color>
-    <color name="dark_green">#124C2E</color>
+    <color name="dark_green">#24985C</color>
     <color name="graycolor">#8C9883</color>
     <color name="ract_green_user">#558B2F</color>
     <color name="darkgraycolor">#686360</color>
@@ -42,7 +43,7 @@
     <color name="u_primary_dark">#0E5353</color>
     <color name="u_primary">#F9C908</color>
     <color name="txt_u_bg">#66907d</color>
-    <color name="yellow_2">#F0B14A</color>
-    <color name="lytgreen">#4B784D</color>
+    <color name="yellow_2">#DCA448</color>
+    <color name="lytgreen">#96EA99</color>
     <color name="tv_color">#151515</color>
 </resources>

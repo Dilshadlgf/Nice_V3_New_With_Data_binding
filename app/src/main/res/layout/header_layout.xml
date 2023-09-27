@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_30sdp"
     android:background="@drawable/custom_header">
 
     <ImageView
@@ -36,6 +37,7 @@
         android:id="@+id/ivmarathi"
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
         android:background="@drawable/deselectmarathi"
         app:layout_constraintBottom_toBottomOf="@+id/ivhindi"
         app:layout_constraintEnd_toStartOf="@+id/ivtamil"
@@ -47,6 +49,7 @@
         android:id="@+id/ivtamil"
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
         android:background="@drawable/deselecttamil"
         app:layout_constraintBottom_toBottomOf="@+id/ivmarathi"
         app:layout_constraintEnd_toEndOf="parent"

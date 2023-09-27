@@ -3,7 +3,7 @@
 
     <!-- Background Color -->
     <!-- <solid android:color="#b3003b" />-->
-    <solid android:color="#9cc634" />
+    <solid android:color="@color/dark_green" />
 
 
     <!-- Border Color -->

@@ -56,8 +56,10 @@ public class ContentDetailFragment extends BaseFragment implements View.OnClickL
         pref = getActivity().getSharedPreferences("mhh", MODE_PRIVATE);
 
         binding.btnAddQuery.setVisibility(View.GONE);
+        if (btmview!=null){
+            btmview.setVisibility(View.GONE);
 
-        btmview.setVisibility(View.GONE);
+        }
 
         queryModule="farmer";
 

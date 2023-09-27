@@ -27,6 +27,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#E0F6E1"
                     android:background="@drawable/edit_text_bckg2">
                     <LinearLayout
                         android:orientation="vertical"

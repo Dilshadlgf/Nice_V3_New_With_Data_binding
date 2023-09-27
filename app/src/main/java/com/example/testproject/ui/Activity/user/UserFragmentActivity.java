@@ -1,12 +1,18 @@
 package com.example.testproject.ui.Activity.user;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -85,6 +91,7 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
         weatherDetailsDao = AppDatabase.getInstance(this).weatherDetailsResponseModel();
         navController = Navigation.findNavController(this, R.id.layout_container);
         setupNetwork();
+//       setStatusBarGradiant(this);
         binding.navBottom.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -293,7 +300,15 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
         binding.topBar.backBtn.setVisibility(View.GONE);
         binding.topBar.toggleBtn.setVisibility(View.VISIBLE);
     }
+    public static void setStatusBarGradiant(Activity activity) {
+        Window window = activity.getWindow();
+        Drawable background = activity.getResources().getDrawable(R.drawable.custom_top_bar);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
+        window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+        window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+        window.setBackgroundDrawable(background);
+    }
 
 
 }

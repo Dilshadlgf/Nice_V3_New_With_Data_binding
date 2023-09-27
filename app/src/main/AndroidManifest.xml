@@ -61,13 +61,14 @@
         <activity
             android:name=".ui.Activity.user.UserFragmentActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
 
         </activity>
         <activity
             android:name=".ui.Activity.SplashActivity"
             android:exported="true"
-            android:theme="@style/NOTitle"
+            android:theme="@style/Theme.TestProject"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

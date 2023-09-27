@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/custom_side_bar">
+        android:background="@drawable/custom_top_bar">
 
         <ImageView
             android:id="@+id/toggle_btn"
