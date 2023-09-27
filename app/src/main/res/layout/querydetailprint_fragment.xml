@@ -59,7 +59,7 @@
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_toRightOf="@+id/iv_lay"
                             android:text="@string/query"
-                            android:fontFamily="@font/poppinsregular_400"
+                            style="@style/MyTextView"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
                     </RelativeLayout>
@@ -106,17 +106,17 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/Date"
                                 android:textColor="@color/lightyellow"
-                                android:fontFamily="@font/poppinsregular_400"
+                                style="@style/MyTextView"
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
                                 android:id="@+id/txt_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/aldrich"
+
                                 android:text=""
                                 android:textColor="@color/black"
-                                android:textFontWeight="300"
+                                style="@style/MyTextView"
                                 android:textSize="@dimen/_8sdp" />
 
                         </LinearLayout>
@@ -134,14 +134,14 @@
                         android:id="@+id/txtQuery"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppinslight_300"
+
                         android:text=""
                         android:gravity="start"
                         android:justificationMode="inter_word"
                         android:minHeight="@dimen/_50sdp"
                         android:padding="5dp"
                         android:textColor="@color/black"
-                        android:textFontWeight="300"
+                        style="@style/MyTextView"
                         android:textSize="@dimen/_8sdp" />
                     <LinearLayout
                         android:id="@+id/imageContainer"
@@ -167,10 +167,10 @@
                             android:textStyle="bold"
                             android:padding="5dp"
                             android:layout_marginStart="@dimen/_4sdp"
-                            android:fontFamily="@font/poppinsbold_700"
+                            style="@style/MyTextViewBold"
                             android:text="@string/Solution"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textFontWeight="700"
+
                             android:textSize="@dimen/_8sdp" />
                         <View
                             android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_3sdp"
                                 android:text="@string/createdBy"
-                                android:fontFamily="@font/poppinsregular_400"
+                                style="@style/MyTextView"
                                 android:textColor="@color/black_trans"
                                 android:textSize="@dimen/_10sdp" />
 
@@ -263,7 +263,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_2sdp"
-                                android:fontFamily="@font/poppinsregular_400"
+                                style="@style/MyTextView"
                                 android:text=""
                                 android:textSize="@dimen/_8sdp" />
                         </LinearLayout>
@@ -291,7 +291,7 @@
                             android:layout_marginLeft="@dimen/_3sdp"
                             android:text="@string/addofcreated"
                             android:textColor="@color/black_trans"
-                            android:fontFamily="@font/poppinsregular_400"
+                            style="@style/MyTextView"
                             android:textSize="@dimen/_10sdp" />
 
                         <TextView
@@ -299,7 +299,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_2sdp"
-                            android:fontFamily="@font/aldrich"
+                            style="@style/MyTextView"
                             android:text=""
                             android:textFontWeight="400"
                             android:textSize="@dimen/_8sdp" />
@@ -336,7 +336,7 @@
                                 android:layout_marginLeft="@dimen/_3sdp"
                                 android:text="Solution by -"
                                 android:textColor="@color/black_trans"
-                                android:textFontWeight="400"
+                                style="@style/MyTextViewBold"
                                 android:textSize="@dimen/_10sdp" />
 
                             <TextView
@@ -344,8 +344,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_2sdp"
-                                android:fontFamily="@font/aldrich"
-                                 android:textFontWeight="400"
+                               style="@style/MyTextView"
                                 android:textSize="@dimen/_8sdp" />
                         </LinearLayout>
 
@@ -367,7 +366,7 @@
                                 android:layout_marginLeft="@dimen/_3sdp"
                                 android:text="Date -"
                                 android:textColor="@color/black_trans"
-                                android:textFontWeight="400"
+                               style="@style/MyTextViewBold"
                                 android:textSize="@dimen/_10sdp" />
 
                             <TextView

@@ -52,15 +52,18 @@
 
                 <Button
                     android:id="@+id/btn_save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
+                    android:paddingStart="@dimen/_20sdp"
+                    android:paddingEnd="@dimen/_20sdp"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/ract_darkgreen2"
-                    android:fontFamily="@font/aldrich"
                     android:text="@string/edit"
+                    style="@style/MyTextViewBold"
                     android:textColor="@color/white"
-                    android:textFontWeight="600"
                     android:textSize="@dimen/_12sdp"
                     android:visibility="visible" />
             </LinearLayout>

@@ -1,12 +1,16 @@
 package com.example.testproject.ui.fragment.user;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.ViewDataBinding;
 
 import com.example.testproject.Network.ApiManager;
@@ -77,7 +81,7 @@ public class UserProfileFragment extends BaseFragment {
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
         StartTime.getDatePicker().setMaxDate(new Date().getTime());
-        binding.boxDob.etInput.setEnabled(false);
+          binding.boxDob.etInput.setEnabled(false);
         binding.boxDob.layInputBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,22 +174,38 @@ public class UserProfileFragment extends BaseFragment {
         userDao.update(user);
         upJson=null;
     }
-    private void fillDataInEd(EditText editText,String txt,boolean enable){
-        editText.setText(txt);
+    @SuppressLint("ResourceAsColor")
+    private void fillDataInEd(EditText editText, String txt, boolean enable, ConstraintLayout cl){
+        if (txt.isEmpty()){
+            editText.setText("N/A");
+        }else {
+            editText.setText(txt);
+        }
+        if (enable){
+            cl.setBackgroundTintList(ColorStateList.valueOf(R.color.lyt_green));
+            binding.boxGender.layInputBox.setBackgroundTintList(ColorStateList.valueOf(R.color.lyt_green));
+
+        }else {
+            cl.setBackgroundTintList(ColorStateList.valueOf(R.color.graycolor));
+            binding.boxGender.layInputBox.setBackgroundTintList(ColorStateList.valueOf(R.color.graycolor));
+
+
+        }
+
         editText.setEnabled(enable);
     }
 
     private void fillProfileData(boolean isEnable){
         UserModel model=userDao.getUserResponse();
 
-        fillDataInEd(binding.boxFirstName.etInput,model.firstName,isEnable);
-        fillDataInEd(binding.boxLastName.etInput,model.lastname,isEnable);
-        fillDataInEd(binding.boxFatherName.etInput,model.fatherHusbandName,isEnable);
-        fillDataInEd(binding.boxEmail.etInput,model.email,isEnable);
-        fillDataInEd(binding.boxMobile.etInput,model.mobileNumber,isEnable);
-        fillDataInEd(binding.boxAltnumber.etInput,model.alternateNumber,isEnable);
-        fillDataInEd(binding.boxAddress.etInput,model.address,isEnable);
-        fillDataInEd(binding.boxDob.etInput,CommonUtils.getOnlyDateFormat(model.dateOfBirth),isEnable);
+        fillDataInEd(binding.boxFirstName.etInput,model.firstName,isEnable,binding.boxFirstName.layInputBox);
+        fillDataInEd(binding.boxLastName.etInput,model.lastname,isEnable,binding.boxLastName.layInputBox);
+        fillDataInEd(binding.boxFatherName.etInput,model.fatherHusbandName,isEnable,binding.boxFatherName.layInputBox);
+        fillDataInEd(binding.boxEmail.etInput,model.email,isEnable,binding.boxEmail.layInputBox);
+        fillDataInEd(binding.boxMobile.etInput,model.mobileNumber,isEnable,binding.boxMobile.layInputBox);
+        fillDataInEd(binding.boxAltnumber.etInput,model.alternateNumber,isEnable,binding.boxAltnumber.layInputBox);
+        fillDataInEd(binding.boxAddress.etInput,model.address,isEnable,binding.boxAddress.layInputBox);
+        fillDataInEd(binding.boxDob.etInput,CommonUtils.getOnlyDateFormat(model.dateOfBirth),isEnable,binding.boxDob.layInputBox);
 
         if(model.gender!=null && model.gender.equals("Male")){
             binding.boxGender.spinner.setSelection(1);

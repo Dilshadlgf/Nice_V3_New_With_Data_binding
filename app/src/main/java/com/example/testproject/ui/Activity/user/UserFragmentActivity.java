@@ -34,6 +34,8 @@ import com.example.testproject.R;
 import com.example.testproject.database.Dao.UserACLDao;
 import com.example.testproject.databinding.LanguageLayoutBinding;
 import com.example.testproject.model.Useracl;
+import com.example.testproject.ui.Activity.farmer.FarmerLoginActivity;
+import com.example.testproject.ui.Activity.farmer.FarmerMainActivity;
 import com.example.testproject.ui.fragment.user.UserDashboardFragment;
 import com.example.testproject.util.AppConstants;
 import com.example.testproject.util.JsonMyUtils;
@@ -48,6 +50,7 @@ import com.example.testproject.ui.Activity.MainSplashActivity;
 import com.example.testproject.ui.views.GooeyMenu;
 import com.example.testproject.ui.base.BaseActivity;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.JsonObject;
 
 public class UserFragmentActivity extends BaseActivity implements GooeyMenu.GooeyMenuInterface {
@@ -110,6 +113,33 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
                 return false;
             }
         });
+        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+
+                    case R.id.commoncontent:
+                        navController.navigate(R.id.userContentTabFragment);
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                        break;
+                    case R.id.commonquery:
+                        navController.navigate(R.id.userQueryTabFragment);
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                        break;
+
+                    case R.id.logout:
+                        showDialog(UserFragmentActivity.this,"Do you want to logout",true,true,AppConstants.DIALOG_LOGIN_BACK_ID);
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                        break;
+
+                }
+                return false;
+            }
+        });
+
         binding.topBar.toggleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,12 +233,16 @@ public class UserFragmentActivity extends BaseActivity implements GooeyMenu.Gooe
 
     @Override
     public void okDialogClick(int Id) {
-        if (Id==AppConstants.DIALOG_LOGIN_BACK_ID){
-            logout();
-        }else if(Id==2){
+        if (Id == AppConstants.DIALOG_LOGIN_BACK_ID) {
+            mApiManager.sendOrDeleteFbToken(null,userDao.getUserResponse().id,false);
+            AppDatabase.destroyInstance();
+            userDao.deleteUserModel();
+            startActivity(new Intent(UserFragmentActivity.this, UserLoginActivity.class));
             finish();
-        }
+        }else if (Id==1){
+            finish();
 
+        }
     }
 
     @Override
