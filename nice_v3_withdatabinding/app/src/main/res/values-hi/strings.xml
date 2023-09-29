@@ -1,0 +1,425 @@
+<resources>
+    <string name="app_name">Balram App</string>
+    <string name="password">कुंजिका</string>
+    <string name="user_name_required">उपयोगकर्ता का नाम (आवश्यक.</string>
+    <string name="valid_user_name">मान्य उपयोगकर्ता नाम आवश्यक है.</string>
+    <string name="password_required">पासवर्ड आवश्यक.</string>
+    <string name="mobile">मोबाइल नंबर आवश्यक</string>
+    <string name="google_play_services">Google Play सेवाएं उपलब्ध नहीं हैं.</string>
+    <string name="no_internet">कोई इंटरनेट कनेक्शन नहीं</string>
+    <string name="title_home">किसान</string>
+    <string name="drawer_open">खुला हुआ</string>
+    <string name="drawer_close">बंद करे</string>
+    <string name="exit">क्या बाहर जाना चाहते हो?</string>
+    <string name="do_you_want_logout">क्या आप लॉगआउट करना चाहते हैं?</string>
+    <string name="ok">ठीक</string>
+    <string name="cancel">रद्द करना</string>
+    <string name="label_mobile">मोबाइल</string>
+    <string name="hint_farmer_list_search">नाम या मोबाइल खोजें</string>
+    <string name="submit">प्रस्तुत</string>
+    <string name="name">नाम</string>
+    <string name="name_required">नाम (जरूरी</string>
+    <string name="name_error">नाम केवल वर्णानुक्रमिक वर्ण दर्ज करें।</string>
+    <string name="fathername_error">पिता का नाम केवल वर्णानुक्रमिक वर्ण दर्ज करें।</string>
+    <string name="father_name_required">पिता का नाम आवश्यक</string>
+    <string name="gender_required">लिंग आवश्यक</string>
+    <string name="mobile_number_required">मोबाइल नंबर आवश्यक</string>
+    <string name="date_of_birth">जन्म की तारीख*</string>
+    <string name="solutionby">द्वारा समाधान -</string>
+    <string name="Hourago">घंटे पहले</string>
+    <string name="assignedto">को आवंटित -</string>
+    <string name="minago">एक मिनट पहले</string>
+    <string name="dayago">दिन पहले</string>
+    <string name="date_of_birth_required">जन्म तिथि आवश्यक</string>
+    <string name="query">सवाल</string>
+    <string name="createdBy">के द्वारा बनाई गई -</string>
+    <string name="addofcreated">निर्माता का पता -</string>
+    <string name="organisation">संगठन</string>
+    <string name="state">राज्य</string>
+    <string name="start_date">आरंभ करने की तिथि</string>
+    <string name="end_date">अंतिम तिथि</string>
+    <string name="search_user_event">संगठन, राज्य द्वारा खोजें</string>
+    <string name="projects">परियोजनाओं :</string>
+    <string name="basic_details">मूल विवरण</string>
+    <string name="type">प्रकार</string>
+    <string name="content">सामग्री</string>
+    <string name="distadmin">जिला प्रशासन</string>
+    <string name="assignedby">द्वारा सौंपा</string>
+    <string name="search">तलाशी</string>
+    <string name="recordid">रिकॉर्ड आईडी</string>
+    <string name="id">आईडी</string>
+    <string name="search_content">सामग्री खोजें</string>
+    <string name="content_url">सामग्री Url</string>
+    <string name="bluetooth_devices">ब्लूटूथ डिवाइस</string>
+    <string name="bluetooth_not_supported">ब्लूटूथ समर्थित नहीं है!!</string>
+    <string name="getting_all_bluetooth_devices">सभी उपलब्ध ब्लूटूथ डिवाइस प्राप्त करना</string>
+    <string name="printer_connecting">को जोड़ रहा</string>
+    <string name="can_not_establish_connection">कनेक्शन स्थापित नहीं कर सकता</string>
+    <string name="launguage_selection">भाषा चयन</string>
+    <string name="date"> दिनांक:- </string>
+    <string name="add_query_button_caption">जोड़ना</string>
+    <string name="enter_query">क्वेरी दर्ज करें</string>
+    <string name="add_query_caption">सवाल*</string>
+    <string name="enter_query_title">शीर्षक दर्ज करें</string>
+    <string name="title_add_query">शीर्षक*</string>
+    <string name="finish">समाप्त</string>
+    <string name="user_name">उपयोगकर्ता नाम</string>
+    <string name="first_name">पहला नाम</string>
+    <string name="last_name">उपनाम</string>
+    <string name="father_husband_name">पिता / पति का नाम</string>
+    <string name="designation">पद</string>
+    <string name="gender">लिंग</string>
+    <string name="email">ईमेल</string>
+    <string name="address">पता</string>
+    <string name="current_tem">वर्तमान\nतापमान :</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+
+    <string name="Spouse_Name">पति का नाम</string>
+    <string name="Aadhaar_Number">आधार संख्या</string>
+    <string name="Education">शिक्षा</string>
+    <string name="Land_Line_No.">लैंड लाइन नंबर</string>
+    <string name="Alternate_Number">वैकल्पिक संख्या</string>
+    <string name="Number_Of_Mobile">नहीं। मोबाइल की</string>
+    <string name="Door_Number">डोर नंबर</string>
+    <string name="Street">सड़क</string>
+    <string name="Landmark">लैंडमार्क</string>
+    <string name = "Gram_Panchyatt">ग्राम पंचायत*</string>
+    <string name="Blockk">ब्लॉक करें*</string>
+    <string name = "Districtt">जिला*</string>
+    <string name="Other_Details">अन्य विवरण</string><string name="Have_you_availed_credit">क्या आपने क्रेडिट लिया है?</string>
+    <string name="Membership_in_MGNREGA">मनरेगा में सदस्यता?</string><string name="CBO_memberes">CBO सदस्य</string>
+    <string name="Do_you_have_kitchen_qarden">क्या आपके पास रसोई घर है?</string>
+    <string name="Like_to_recieve_SMS">एसएमएस प्राप्त करना पसंद करें</string>
+    <string name="Like_to_recieve_Voice_Calls">वॉइस कॉल प्राप्त करना पसंद करें</string>
+    <string name = "Date">दिनांक -</string>
+    <string name="Role">भूमिका</string>
+    <string name="Gender">लिंग</string>
+    <string name="Registration">पंजीकरण</string>
+    <string name="feedbacksaved">प्रतिक्रिया सफलतापूर्वक सहेजी गई!</string>
+    <string name="Sub_domain">उप डोमेन*</string>
+    <string name="feedbackstar">फीडबैक*</string>
+    <string name="Topic">विषय</string>
+    <string name="Sub_Topic">उप विषय</string>
+    <string name="Time_applicable"> Time_applicable</string>
+    <string name="Title">शीर्षक</string>
+    <string name="Knowledge_domain">नॉलेज डोमेन*</string>
+    <string name="Number_Of_Trainers">प्रशिक्षकों की संख्या</string>
+    <string name="Genderr">लिंग*</string>
+    <string name="splash1">\"कृषि हमारी सबसे बुद्धिमान खोज है, क्योंकि यह अंत में वास्तविक धन, अच्छी नैतिकता और खुशी में सबसे अधिक योगदान देगी।\"</string>
+    <string name="splash2">"\"\सामान्य जलवायु परिवर्तन समाचार से लेकर विशिष्ट वैज्ञानिक जानकारी और यहां तक कि जलवायु परिवर्तन पर मानवता के प्रभाव के आसपास की सामाजिक वकालत तक, ये साइट जलवायु परिवर्तन के अध्ययन के कई महत्वपूर्ण पहलुओं को कवर करती है।\"</string >
+    <string name="splash3">\"खेती का अंतिम लक्ष्य फसल उगाना नहीं है, बल्कि मनुष्य की खेती और पूर्णता है।\"</string>
+
+    <string name="entergrampunchayat">गांव का नाम दर्ज करें</string>
+    <string name="enterblockname">ब्लॉक का नाम दर्ज करें</string>
+    <string name="entervillage">गांव का नाम दर्ज करें</string>
+
+    <string name = "next">अगला</string>
+    <string name = "skip">छोड़ें</string>
+    <string name = "start">यह समझ गया</string>
+    <string name = "timelessstar">समयबद्धता*</string>
+    <string name = "completenessstar">पूर्णता*</string>
+    <string name = "relevancestar">प्रासंगिकता*</string>
+    <string name = "understablestar">समझने योग्य*</string>
+    <string name = "enterfeedback">फीडबैक दर्ज करें</string>
+
+    <string name="Namee">Name*</string>
+    <string name = "Enter_User_Name">उपयोगकर्ता नाम दर्ज करें</string>
+    <string name = "Mobile_Number">मोबाइल नंबर</string>
+    <string name="Next">अगला</string>
+    <string name="Register_as_Farmer">किसान के रूप में पंजीकरण करें</string>
+    <string name = "Enter_Password">पासवर्ड दर्ज करें</string>
+    <string name = "Login">लॉगिन करें</string>
+    <string name="Enter_your_Mobile_number">उपयोगकर्ता नाम/मोबाइल नंबर दर्ज करें</string>
+    <string name = "enter_fullname">पूरा नाम दर्ज करें</string>
+    <string name = "enter_fathername">पिता का नाम/पति का नाम दर्ज करें</string>
+    <string name = "enter_mobilenumber">मोबाइल नंबर दर्ज करें*</string>
+    <string name="agree">मैं N.I.C.E के साथ डेटा साझा करने के लिए सहमत हूं।</string>
+    <string name = "login">लॉगिन</string>
+    <string name = "registeratn">पंजीकरण</string>
+    <string name="selectlang">अपनी भाषा चुनें</string>
+    <string name = "myevent">मेरा ईवेंट</string>
+    <string name = "bluetoothdevice">ब्लूटूथ डिवाइस</string>
+    <string name = "aidlocation">सहायता स्थान</string>
+    <string name = "offline">ऑफ़लाइन</string>
+    <string name = "currentweather">वर्तमान मौसम</string>
+    <string name = "weatheralert">मौसम चेतावनी</string>
+    <string name = "version">संस्करण 36.0</string>
+    <string name = "totalfarmer">कुल किसान: </string>
+    <string name = "fullname">पूरा नाम</string>
+    <string name = "fathername">पिता का नाम</string>
+    <string name = "mobileno">मोबाइल नंबर</string>
+    <string name = "home">होम</string>
+    <string name = "profile"> प्रोफ़ाइल</string>
+    <string name = "logout">लॉगआउट करें</string>
+    <string name = "want_logout">क्या आप लॉगआउट करना चाहते हैं?</string>
+    <string name = "yes">हां</string>
+    <string name = "no">नहीं</string>
+
+
+    <string name = "crops">फसल</string>
+    <string name = "Livestock">पशुधन</string>
+    <string name="ratings">रेटिंग</string>
+    <string name = "feedback">फ़ीडबैक</string>
+    <string name="basicdetails">मूल विवरण</string>
+    <string name = "address1">पता-</string>
+    <string name="commonname">सामान्य नाम</string>
+    <string name = "year"> वर्ष</string>
+    <string name = "season">सीज़न</string>
+    <string name = "area">क्षेत्र</string>
+    <string name = "addcrops">फसलें जोड़ें</string>
+    <string name = "addlivestock">पशुधन जोड़ें</string>
+    <string name="yield">यील्ड</string>
+    <string name = "completedate">पूर्ण तिथि</string>
+    <string name="inputcost">इनपुट लागत (INR में)</string>
+    <string name="yieldvalue">उपज मूल्य (INR में।)</string>
+    <string name = "remark">टिप्पणियां</string>
+    <string name = "delete"> हटाएं</string>
+    <string name = "enterquantity">मात्रा दर्ज करें</string>
+    <string name = "variety">विविधता</string>
+    <string name = "stage">स्टेज</string>
+    <string name = "quantity">मात्रा</string>
+    <string name = "feedbacktype">फीडबैक टाइप</string>
+    <string name = "status">स्थिति</string>
+    <string name = "control">नियंत्रण</string>
+    <string name = "select_livestock">--- पशुधन का चयन करें ---</string>
+    <string name = "select_stage">---पड़ाव का चयन करें---</string>
+    <string name = "doyouwanttodelete">क्या आप फसल को हटाना चाहते हैं</string>
+    <string name = "updateliveStock">लाइवस्टॉक अपडेट करें</string>
+    <string name = "tryaftersometime">कुछ देर बाद कोशिश करेंं</string>
+    <string name = "pleaseselectlivestock">कृपया पशुधन का चयन करेंं</string>
+    <string name = "pleaseselectvarieties">कृपया किस्मों का चयन करें</string>
+    <string name = "pleaseselectstage">कृपया चरण का चयन करें</string>
+    <string name = "pleaseenterquantity">कृपया मात्रा दर्ज करें</string>
+    <string name = "allfieldarereqire">सभी फ़ील्ड आवश्यक हैं</string>
+    <string name = "pleaseselectcrop">कृपया फसल का चयन करें</string>
+    <string name = "pleaseselectdate">कृपया तिथि चुनें</string>
+    <string name = "pleaseselectarea">कृपया क्षेत्र दर्ज करें</string>
+    <string name = "pleaseselectintercrop">कृपया इंटरक्रॉप चुनें</string>
+    <string name = "pleaseselectseason">कृपया मौसम चुनें</string>
+    <string name = "selectfiletoupload">अपलोड करने के लिए फाइलों का चयन करें। (अधिकतम सीमा 3)</string>
+
+    <string name = "fromdate"> दिनांक से</string>
+    <string name = "todate">आज तक</string>
+    <string name="go">जाओ</string>
+    <string name="selectcrop">---फसल का चयन करें---</string>
+    <string name="selectvariety">---किस्म का चयन करें---</string>
+    <string name="selectintercrop">---अंतर फसल का चयन करें---</string>
+    <string name="selectseason">---मौसम चुनें---</string>
+    <string name="scientificname">वैज्ञानिक नाम</string>
+    <string name="intercrop">अंतर फसल</string>
+    <string name="area_acre">क्षेत्र (एकड़)</string>
+    <string name="irrigation">सिंचाई</string>
+
+
+    <string-array name="arr">
+        <item>एकड़</item>
+        <item>हैक्टर</item>
+        <item>वर्ग मी</item>
+        <item>डिसमिल</item>
+    </string-array>
+    <string-array name="arr1">
+        <item>सिंचित</item>
+        <item>रेनफेड</item>
+    </string-array>
+    <string name = "Hour">घंटा</string>
+    <string name = "Rain_fall">बारिश गिरना</string>
+    <string name = "Max_Temperature">अधिकतम तापमान</string>
+    <string name = "Min_Temperature_deg_C">न्यूनतम तापमान</string>
+    <string name = "Max_RelativeHumidity">अधिकतम हम</string>
+    <string name="Min_RelativeHumidity">मिन हम</string>
+    <string name = "Wind_Speed">हवा की गति</string>
+    <string name = "Wind_Direction_deg_C">वायु सख्त</string>
+    <string name = "next7days">अगले 7 दिनों का रिकॉर्ड</string>
+
+    <string name = "rainfall">वर्षा गिरना (मिमी)</string>
+    <string name = "maxtempdeg">अधिकतम तापमान (डिग्री सेल्सियस)</string>
+    <string name = "mintemdeg">न्यूनतम तापमान (डिग्री सेल्सियस)</string>
+    <string name = "minrelatvhum">न्यूनतम सापेक्ष आर्द्रता (%)</string>
+    <string name = "maxrelatvhum">आर्द्रता (%)</string>
+    <string name = "windspeedmph">हवा की गति(Kmph)</string>
+    <string name = "winddirectnmph">हवा की दिशा (mph)</string>
+    <string name = "indore">इंदौर</string>
+
+
+    <string name = "record_id">रिकॉर्ड आईडी</string>
+    <string name = "knowlegdomain">ज्ञान डोमेन</string>
+    <string name = "subdomain">उप डोमेन</string>
+    <string name = "topic">विषय</string>
+    <string name = "subtopic">उप विषय</string>
+    <string name = "timeapplicable">समय लागू</string>
+    <string name = "District">जिला</string>
+    <string name="Classification">वर्गीकरण</string>
+    <string name = "viewimage">इमेज देखें</string>
+    <string name = "approve">स्वीकार करें</string>
+    <string name = "view">देखें</string>
+    <string name = "farmar_name">किसान का नाम</string>
+
+    <string name = "Block">ब्लॉक </string>
+    <string name = "Village">गाँव</string>
+    <string name = "Gram_Panchyat">ग्राम पंचायत</string>
+    <string name = "Event_Type">ईवेंट प्रकार</string>
+    <string name="notrainer">प्रशिक्षकों की संख्या</string>
+    <string name = "registclose">पंजीकरण बंद हो गया है</string>
+    <string name = "save">सहेजें</string>
+
+    <string name="Query_Type">क्वेरी प्रकार</string>
+    <string name = "Resolution">संकल्प</string>
+    <string name = "Resolved_Date">समाधान तिथि</string>
+    <string name = "Solution">समाधान</string>
+    <string name = "Resolved_By">द्वारा हल किया गया</string>
+    <string name = "addimage">छवि जोड़ें</string>
+
+    <string name = "categories">श्रेणियाँ</string>
+    <string name = "descripn">विवरण</string>
+    <string name = "latitude">अक्षांश</string>
+    <string name = "longitude"> देशांतर</string>
+    <string name = "sunrise">सूर्योदय</string>
+    <string name = "alert">अलर्ट</string>
+
+    <string name = "dashboard">डैशबोर्ड</string>
+    <string name = "baneficiarydetail">लाभार्थी विवरण</string>
+    <string name = "weatherdetail"> मौसम डेटा</string>
+    <string name = "contentdetail">सामग्री विवरण</string>
+
+    <string name = "userprofile">उपयोगकर्ता प्रोफ़ाइल</string>
+    <string name = "allqueries">सभी क्वेरीज़</string>
+
+    <string name = "currentalert">मौसम चेतावनी</string>
+    <string name = "usereventlist">उपयोगकर्ता ईवेंट सूची</string>
+    <string name = "myprofile">मेरी प्रोफ़ाइल</string>
+    <string name = "commonquery">सामान्य क्वेरी</string>
+    <string name="baneficiary">लाभार्थी</string>
+    <string name = "details">विवरण</string>
+
+    <string name = "weather">मौसम</string>string
+    <string name = "my">मेरा</string>
+    <string name = "event">इवेंट</string>
+    <string name = "user"> उपयोगकर्ता</string>
+    <string name = "all">सभी</string>
+    <string name = "queries">प्रश्न</string>
+    <string name = "weatheralert1">मौसम अलर्ट</string>
+    <string name = "weatherdeviation1">मौसम विचलन</string>
+    <string name = "resolvequery">समाधान की गई क्वेरी</string>
+    <string name="unresolvequery">अनसुलझा क्वेरी</string>
+    <string name="unpickquery">अनपिक्ड क्वेरी के</string>
+    <string name = "alluser">सभी उपयोगकर्ता</string>
+    <string name = "farmars">किसान</string>
+    <string name = "advisories">सलाह</string>
+    <string name = "contentprovider">सामग्री प्रदाता</string>
+    <string name="rejectedcontent">अस्वीकृत सामग्री</string>
+    <string name = "unresolvedquerys">अनसुलझे प्रश्न</string>
+    <string name="unpickquerys">अचयनित प्रश्न</string>
+    <string name = "entersolution">समाधान दर्ज करें</string>
+    <string name = "farmerquery">किसान क्वेरी</string>
+    <string name = "farmarsstar">किसान*</string>
+    <string name="uploadimg">छवियां अपलोड करें</string>
+    <string name="enterotp">ओ टी पी दर्ज करें</string>
+    <string name = "signup">साइनअप</string>
+    <string name="updateversion">इस एप्लिकेशन का नया संस्करण उपलब्ध है, अभी अपग्रेड करने के लिए ठीक क्लिक करें?</string>
+    <string name = "remindlater">बाद में याद दिलाएं</string>
+    <string name = "users"> उपयोगकर्ता</string>
+    <string name="nice1">NICE प्रणाली किसानों के लाभ के लिए बनाई गई है।</string>
+    <string name="nice2">इसलिए वे उपयोगकर्ता जो NICE सिस्टम पर पंजीकृत नहीं हैं, लेकिन किसान के लिए NICE सामग्री का उपयोग करना चाहते हैं \n</string>
+    <string name="nice3">लाभ NICE प्रणाली में विकसित, पुनर्खरीद और मान्य सामग्री को निःशुल्क एक्सेस कर सकता है \n</string>
+    <string name="nice4"> कोई पंजीकरण</string>
+    <string name = "userdash">उपयोगकर्ता डैशबोर्ड</string>
+
+    <string name="cropdetaillist">फसल विवरण सूची</string>
+    <string name="livestockdetaillist">पशुधन विवरण सूची</string>
+    <string name="feedbacklist">प्रतिक्रिया सूची</string>
+    <string name="addbeneficiary">लाभार्थी जोड़ें</string>
+    <string name="searchconntentdetail">सामग्री विवरण खोजें</string>
+    <string name="editprofile">प्रोफ़ाइल संपादित करें</string>
+    <string name="addquery">प्रश्न जोड़ें</string>
+    <string name="anonymousquery">बेनामी क्वेरी</string>
+    <string name="aiddetail">एआईडी विवरण</string>
+    <string name="newfeedback">नई प्रतिक्रिया</string>
+    <string name="doyouwanttoexit">क्या आपको बाहर निकलना है ?</string>
+
+    <string name="app_name_dev" translatable="false">JNKV Dev</string>
+    <string name="dob_required">जन्म की तारीख की आवश्यकता।</string>
+    <string name="contentInfo">जानकारी</string>
+    <string name="CommonContent">सामान्य सामग्री</string>
+    <string name="enter_email">ईमेल दर्ज करें</string>
+    <string name="registration_success">पंजीकरण सफल</string>
+    <string name="query_added_success">क्वेरी सफलतापूर्वक जोड़ा गया</string>
+    <string name="query_update_success">क्वेरी सफलतापूर्वक अपडेट की गई</string>
+    <string name="query_delete_success">क्वेरी सफलतापूर्वक हटा दी गई</string>
+    <string name="crop_added_success">फसल सफलतापूर्वक जोड़ा गया</string>
+    <string name="livestock_added_success">पशुधन सफलतापूर्वक जोड़ा गया</string>
+    <string name="livestock_update_success">पशुधन सफलतापूर्वक अपडेट किया गया</string>
+    <string name="livestock_delete_success">पशुधन सफलतापूर्वक हटा दिया गया</string>
+    <string name="no_data_found">कोई डेटा नहीं मिला</string>
+    <string name="channel_name">अधिसूचना_चैनल_नाम.</string>
+    <string name="loading">डेटा लोडिंग कृपया प्रतीक्षा करें ...</string>
+    <string name="channel_description">अधिसूचना_चैनल_डेस</string>
+    <string name="version_text">संस्करण</string>
+    <string name="viewvideo">वीडियो देखें</string>
+    <string name="viewInYoutube">YouTube में देखें</string>
+    <string name="AssignTo">को आवंटित:</string>
+    <string name="video_not_open">यदि यह वीडियो नहीं खोला गया है,</string>
+    <string name="click_here">यहाँ क्लिक करें</string>
+    <string name="assignedquery">"सौंपा गया सवाल "</string>
+    <string name="assigneddate">असाइनमेंट तिथि</string>
+    <string name="ratinglist">रेटिंग सूची</string>
+    <string name="todo">करने के लिए</string>
+    <string name="common_query">सामान्य क्वेरी</string>
+    <string name="common_content">सामान्य सामग्री</string>
+    <string name="notification">"नोटिफिकेशन "</string>
+    <string name="weatherforecast">"मौसम पूर्वानुमान "</string>
+    <string name="list">लिस्ट</string>
+    <string name="totalland">कुल भूमि</string>
+    <string name="vacentArea">खाली क्षेत्र</string>
+    <string name="cropcount">फसल गणना</string>
+    <string name="cultivatedarea">खेती का क्षेत्र</string>
+    <string name="last_online">अंतिम ऑनलाइन</string>
+    <string name="vc_name">डॉ. पी के मिश्रा</string>
+    <string name="viswa_name">जवाहरलाल नेहरू कृषि विश्वविद्यालय जबलपुर ( म. प्र.)</string>
+    <string name="vc2_name">डॉ. दिनकर प्रसाद शर्मा</string>
+    <string name="vc_message">प्रो स्वाइल जर्मन सरकार द्वारा वित्त पोषित मृदा स्वास्थ्य, प्रबंधन एवं उन्नयन आधारित परियोजना है, जो विगत पाँच वर्षों से मैनेज हैदराबाद के सहयोग द्वारा मध्यप्रदेश के अन्तर्गत जवाहरलाल नेहरू कृषि विश्वविद्यालय, द्वारा बालाघाट तथा मंडला जिले में सतत्रूप संचालित है। वर्तमान में यह परियोजना पूर्णतः कृषि विश्वविद्यालय द्वारा अंगीकृत की जा रही है। इस परियोजना से अब तक लगभग 200000 से अधिक किसान भाई व बहनं जुड़कर उन्नत तकनीक की जानकारी का लाभ प्राप्त कर रहे हैं। बलराम एप्लीकेशन, जलवायु से संबंधित जानकारी और मृदा प्रबंधन के लिये एक नेटवर्क है। जो कि मौसम डेटा, मौसमी परिस्थितियों और मृदा स्वास्थ्य मापदण्डों का उपयोग करता है ताकि यह गणना की जा सके कि स्थायी मिट्टी प्रबंधन के लिये कौन से उपाय विशेष रूप से संबंधित स्थान के लिये अनुकूल एवं उपयोगी है। यह जानकारी पी.सी. या टैबलेट और स्मार्ट फोन के द्वारा सुगमता से प्राप्त की जा सकती है। जिन किसानों के पास उपयुक्त एंड्राइड या स्मार्ट फोन है, वे इस महत्वपूर्ण डेटा और परिणामी सिफारिशों तक सीधे पहुंच सकते हैं। इसके अलावा, मंच के माध्यम से व्यक्तिगत जरूरतों के अनुरूप व्यक्तिगत सलाह प्रदान करने के लिये विशेषज्ञ भी उपलब्ध हैं। इस प्रकार किसानों के पास प्रासंगित ज्ञान और समय पर सलाह पहुंच पाती है। इस तरह वे फसल की योजना बनाने और सुरक्षित करने में सक्षम होकर जलवायु परिवर्तन के कुप्रभावों के अनुकूल होने की क्षमता में सुधार कर सकते हैं। मृदा है तो हमारा जीवन है मृदा प्रकृति की देन है जिसे स्वस्थ बनाने में न सिर्फ किसान भाईयों का वरन् समस्त मानव का कत्र्तव्य है जिसके लिये सर्वप्रथम हमें मृदा कटाव को रोकना चाहिये। कम से कम रसायनों का उपयोग कर धीरे धीरे प्राकृतिक खेती की ओर कदम बढ़ाना है। जिस तरह से आज कृषि भूमि का न्यूनीकरण हो रहा है और किसान भाई अधिक उपज लेने के लिये उत्तरोतर अधिक रासायनिक उर्वरकों पर ही निर्भर है। भारतीय परंपरा अनुसार पूर्वजों द्वारा आने वाली पीढ़ियों को अपनी संपति हस्तांतरित करते हैं। जिससे उनकी आने वाली पीढ़ी अपना भविष्य सुरक्षित रखते हुए उनका मान-सम्मान करती है । आज किसान भाई केवल रासायनिक खादों का ही अंधाधुंध प्रयोग कर रहे जिसके फलस्वरूप भूमि में मृदा के पोषक तत्वों में असंतुलन देखने में आ रहा है। फसल व मृदा के साथ साथ जलवायु भी प्रभावित हो रही है। अतः इन सभी समस्याओं के निवारण हेतु जवाहरलाल नेहरू कृषि विश्वविद्यालय ने मध्यप्रदेश के किसान भाईयों के लिये बलराम एप्लीकेशन ऐप तैयार किया है जो यह जानकारी देगा कि मृदा को स्वस्थ बनाये रखने हेतु कब, क्या और कैसे कार्य प्रबंधन करना है। मुझे पूर्ण विश्वास है कि यह बलराम ऐप किसानों और विश्वविद्यालय के मध्य एक सेतू की तरह कार्य करेगा इस नवोन्मेषी प्रयास को सार्थक रूप प्रदान करने हेतु हमारे वैज्ञानिक बधाई के पात्र हैं। इस अवसर पर मैं मैनेज हैदराबाद एवं प्रोस्वाईल परियोजना के पोषक जी.आई.जेड द्वारा किये गये प्रयासों की भी प्रशंसा व्यक्त करता हूं।</string>
+    <string name="vc_message_2">"मध्यप्रदेश सोयाबीन और गेहूं का एक बड़ा उत्पादक राज्य है। प्रदेष के कुछ जिलों में प्रसिद्ध गुणवत्ता वाले गेहूं की शरबती किस्म उगाई जा रही है। चना, अलसी, हरी मटर, लहसुन और धनिया के उत्पादन में मध्यप्रदेश सबसे आगे है। साथ ही सरसों और मसूर उत्पादन में अग्रणी रहा है। कृषि-जलवायु विविधता और स्थलाकृति विविधताएँ राज्य को अनाज, दलहन, तिलहन और नकदी फसलों की एक विस्तृत श्रृंखला विकसित करने में सक्षम बनाती हैं, इसके अलावा वन क्षेत्रों और पौधों की विभिन्न प्रजातियों की असंख्य किस्मों का संग्रहण होने के साथ-साथ जैविक उत्पादन में भी अग्रणी राज्य है। इन सभी सफलताओ के पीछे हमारे कर्मठ किसान भाई व बहने है जो पूरी निष्ठा और लगन के साथ दिन रात मेहनत कर कृषि के क्षेत्र में हमारे राज्य का नाम रोशन कर रहे है और इनकी विषम परिस्थितियों में हमारे जवाहरलाल नेहरू कृषि विष्वविद्यालय के कृषि विज्ञान केंद्रों के वैज्ञानिक तथा कृषि महाविद्यालयों के माध्यम से सदैव मार्गदर्शन करते आ रहे है, जिसका नतीजा यह है कि मध्यप्रदेश को कृषि की नई आधुनिक तकनीक के विकास और विस्तार और भारत के सर्वश्रेष्ठ कृषि राज्य के सम्मान के लिए सात बार कृषि कर्मण पुरस्कार से सम्मानित किया जा चुका है। प्रो- सॉइल जर्मन सरकार द्वारा वित्त पोषित परियोजना, जो की भारत देश के अन्य राज्यों के साथ साथ वर्तमान में मध्य प्रदेश के दो जिलों मंडला व बालाघाट में वर्ष 2016 से मैनेज- हैदराबाद के सहयोग से, विष्वविद्यालय में सफलता पूर्वक चलाई जा रही है, जिसका लाभ हमारे कृषक व कृषक महिला व उद्यमी पूर्ण रूप से प्राप्त कर रहे है। इस परियोजना के तहत हमारे किसान भाइयो की जागरूकता, उनकी जरूरतों तथा कृषि के प्रति कड़ी मेहनत को देखते हुये, किसान भाइयो को और सफल बनाने हेतु विष्वविद्यालय द्वारा प्रो-साॅइल के तहत बलराम एप्लीकेशन को उपलब्ध कराया जा रहा है, यह एप्लीकेशन मृदा, जलवायु जैसे मौसम की पूर्व परिस्थितियों से सम्बंधित अत्यधिक महत्वपूर्ण जानकारी देता है। इसके अलावा किसान भाई नजदीकी कृषि मंच के माध्यम से स्वयं कृषि सम्बन्धित जानकारी हमारे विशेषज्ञयों के द्वारा ले सकते है। आने वाले समय में इस परियोजना का लाभ मध्य प्रदेश के लगभग सभी जिलों में आरंभ किये जाने की सम्भावना है, ताकि हमारे राज्य के कोई भी किसान भाई व बहन इस सुविधा से वंचित न रह जाये। बलराम एप्लीकेशन की सफलतापूर्ण भूमिका को देखते हुए वर्ष 2024 तक 05 लाख से अधिक किसानों तक पहुंचने की उम्मीद है। मेरी आशा है कि यह बलराम एप हमारे मध्य प्रदेश के सभी किसान भाई व बहनो के लिये लाभकारी सिद्ध होगा। इस नवपरिवर्तन प्रयास को सफल बनने के लिए मै हमारे विष्वविद्यालय के माननीय कुलपति डॉ. पी. के. बिसेन साहब का धन्यवाद करता हूँ। साथ ही इस परियोजना से जुड़े वैज्ञानिकों को बधाई देता हूँ। इस अवसर पर मैं मैनेज हैदराबाद एवं प्रो साइल परियोजना के पोषक जी आई जेड संस्था का भी आभार व्यक्त करता हूँ। "</string>
+    <string name="vc_tittle">माननीय कुलपति</string>
+    <string name="vc2_tittle">विस्तार सेवाओं के निदेशक</string>
+    <string name="vc_click_here">"यहाँ क्लिक करें "</string>
+    <string name="vc2_download_msg">"निदेशक सर का मैसेज डाउनलोड करें "</string>
+    <string name="vc_download_msg">"कुलपति सर का मैसेज डाउनलोड करें  "</string>
+    <string name="district">जिला</string>
+    <string name="city">शहर</string>
+    <string name="pincode">पिन कोड</string>
+    <string name="alt_number">वैकल्पिक नंबर</string>
+    <string name="created">बनाया गया</string>
+    <string name="approved">स्वीकृत</string>
+    <string name="published">प्रकाशित</string>
+    <string name="transplated">अनुवाद</string>
+    <string name="mobileno_exits">मोबाइल नंबर पहले से पंजीकृत</string>
+    <string name="unresolved">अनसुलझे</string>
+    <string name="assigned">सौंपा गया प्रश्न</string>
+    <string name="resolved">हल किया</string>
+    <string name="assigntome">मुझे सौंपा गया प्रश्न</string>
+    <string name="role">भूमिका</string>
+    <string name="resolvedquerys">सुलझे प्रश्न</string>
+    <string name="getOtp">"ओ टी पी पाए "</string>
+    <string name="enter_text_here">यहाँ दर्ज करें</string>
+    <string name="rejected">अस्वीकृत</string>
+    <string name="select_file">"फाइल चुने "</string>
+    <string name="upload_file_0_3">अपलोड फाइल 0/3</string>
+    <string name="sms">एसएमएस</string>
+    <string name="send">भेजें</string>
+    <string name="documents">दस्तावेज़</string>
+    <string name="poster">पोस्टर</string>
+    <string name="video">वीडियो</string>
+    <string name="voice">"वॉइस "</string>
+    <string name="review_by">द्वारा समीक्षा</string>
+    <string name="user_name_available">यूजर का नाम उपलब्ध है</string>
+    <string name="user_name_exits">उपयोगकर्ता पहले से पंजीकृत है</string>
+    <string name="agri_expert_login">कृषि विशेषज्ञ लॉगिन</string>
+    <string-array name="content_dropdown">
+        <item>एसएमएस सामग्री</item>
+        <item>वॉइस एसएमएस सामग्री</item>
+        <item>वीडियो यूआरएल सामग्री</item>
+        <item>दस्तावेज़ सामग्री</item>
+        <item>पोस्टर सामग्री</item>
+    </string-array>
+</resources>

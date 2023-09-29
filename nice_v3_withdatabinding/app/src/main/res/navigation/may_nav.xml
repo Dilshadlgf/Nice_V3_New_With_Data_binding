@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/may_nav"
+    app:startDestination="@id/dashboardfragment">
+
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentFragment"
+        android:label="activity_content"
+        tools:layout="@layout/activity_content" >
+        <action
+            android:id="@+id/action_contentFragment_to_queryFragment"
+            app:destination="@id/queryFragment"
+            app:popUpTo="@id/dashboardfragment"
+            app:popUpToInclusive="false"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_farmerCrops_Fragment"
+            app:destination="@id/farmerCrops_Fragment" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_farmerLiveStock_Fragment"
+            app:destination="@id/farmerLiveStock_Fragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_queryTabFragment"
+            app:destination="@id/queryTabFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/queryFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentTabFragment"
+        android:label="QueryFragment" >
+        <action
+            android:id="@+id/action_queryFragment_to_addFarmerqurie_Fragment"
+            app:destination="@id/addFarmerqurie_Fragment" />
+        <action
+            android:id="@+id/action_queryFragment_to_addFeedbackFragment"
+            app:destination="@id/addFeedbackFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardfragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/activity_dsaboard" >
+        <action
+            android:id="@+id/action_dashboard_to_contentFragment"
+            app:destination="@id/contentFragment"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_profileFragment"
+            app:destination="@id/profileFragment"
+            />
+        <action
+            android:id="@+id/action_dashboard_to_queryTabFragment"
+            app:destination="@id/queryTabFragment" />
+        <action
+            android:id="@+id/action_dashboard_to_notificationListFragment"
+            app:destination="@id/notificationListFragment" />
+        <action
+            android:id="@+id/action_dashboardfragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_dashboardfragment_to_allQueryFragmnet"
+            app:destination="@id/allQueryFragmnet" />
+    </fragment>
+    <fragment
+        android:id="@+id/queryTabFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.QueryTabFragment"
+        android:label="QueryTabFragment" >
+        <action
+            android:id="@+id/action_queryTabFragment_to_addFarmerqurie_Fragment"
+            app:destination="@id/addFarmerqurie_Fragment" />
+        <action
+            android:id="@+id/action_queryTabFragment_to_queryDetailPrintFragment"
+            app:destination="@id/queryDetailPrintFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationListFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.NotificationListFragment"
+        android:label="NotificationListFragment" >
+        <action
+            android:id="@+id/action_notificationListFragment_to_queryDetailPrintFragment"
+            app:destination="@id/queryDetailPrintFragment" />
+        <action
+            android:id="@+id/action_notificationListFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/queryDetailPrintFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.QueryDetailPrintFragment"
+        android:label="QueryDetailPrintFragment" />
+    <fragment
+        android:id="@+id/contentDetailFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.ContentDetailFragment"
+        android:label="ContentDetailFragment" />
+    <fragment
+        android:id="@+id/addFarmerqurie_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddFarmerqurie_Fragment"
+        android:label="AddFarmerqurie_Fragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/farmerCrops_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.FarmerCrops_Fragment"
+        android:label="FarmerCrops_Fragment" >
+        <action
+            android:id="@+id/action_farmerCrops_Fragment_to_addCrops_Update_Fragment"
+            app:destination="@id/addCrops_Update_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCrops_Update_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddCrops_Update_Fragment"
+        android:label="Add Crop" >
+        <action
+            android:id="@+id/action_addCrops_Update_Fragment_to_farmerCrops_Fragment"
+            app:destination="@id/farmerCrops_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/farmerLiveStock_Fragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.FarmerLiveStock_Fragment"
+        android:label="FarmerLiveStock_Fragment" >
+        <action
+            android:id="@+id/action_farmerLiveStock_Fragment_to_addLiveStock_UpdateFragment"
+            app:destination="@id/addLiveStock_UpdateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLiveStock_UpdateFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddLiveStock_UpdateFragment"
+        android:label="AddLiveStock_UpdateFragment" />
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.WeatherFragment"
+        android:label="WeatherFragment" />
+    <fragment
+        android:id="@+id/addFeedbackFragment"
+        android:name="com.example.testproject.ui.fragment.Farmer.AddFeedbackFragment"
+        android:label="AddFeedbackFragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/allQueryFragmnet"
+        android:name="com.example.testproject.ui.fragment.Farmer.AllQueryFragmnet"
+        android:label="AllQueryFragmnet" />
+
+</navigation>

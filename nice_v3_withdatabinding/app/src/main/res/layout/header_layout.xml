@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_30sdp"
+    android:background="@drawable/custom_side_bar">
+
+    <ImageView
+        android:id="@+id/ivenglish"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:background="@drawable/selecteng"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivhindi"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/ivhindi"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/deselecthindi"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/ivenglish"
+        app:layout_constraintEnd_toStartOf="@+id/ivmarathi"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivenglish"
+        app:layout_constraintTop_toTopOf="@+id/ivenglish" />
+
+    <ImageView
+        android:id="@+id/ivmarathi"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
+        android:background="@drawable/deselectmarathi"
+        app:layout_constraintBottom_toBottomOf="@+id/ivhindi"
+        app:layout_constraintEnd_toStartOf="@+id/ivtamil"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivhindi"
+        app:layout_constraintTop_toTopOf="@+id/ivhindi" />
+
+    <ImageView
+        android:id="@+id/ivtamil"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="gone"
+        android:background="@drawable/deselecttamil"
+        app:layout_constraintBottom_toBottomOf="@+id/ivmarathi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivmarathi"
+        app:layout_constraintTop_toTopOf="@+id/ivmarathi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

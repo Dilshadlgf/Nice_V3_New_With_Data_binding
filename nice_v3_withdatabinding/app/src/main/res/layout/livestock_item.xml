@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data >
+        <variable
+            name="mydata"
+            type="com.example.testproject.model.LivestockModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingClass">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:cardBackgroundColor="#fafef5"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="10dp"
+            tools:ignore="MissingConstraints">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/laytop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/image_commodities"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_gravity="center_vertical"
+                            app:srcCompat="@drawable/commdities" />
+
+                        <TextView
+                            android:id="@+id/txt_tittle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_toRightOf="@id/image_commodities"
+                            android:fontFamily="@font/aldrich"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/Livestock"
+                            android:textColor="#5f675f"
+                            android:textFontWeight="300"
+                            android:textSize="@dimen/_10sdp"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:gravity="right"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_height="match_parent">
+                            <ImageView
+
+                                android:id="@+id/iv_edit"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/circle_green"
+                                android:padding="@dimen/_4sdp"
+                                app:srcCompat="@drawable/ic_baseline_edit_24" />
+                            <ImageView
+                                android:id="@+id/iv_delete"
+                                android:layout_toRightOf="@id/iv_edit"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/circle_green"
+                                android:padding="@dimen/_4sdp"
+                                app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/lytgrey" />
+                    <LinearLayout
+                        android:id="@+id/root_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <RelativeLayout
+                            android:id="@+id/layout_c"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:id="@+id/imagecommonName"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:background="@drawable/cardimage_bg">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/commonname" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_toRightOf="@id/imagecommonName">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/aldrich"
+                                    android:text="Common Name"
+                                    android:textColor="#9c9a9a"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textFontWeight="300"/>
+
+                                <TextView
+                                    android:id="@+id/no_of_livestoks"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp"/>
+                                <EditText
+                                    android:id="@+id/ed_no_of_livestoks"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/doted_line_horizontal" />
+
+                        <RelativeLayout
+                            android:id="@+id/layout_s"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:id="@+id/imagestage"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@drawable/cardimage_bg"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_5sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/commonname" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_toRightOf="@id/imagestage">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/aldrich"
+                                    android:text="Stage"
+                                    android:textColor="#9c9a9a"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textFontWeight="300" />
+
+                                <TextView
+                                    android:id="@+id/stage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp"
+                                    />
+                                <EditText
+                                    android:id="@+id/ed_stage"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp"
+                                    />
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <View
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_2sdp"
+                        android:background="@drawable/vertical_line"
+                        android:foregroundGravity="center" />
+
+                    <LinearLayout
+                        android:id="@+id/root_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <RelativeLayout
+                            android:id="@+id/layout_v"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:id="@+id/imagevariety"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@drawable/cardimage_bg"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_5sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/variety" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_toRightOf="@id/imagevariety">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/aldrich"
+                                    android:text="Variety"
+                                    android:textColor="#9c9a9a"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:textFontWeight="300"/>
+
+                                <TextView
+                                    android:id="@+id/variety"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp" />
+                                <EditText
+                                    android:id="@+id/ed_variety"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppinslight_300"
+                                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                                    android:textColor="#ffc700"
+                                    android:textSize="@dimen/_7sdp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/doted_line_horizontal" />
+
+                        <RelativeLayout
+                            android:id="@+id/layout_q"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_weight="1">
+
+                            <RelativeLayout
+                                android:id="@+id/imageQuantity"
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:background="@drawable/cardimage_bg">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/quantity" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_5sdp"
+                                android:layout_toRightOf="@id/imageQuantity"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/aldrich"
+                                    android:text="Quantity"
+                                    android:textColor="#9c9a9a"
+                                    android:textFontWeight="300"
+                                    android:textSize="@dimen/_10sdp" />
+
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_50sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:background="@drawable/cardimage_bg">
+
+                                    <TextView
+                                        android:id="@+id/quantity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/poppinsbold_700"
+                                        android:gravity="center"
+                                        android:text="10 Pax"
+                                        android:textColor="#2d5f2e"
+                                        android:textFontWeight="300"
+                                        android:textSize="@dimen/_9sdp" />
+                                    <EditText
+                                        android:id="@+id/ed_quantity"
+                                        android:visibility="gone"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/poppinsbold_700"
+                                        android:gravity="center"
+                                        android:text="10 Pax"
+                                        android:textColor="#2d5f2e"
+                                        android:textFontWeight="300"
+                                        android:textSize="@dimen/_9sdp" />
+                                </RelativeLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/bottomlayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/laytop"
+                    android:layout_margin="@dimen/_10sdp"
+                    >
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel"
+                        android:padding="@dimen/_6sdp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/ract_darkgreen"
+                        />
+                    <Button
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/btn_ok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_6sdp"
+                        android:text="Submit"
+                        android:textColor="@color/white"
+                        android:background="@drawable/ract_darkgreen"
+                        />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+</layout>
